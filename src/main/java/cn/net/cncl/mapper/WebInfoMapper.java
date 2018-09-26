@@ -24,4 +24,9 @@ public interface WebInfoMapper {
 	 * 查询 网站信息
 	 */
 	Map<String, Object> getWebInfo();
+
+	/**
+	 * 查询 网站信息
+	 */
+	WebInfo getWebInfoObject();
 }

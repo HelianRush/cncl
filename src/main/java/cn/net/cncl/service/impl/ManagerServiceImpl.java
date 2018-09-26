@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.net.cncl.entity.WebInfo;
 import cn.net.cncl.mapper.WebInfoMapper;
 import cn.net.cncl.service.ManagerService;
 
@@ -45,8 +46,18 @@ public class ManagerServiceImpl implements ManagerService {
 	public String getWebInfo() {
 		Map<String, Object> webInfo = webInfoMapper.getWebInfo();
 		String jsonString = JSONObject.toJSONString(webInfo);
-		System.out.println(jsonString);
+		// System.out.println(jsonString);
 		return jsonString;
+	}
+
+	/**
+	 * 查询 网站信息
+	 */
+	@Override
+	public WebInfo getWebInfoObject() {
+		WebInfo webInfoObject = webInfoMapper.getWebInfoObject();
+		// System.out.println(webInfoObject);
+		return webInfoObject;
 	}
 
 }
