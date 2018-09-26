@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Myself Javascript & CSS -->
+<script type="text/javascript" th:src="@{/assets/index.js}"></script>
+<link rel="stylesheet" href="@{/assets/index.css}" />
+
+<title>首页</title>
+
+</head>
+<body>
+
+	<div class="container">
+
+		<!-- 菜单栏 -->
+		<div id="menus" class="row">
+			<div class="col-lg-3">
+				<img th:src="@{/images/logo1.png}" width="90%" height="90%">
+			</div>
+			<div class="col-lg-7 container">
+				<ul class="nav nav-pills nav-justified">
+					<li role="presentation" class="active"><a href="#">首页</a></li>
+					<li role="presentation"><a href="#">名人库</a></li>
+					<li role="presentation" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> 资讯 <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="#">社会</a></li>
+							<li><a href="#">文化</a></li>
+							<li><a href="#">财经</a></li>
+							<li><a href="#">书画</a></li>
+							<li><a href="#">医药</a></li>
+							<li><a href="#">名企</a></li>
+						</ul></li>
+					<li role="presentation"><a href="#">专题</a></li>
+					<li role="presentation"><a href="#">入驻</a></li>
+				</ul>
+			</div>
+			<div class="col-lg-2">
+				<a href="#"><img src="images/select100.png" width="40" height="40"></a> <a href="#">查询</a>
+			</div>
+		</div>
+
+		<!-- 搜索 -->
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="搜索内容..."> <span class="input-group-btn">
+						<button class="btn btn-default" type="button">站内搜索</button>
+					</span>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 图片轮播 -->
+		<div id="myCarousel" class="carousel slide">
+
+			<!-- 轮播（Carousel）指标 -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+			<!-- 轮播（Carousel）项目 -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<img src="images/p1.png" alt="First slide">
+
+					<div class="carousel-caption">标题 1</div>
+				</div>
+				<div class="item">
+					<img src="images/p2.png" alt="Second slide">
+
+					<div class="carousel-caption">标题 2</div>
+				</div>
+				<div class="item">
+					<img src="images/p2.png" alt="Third slide">
+
+					<div class="carousel-caption">标题 3</div>
+				</div>
+			</div>
+			<!-- 轮播（Carousel）导航 -->
+			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">Next</span>
+			</a>
+		</div>
+		<!-- 图片轮播 End -->
+
+		<!-- 内容 -->
+		<div class="row">
+
+			<!-- lEFT Start -->
+			<div class="col-lg-8">
+				<div class="row">
+					<div id="menuTitle" class="col-lg-12" container>
+						<div class="row">
+							<div class="col-lg-10">
+								<span><a href="#">热门资讯</a></span>
+							</div>
+							<div class="col-lg-2">
+								<span><a href="#">more +</a></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<ul class="nav nav-pills nav-justified">
+							<li><a href="#">全部</a></li>
+							<li><a href="#">社会</a></li>
+							<li><a href="#">文化</a></li>
+							<li><a href="#">财经</a></li>
+							<li><a href="#">书画</a></li>
+							<li><a href="#">医药</a></li>
+							<li><a href="#">名企</a></li>
+						</ul>
+					</div>
+
+					<div class="col-lg-12">内容文章1 内容文章2 内容文章3 内容文章4 内容文章5 内容文章6</div>
+
+					<div class="col-lg-12" container>
+						<div id="menuTitle" class="row">
+							<div class="col-lg-10">
+								<span><a href="#">名人库</a></span>
+							</div>
+							<div class="col-lg-2">
+								<span><a href="#">more +</a></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12">名人1 名人2 名人3 名人4 名人5 名人6</div>
+				</div>
+			</div>
+			<!-- lEFT End -->
+
+			<!-- Right Start -->
+			<div class="col-lg-4">
+				<div class="row">
+					<div class="col-lg-12" container>
+						<div id="menuTitle" class="row">
+							<div class="col-lg-9">
+								<span><a href="#">热门视频</a></span>
+							</div>
+							<div class="col-lg-3">
+								<span><a href="#">more +</a></span>
+							</div>
+						</div>
+						<img src="images/video.png" width="80%" height="80%"><br> <span><a href="#">视频标题1</a></span><br> <img src="images/video.png" width="80%" height="80%"><br> <span><a href="#">视频标题2</a></span><br> <img src="images/video.png" width="80%" height="80%"><br> <span><a href="#">视频标题3</a></span><br> <img src="images/video.png" width="80%" height="80%"><br> <span><a href="#">视频标题4</a></span><br> <img src="images/video.png" width="80%" height="80%"><br> <span><a href="#">视频标题5</a></span><br>
+					</div>
+					<div id="menuTitle" class="col-lg-12">
+						<div class="col-lg-9">
+							<span><a href="#">公众号</a></span>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<img src="images/logo2.png" width="250" height="250"> <img src="images/2wm.png" width="250" height="250">
+					</div>
+				</div>
+			</div>
+			<!-- Right End -->
+		</div>
+		<!-- 内容 End -->
+		<div class="row">
+
+
+			<div class="col-lg-12">
+				<span><a href="#">关于我们</a> | <a href="#">加入我们</a> | <a href="#">网址地图</a></span> | <a target="_blank" th:href="@{/login}">登录</a>
+			</div>
+			<div class="col-lg-12">
+				<span><a href="#">备案编号：xxxxxxxx</a></span>
+			</div>
+			<div class="col-lg-12">
+				<span><a href="#">网址：www.cncl.net.cn</a></span>
+			</div>
+		</div>
+
+	</div>
+	<!-- pageHome End-->
+
+
+</body>
+</html>

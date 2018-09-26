@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.net.cncl.mapper.AdminUserMapper">
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.AdminUser">
+		<id column="ADMIN_USER_ID" property="adminUserId" jdbcType="BIGINT" />
+		<result column="ADMIN_USER_NAME" property="adminUserName" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+		<result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+		<result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="DATE" />
+		<result column="LAST_LOGIN_IP" property="lastLoginIp" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ADMIN_USER_ID, ADMIN_USER_NAME, PASSWORD, NAME, NICK_NAME, MOBILE_PHONE, TELEPHONE,
+		EMAIL, CREATE_TIME, LAST_LOGIN_TIME, LAST_LOGIN_IP
+	</sql>
+
+	<sql id="Base_Column_List_As">
+		ADMIN_USER_ID AS adminUserID,
+		ADMIN_USER_NAME AS adminUserName,
+		PASSWORD AS password,
+		NAME AS name,
+		NICK_NAME AS nickName,
+		MOBILE_PHONE AS mobilePhone,
+		TELEPHONE AS telephone,
+		EMAIL AS email,
+		CREATE_TIME AS createTime,
+		LAST_LOGIN_TIME AS lastLoginTime,
+		LAST_LOGIN_IP AS lastLoginIp
+	</sql>
+
+	<!-- 查询全部 -->
+	<select id="selectAll" resultType="cn.net.cncl.entity.AdminUser">
+		<include refid="Base_Column_List_As"></include>
+		FROM T_ADMIN_USER
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultType="cn.net.cncl.entity.AdminUser">
+		SELECT
+		<include refid="Base_Column_List_As"></include>
+		FROM T_ADMIN_USER
+		WHERE ADMIN_USER_ID = #{adminUserName}
+	</select>
+
+	<!-- 根据用户名查询是否存在 -->
+	<select id="selectByNameHave" resultType="int">
+		SELECT COUNT(*)
+		FROM T_ADMIN_USER
+		WHERE ADMIN_USER_NAME = #{adminUserName}
+	</select>
+
+	<!-- 验证用户登录 -->
+	<select id="checkAdminUserLogin" resultType="cn.net.cncl.entity.AdminUser">
+		SELECT
+		<include refid="Base_Column_List_As"></include>
+		FROM T_ADMIN_USER
+		WHERE
+		ADMIN_USER_NAME = #{adminUserName}
+		AND
+		PASSWORD = #{password}
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_admin_user
+		where ADMIN_USER_ID = #{adminUserId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_admin_user
+		where ADMIN_USER_ID = #{adminUserId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="cn.net.cncl.entity.AdminUser">
+		insert into t_admin_user (ADMIN_USER_ID, ADMIN_USER_NAME, PASSWORD,
+		NAME, NICK_NAME, MOBILE_PHONE,
+		TELEPHONE, EMAIL, CREATE_TIME,
+		LAST_LOGIN_TIME, LAST_LOGIN_IP)
+		values (#{adminUserId,jdbcType=BIGINT}, #{adminUserName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR},
+		#{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
+		#{lastLoginTime,jdbcType=DATE}, #{lastLoginIp,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.net.cncl.entity.AdminUser">
+		insert into t_admin_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="adminUserId != null">
+				ADMIN_USER_ID,
+			</if>
+			<if test="adminUserName != null">
+				ADMIN_USER_NAME,
+			</if>
+			<if test="password != null">
+				PASSWORD,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="nickName != null">
+				NICK_NAME,
+			</if>
+			<if test="mobilePhone != null">
+				MOBILE_PHONE,
+			</if>
+			<if test="telephone != null">
+				TELEPHONE,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="lastLoginTime != null">
+				LAST_LOGIN_TIME,
+			</if>
+			<if test="lastLoginIp != null">
+				LAST_LOGIN_IP,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="adminUserId != null">
+				#{adminUserId,jdbcType=BIGINT},
+			</if>
+			<if test="adminUserName != null">
+				#{adminUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="nickName != null">
+				#{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="mobilePhone != null">
+				#{mobilePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="telephone != null">
+				#{telephone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+			<if test="lastLoginTime != null">
+				#{lastLoginTime,jdbcType=DATE},
+			</if>
+			<if test="lastLoginIp != null">
+				#{lastLoginIp,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.net.cncl.entity.AdminUser">
+		update t_admin_user
+		<set>
+			<if test="adminUserName != null">
+				ADMIN_USER_NAME = #{adminUserName,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				PASSWORD = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="nickName != null">
+				NICK_NAME = #{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="mobilePhone != null">
+				MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="telephone != null">
+				TELEPHONE = #{telephone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=DATE},
+			</if>
+			<if test="lastLoginTime != null">
+				LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=DATE},
+			</if>
+			<if test="lastLoginIp != null">
+				LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ADMIN_USER_ID = #{adminUserId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.net.cncl.entity.AdminUser">
+		update t_admin_user
+		set ADMIN_USER_NAME = #{adminUserName,jdbcType=VARCHAR},
+		PASSWORD = #{password,jdbcType=VARCHAR},
+		NAME = #{name,jdbcType=VARCHAR},
+		NICK_NAME = #{nickName,jdbcType=VARCHAR},
+		MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+		TELEPHONE = #{telephone,jdbcType=VARCHAR},
+		EMAIL = #{email,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=DATE},
+		LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=DATE},
+		LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR}
+		where ADMIN_USER_ID = #{adminUserId,jdbcType=BIGINT}
+	</update>
+</mapper>

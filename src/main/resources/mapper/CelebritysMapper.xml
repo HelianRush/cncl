@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.net.cncl.mapper.CelebritysMapper">
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.Celebritys">
+		<id column="CELEBRITY_ID" property="celebrityId" jdbcType="BIGINT" />
+		<result column="CELEBRITY_NAME" property="celebrityName" jdbcType="VARCHAR" />
+		<result column="ANOTHER_NAME" property="anotherName" jdbcType="VARCHAR" />
+		<result column="FOREIGN_NAME" property="foreignName" jdbcType="VARCHAR" />
+		<result column="NATIONALITY" property="nationality" jdbcType="VARCHAR" />
+		<result column="NATION" property="nation" jdbcType="VARCHAR" />
+		<result column="CONSTELLATION" property="constellation" jdbcType="VARCHAR" />
+		<result column="BLOOD_TYPE" property="bloodType" jdbcType="INTEGER" />
+		<result column="HEIGHT" property="height" jdbcType="INTEGER" />
+		<result column="BIRTHPLACE" property="birthplace" jdbcType="VARCHAR" />
+		<result column="NATIVE_PLACE" property="nativePlace" jdbcType="VARCHAR" />
+		<result column="ANCESTRAL_HOME" property="ancestralHome" jdbcType="VARCHAR" />
+		<result column="IDENTITY_CARD" property="identityCard" jdbcType="VARCHAR" />
+		<result column="CERTIFICATE_CODE" property="certificateCode" jdbcType="VARCHAR" />
+		<result column="CERTIFICATE_NAME" property="certificateName" jdbcType="VARCHAR" />
+		<result column="PROFESSION" property="profession" jdbcType="VARCHAR" />
+		<result column="COMPANY" property="company" jdbcType="VARCHAR" />
+		<result column="REPRESENTATIVE_NAME" property="representativeName" jdbcType="VARCHAR" />
+		<result column="ACHIEVEMENT" property="achievement" jdbcType="VARCHAR" />
+		<result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+		<result column="DEATHDAY" property="deathday" jdbcType="DATE" />
+		<result column="VIDEO_ID_FK" property="videoIdFk" jdbcType="BIGINT" />
+		<result column="IMAGE_ID_FK" property="imageIdFk" jdbcType="BIGINT" />
+		<result column="BROWSE_COUNT" property="browseCount" jdbcType="INTEGER" />
+		<result column="OUTLINE" property="outline" jdbcType="LONGVARCHAR" />
+		<result column="INTRODUCE" property="introduce" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		CELEBRITY_ID, CELEBRITY_NAME, ANOTHER_NAME, FOREIGN_NAME, NATIONALITY, NATION, CONSTELLATION,
+		BLOOD_TYPE, HEIGHT, BIRTHPLACE, NATIVE_PLACE, ANCESTRAL_HOME, IDENTITY_CARD, CERTIFICATE_CODE,
+		CERTIFICATE_NAME, PROFESSION, COMPANY, REPRESENTATIVE_NAME, ACHIEVEMENT, BIRTHDAY,
+		DEATHDAY, VIDEO_ID_FK, IMAGE_ID_FK, BROWSE_COUNT,OUTLINE, INTRODUCE
+	</sql>
+
+</mapper>

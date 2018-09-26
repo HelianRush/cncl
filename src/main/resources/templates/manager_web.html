@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<script type="text/javascript" src="/web_utils/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/web_utils/bootstrap.js"></script>
+<link rel="stylesheet" href="/web_utils/bootstrap.min.css">
+
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+<!--  
+<script type="text/javascript" src="/assets/manager.js"></script>
+<link rel="stylesheet" href="/assets/manager.css">
+-->
+
+<title>网站信息</title>
+
+<script type="text/javascript">
+	$(function() {
+		$.ajax({
+			type : "POST",
+			url : "/managerController/getWebInfo",
+			dataType : "json",
+			async : false,
+			cache : false,
+			success : function(data) {
+				$("#webName").html(data.webName);
+				$("#domainName").html(data.domainName);
+				$("#recordsCode").html(data.recordsCode);
+				$("#company").html(data.company);
+				$("#legalPerson").html(data.legalPerson);
+				$("#webEmail").html(data.webEmail);
+				$("#imageLogo img").attr("src", "images/" + data.imageLogo);
+			}
+		});
+	});
+</script>
+
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-11">
+				<h3>网站信息</h3>
+			</div>
+		</div>
+
+		<table class="table table-striped table-bordered table-condensed table-hover">
+			<tbody>
+				<tr>
+					<td>网站名称</td>
+					<td id="webName"></td>
+				</tr>
+				<tr>
+					<td>网站域名</td>
+					<td id="domainName">123456789</td>
+				</tr>
+				<tr>
+					<td>备案编号</td>
+					<td id="recordsCode">123456789</td>
+				</tr>
+				<tr>
+					<td>公司名称</td>
+					<td id="company">123456789</td>
+				</tr>
+				<tr>
+					<td>站长</td>
+					<td id="legalPerson">123456789</td>
+				</tr>
+				<tr>
+					<td>网站邮箱</td>
+					<td id="webEmail">123456789</td>
+				</tr>
+				<tr>
+					<td>LOGO</td>
+					<td id="imageLogo"><img src="images/logo1.png" width="200"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
