@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
+
+<title>网站信息</title>
+
+<script type="text/javascript">
+	$(function() {
+		$.ajax({
+			type : "POST",
+			url : "/managerController/getWebInfo",
+			dataType : "json",
+			async : false,
+			cache : false,
+			success : function(data) {
+				$("#webName").html(data.webName);
+				$("#domainName").html(data.domainName);
+				$("#recordsCode").html(data.recordsCode);
+				$("#company").html(data.company);
+				$("#legalPerson").html(data.legalPerson);
+				$("#webEmail").html(data.webEmail);
+				$("#imageLogo img").attr("src", "images/" + data.imageLogo);
+			}
+		});
+	});
+</script>
+
+</head>
+<body>
+
+	<!-- row 4 : 8 -->
+	<div class="row">
+
+		<div id="left" class="col-lg-4 col-md-4 col-sm-4">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- left end -->
+
+		<div class="col-lg-8 col-md-8 col-sm-8">
+			<div class="related">
+				<!-- class="container" -->
+				<div class="row">
+					<div class="col-lg-11">
+						<h3>网站信息</h3>
+					</div>
+				</div>
+
+				<table class="table">
+					<tbody>
+						<tr>
+							<td>网站名称</td>
+							<td id="webName">查询中...</td>
+						</tr>
+						<tr>
+							<td>网站域名</td>
+							<td id="domainName">查询中...</td>
+						</tr>
+						<tr>
+							<td>备案编号</td>
+							<td id="recordsCode">查询中...</td>
+						</tr>
+						<tr>
+							<td>公司名称</td>
+							<td id="company">查询中...</td>
+						</tr>
+						<tr>
+							<td>站长</td>
+							<td id="legalPerson">查询中...</td>
+						</tr>
+						<tr>
+							<td>网站邮箱</td>
+							<td id="webEmail">查询中...</td>
+						</tr>
+						<tr>
+							<td>LOGO</td>
+							<td id="imageLogo"><img src="images/logo1.png" width="200"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- right end -->
+	</div>
+	<!-- row 4 : 8 end -->
+
+</body>
+</html>
