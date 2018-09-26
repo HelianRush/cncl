@@ -35,7 +35,7 @@
 		FROM T_WEB_INFO
 		WHERE WEB_ID = 1
 	</select>
-	
+
 	<!-- 查询 网站信息 to WebInfo -->
 	<select id="getWebInfoObject" resultType="cn.net.cncl.entity.WebInfo">
 		SELECT
@@ -43,6 +43,35 @@
 		FROM T_WEB_INFO
 		WHERE WEB_ID = 1
 	</select>
+
+	<!-- 编辑 网站信息 -->
+	<update id="updateWebInfo" parameterType="cn.net.cncl.entity.WebInfo">
+		UPDATE T_WEB_INFO
+		<set>
+			<if test="webName != null">
+				WEB_NAME = #{webName},
+			</if>
+			<if test="domainName != null">
+				DOMAIN_NAME = #{domainName},
+			</if>
+			<if test="recordsCode != null">
+				RECORDS_CODE = #{recordsCode},
+			</if>
+			<if test="company != null">
+				COMPANY = #{company},
+			</if>
+			<if test="legalPerson != null">
+				LEGAL_PERSON = #{legalPerson},
+			</if>
+			<if test="webEmail != null">
+				WEB_EMAIL = #{webEmail},
+			</if>
+			<if test="imageLogo != null">
+				IMAGE_LOGO = #{imageLogo},
+			</if>
+		</set>
+		WHERE WEB_ID = 1
+	</update>
 
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select

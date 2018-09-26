@@ -29,4 +29,9 @@ public interface WebInfoMapper {
 	 * 查询 网站信息
 	 */
 	WebInfo getWebInfoObject();
+
+	/**
+	 * 编辑 网站信息
+	 */
+	int updateWebInfo(WebInfo webInfo);
 }

@@ -6,9 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ShowController {
+public class ShowManagerController {
 
-	private static Logger logger = LoggerFactory.getLogger(ShowController.class);
+	private static Logger logger = LoggerFactory.getLogger(ShowManagerController.class);
 
 	/**
 	 * @Title showIndex
@@ -50,6 +50,20 @@ public class ShowController {
 	@RequestMapping(value = "/showManagerWeb")
 	public String showManagerWeb() {
 		return "manager_web";
+	}
+
+	/**
+	 * @Title showManagerWebEdit
+	 * @author Jianfei Yu
+	 * @version 1.0.0
+	 * @parameter null
+	 * @throws null
+	 *             访问manager_web_edit.html<br>
+	 *             网站信息编辑
+	 */
+	@RequestMapping(value = "/showManagerWebEdit")
+	public String showManagerWebEdit() {
+		return "manager_web_edit";
 	}
 
 	/**

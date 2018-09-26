@@ -53,4 +53,17 @@ public class ManagerController {
 		return managerService.getWebInfoObject();
 	}
 
+	/**
+	 * 编辑网站信息
+	 */
+	@RequestMapping(value = "/updateWebInfo")
+	public String updateWebInfo(WebInfo webInfo) {
+		int flag = managerService.updateWebInfo(webInfo);
+		if (0 < flag) {
+			return "manager_web";
+		} else {
+			return "manager_web_edit";
+		}
+	}
+
 }

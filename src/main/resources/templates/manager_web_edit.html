@@ -1,102 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head lang="en">
-<meta charset="UTF-8">
-<meta http-equiv="x-ua-compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<script type="text/javascript" src="/web_utils/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="/web_utils/bootstrap.js"></script>
-<link rel="stylesheet" href="/web_utils/bootstrap.min.css">
-
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
 <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
 <!--  
-<script type="text/javascript" src="/assets/manager.js"></script>
-<link rel="stylesheet" href="/assets/manager.css">
+<script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
 -->
 
-<title>网址信息</title>
+<title>站点设置</title>
 </head>
 <body>
-	<div class="container">
 
-		<form class="form-horizontal" method="post">
+	<div class="row">
+		<div id="left" class="col-lg-3 col-md-3 col-sm-2">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- left end -->
 
-			<div class="form-group">
-				<label for="" class="col-sm-3 control-label"><h3>网址信息</h3></label>
+		<div id="middle" class="col-lg-8 col-md-8 col-sm-8">
+			<div class="related">
+
+				<form th:action="@{/managerController/updateWebInfo}" class="form-horizontal" method="post">
+
+					<div class="form-group">
+						<label for="" class="col-sm-2 control-label"><h3>站点设置</h3></label>
+					</div>
+
+					<div class="form-group">
+						<label for="webName" class="col-sm-2 control-label">网站名称</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="webName" name="webName" placeholder="网站名称...">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="webName" class="col-sm-2 control-label">网站域名</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="domainName" name="domainName" placeholder="www.cncl.net.cn">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="webName" class="col-sm-2 control-label">备案编号</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="recordsCode" name="recordsCode" placeholder="京ICP备案00000000号-0">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="webName" class="col-sm-2 control-label">公司名称</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="company" name="company" placeholder="XXX公司...">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="webName" class="col-sm-2 control-label">站长</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="legalPerson" name="legalPerson" placeholder="名称...">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="webName" class="col-sm-2 control-label">网站邮箱</label>
+						<div class="col-sm-9">
+							<input type="email" class="form-control" id="webEmail" name="webEmail" placeholder="xxx@example.com">
+						</div>
+					</div>
+
+					<!--  
+					<div class="form-group">
+						<label for="uploadLogo" class="col-sm-2 control-label">上传LOGO</label>
+		
+						<div class="col-sm-4">
+							<input type="file" id="uploadLogo">
+						</div>
+						<div class="col-sm-5">
+							<span>图片建议使用*.png，并重命名为logo1.png</span>
+						</div>
+					</div>
+					-->
+
+					<div class="form-group">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-4">
+							<button type="submit" class="btn btn-default">修改</button>
+						</div>
+					</div>
+				</form>
+
 			</div>
+		</div>
+		<!-- middle end -->
 
-			<div class="form-group">
-				<label for="webName" class="col-sm-3 control-label">网站名称</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="webName" placeholder="网站名称...">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="webName" class="col-sm-3 control-label">网站域名</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="domainName" placeholder="www.cncl.net.cn">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="webName" class="col-sm-3 control-label">备案编号</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="recordsCode" placeholder="京ICP备案00000000号-0">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="webName" class="col-sm-3 control-label">公司名称</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="company" placeholder="XXX公司...">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="webName" class="col-sm-3 control-label">站长</label>
-				<div class="col-sm-9">
-					<input type="text" class="form-control" id="legalPerson" placeholder="名称...">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="webName" class="col-sm-3 control-label">网站邮箱</label>
-				<div class="col-sm-9">
-					<input type="email" class="form-control" id="webEmail" placeholder="xxx@example.com">
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="uploadLogo" class="col-sm-3 control-label">上传LOGO</label>
-
-				<div class="col-sm-4">
-					<input type="file" id="uploadLogo">
-				</div>
-				<div class="col-sm-5">
-					<span>图片建议使用*.png，并重命名为logo1.png</span>
-				</div>
-			</div>
-
-			<!--  
-			<div class="form-group">
-				<div class="col-sm-3"></div>
-				<div class="col-sm-5">
-					<img src="images/logo1.png" width="200">
-				</div>
-			</div>
-			-->
-
-			<div class="form-group">
-				<div class="col-sm-3"></div>
-				<div class="col-sm-4">
-					<button type="submit" class="btn btn-default">修改</button>
-				</div>
-			</div>
-		</form>
+		<div id="right" class="col-lg-1 col-md-1 col-sm-1">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- right end -->
 	</div>
+	<!-- row end -->
+
 </body>
 </html>

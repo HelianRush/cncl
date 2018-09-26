@@ -60,4 +60,16 @@ public class ManagerServiceImpl implements ManagerService {
 		return webInfoObject;
 	}
 
+	/**
+	 * 编辑 网站信息
+	 */
+	@Override
+	public int updateWebInfo(WebInfo webInfo) {
+		if (null == webInfo.getWebName() && null == webInfo.getDomainName() && null == webInfo.getRecordsCode() && null == webInfo.getCompany() && null == webInfo.getLegalPerson() && null == webInfo.getWebEmail() && null == webInfo.getImageLogo()) {
+			return 1;
+		} else {
+			return webInfoMapper.updateWebInfo(webInfo);
+		}
+	}
+
 }

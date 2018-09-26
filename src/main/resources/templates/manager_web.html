@@ -15,6 +15,9 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <!-- Myself Javascript & CSS -->
 <link rel="stylesheet" th:href="@{/assets/manager.css}" />
+<!--  
+<script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
+-->
 
 <title>网站信息</title>
 
@@ -33,7 +36,7 @@
 				$("#company").html(data.company);
 				$("#legalPerson").html(data.legalPerson);
 				$("#webEmail").html(data.webEmail);
-				$("#imageLogo img").attr("src", "images/" + data.imageLogo);
+				// $("#imageLogo img").attr("src","@{/images/" + data.imageLogo + "}");
 			}
 		});
 	});
@@ -88,8 +91,7 @@
 						</tr>
 						<tr>
 							<td>LOGO</td>
-							<td id="imageLogo"><img src="" width="200" /></td>
-							<!-- <img th:src="@{/images/logo1.png}" width="200"> -->
+							<td id="imageLogo"><img th:src="@{/images/logo1.png}" width="200"></td>
 						</tr>
 					</tbody>
 				</table>
