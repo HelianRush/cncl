@@ -1,5 +1,7 @@
 package cn.net.cncl.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +33,12 @@ public interface AdminUserMapper {
 	// @Param("adminUserName")
 	// @Param("password")
 	AdminUser checkAdminUserLogin(@Param("adminUserName") String adminUserName, @Param("password") String password);
+
+	/**
+	 * 管理员信息<br>
+	 * 查询
+	 * 
+	 * @param AdminUser.AdminUserName
+	 */
+	List<AdminUser> selectAdminUserByName(@Param("adminUserName") String adminUserName);
 }

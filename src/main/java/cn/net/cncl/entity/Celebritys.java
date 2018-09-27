@@ -2,6 +2,8 @@ package cn.net.cncl.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Celebritys {
 	private Long celebrityId;
 
@@ -41,8 +43,10 @@ public class Celebritys {
 
 	private String achievement;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date deathday;
 
 	private Long videoIdFk;

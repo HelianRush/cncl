@@ -11,3 +11,14 @@ body {
 	font-size: 1.05em;
 	font-family: "Microsoft YaHei", "Segoe UI", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+a:visited {
+	color: #56B7A4;
+	text-decoration: none; /*无下划线*/
+}
+
+a:hover {
+	color: #56B7A4;
+	text-decoration: none; /*无下划线*/
+	font-weight: bold;
+}

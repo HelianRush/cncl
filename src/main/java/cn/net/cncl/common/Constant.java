@@ -22,7 +22,9 @@ public enum Constant {
 
 	LOGIN_DEFEATED("L0404", "登录失败"),
 
-	SYSTEM_ERROR("SYSTEM_ERROR", "系统错误");
+	SYSTEM_ERROR("SYSTEM_ERROR", "系统错误"),
+
+	;
 
 	private String code;
 	private String message;
@@ -50,5 +52,17 @@ public enum Constant {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	/**
+	 * 每页显示条数
+	 */
+	public static final Integer PAGE_SIZE = 10;
+
+	/**
+	 * pageStatus
+	 */
+	public static final String PAGE_PLUS = "+page";
+	public static final String PAGE_SUBTRACT = "-page";
+	public static final String PAGE_NOW = "page";
 
 }

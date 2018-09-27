@@ -2,114 +2,144 @@ package cn.net.cncl.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class AdminUser {
-    private Long adminUserId;
 
-    private String adminUserName;
+	private Long adminUserId;
 
-    private String password;
+	private String adminUserName;
 
-    private String name;
+	private String password;
 
-    private String nickName;
+	private String name;
 
-    private String mobilePhone;
+	private String nickName;
 
-    private String telephone;
+	private String mobilePhone;
 
-    private String email;
+	private String telephone;
 
-    private Date createTime;
+	private String email;
 
-    private Date lastLoginTime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date createTime;
 
-    private String lastLoginIp;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date lastLoginTime;
 
-    public Long getAdminUserId() {
-        return adminUserId;
-    }
+	private String lastLoginIp;
 
-    public void setAdminUserId(Long adminUserId) {
-        this.adminUserId = adminUserId;
-    }
+	public AdminUser() {
+	}
 
-    public String getAdminUserName() {
-        return adminUserName;
-    }
+	public AdminUser(Long adminUserId, String adminUserName, String password, String name, String nickName, String mobilePhone, String telephone, String email, Date createTime, Date lastLoginTime, String lastLoginIp) {
+		super();
+		this.adminUserId = adminUserId;
+		this.adminUserName = adminUserName;
+		this.password = password;
+		this.name = name;
+		this.nickName = nickName;
+		this.mobilePhone = mobilePhone;
+		this.telephone = telephone;
+		this.email = email;
+		this.createTime = createTime;
+		this.lastLoginTime = lastLoginTime;
+		this.lastLoginIp = lastLoginIp;
+	}
 
-    public void setAdminUserName(String adminUserName) {
-        this.adminUserName = adminUserName == null ? null : adminUserName.trim();
-    }
+	/* Getter & Setter */
+	public Long getAdminUserId() {
+		return adminUserId;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setAdminUserId(Long adminUserId) {
+		this.adminUserId = adminUserId;
+	}
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
+	public String getAdminUserName() {
+		return adminUserName;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setAdminUserName(String adminUserName) {
+		this.adminUserName = adminUserName;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getNickName() {
-        return nickName;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getMobilePhone() {
-        return mobilePhone;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone == null ? null : mobilePhone.trim();
-    }
+	public String getNickName() {
+		return nickName;
+	}
 
-    public String getTelephone() {
-        return telephone;
-    }
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone == null ? null : telephone.trim();
-    }
+	public String getMobilePhone() {
+		return mobilePhone;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
+	}
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+	public String getTelephone() {
+		return telephone;
+	}
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public String getLastLoginIp() {
-        return lastLoginIp;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setLastLoginIp(String lastLoginIp) {
-        this.lastLoginIp = lastLoginIp == null ? null : lastLoginIp.trim();
-    }
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+
+	public String getLastLoginIp() {
+		return lastLoginIp;
+	}
+
+	public void setLastLoginIp(String lastLoginIp) {
+		this.lastLoginIp = lastLoginIp;
+	}
+
+	@Override
+	public String toString() {
+		return "AdminUser [adminUserId=" + adminUserId + ", adminUserName=" + adminUserName + ", password=" + password + ", name=" + name + ", nickName=" + nickName + ", mobilePhone=" + mobilePhone + ", telephone=" + telephone + ", email=" + email + ", createTime=" + createTime + ", lastLoginTime=" + lastLoginTime + ", lastLoginIp=" + lastLoginIp + "]";
+	}
+
 }

@@ -17,6 +17,22 @@ public class WebInfo {
 
 	private String webEmail;
 
+	public WebInfo() {
+	}
+
+	public WebInfo(Integer webId, String webName, String domainName, String recordsCode, String company, String legalPerson, String imageLogo, String webEmail) {
+		super();
+		this.webId = webId;
+		this.webName = webName;
+		this.domainName = domainName;
+		this.recordsCode = recordsCode;
+		this.company = company;
+		this.legalPerson = legalPerson;
+		this.imageLogo = imageLogo;
+		this.webEmail = webEmail;
+	}
+
+	/* Getter & Setter */
 	public Integer getWebId() {
 		return webId;
 	}
@@ -30,7 +46,7 @@ public class WebInfo {
 	}
 
 	public void setWebName(String webName) {
-		this.webName = webName == null ? null : webName.trim();
+		this.webName = webName;
 	}
 
 	public String getDomainName() {
@@ -38,7 +54,7 @@ public class WebInfo {
 	}
 
 	public void setDomainName(String domainName) {
-		this.domainName = domainName == null ? null : domainName.trim();
+		this.domainName = domainName;
 	}
 
 	public String getRecordsCode() {
@@ -46,7 +62,7 @@ public class WebInfo {
 	}
 
 	public void setRecordsCode(String recordsCode) {
-		this.recordsCode = recordsCode == null ? null : recordsCode.trim();
+		this.recordsCode = recordsCode;
 	}
 
 	public String getCompany() {
@@ -54,7 +70,7 @@ public class WebInfo {
 	}
 
 	public void setCompany(String company) {
-		this.company = company == null ? null : company.trim();
+		this.company = company;
 	}
 
 	public String getLegalPerson() {
@@ -62,7 +78,7 @@ public class WebInfo {
 	}
 
 	public void setLegalPerson(String legalPerson) {
-		this.legalPerson = legalPerson == null ? null : legalPerson.trim();
+		this.legalPerson = legalPerson;
 	}
 
 	public String getImageLogo() {
@@ -70,7 +86,7 @@ public class WebInfo {
 	}
 
 	public void setImageLogo(String imageLogo) {
-		this.imageLogo = imageLogo == null ? null : imageLogo.trim();
+		this.imageLogo = imageLogo;
 	}
 
 	public String getWebEmail() {
@@ -78,12 +94,11 @@ public class WebInfo {
 	}
 
 	public void setWebEmail(String webEmail) {
-		this.webEmail = webEmail == null ? null : webEmail.trim();
+		this.webEmail = webEmail;
 	}
 
 	@Override
 	public String toString() {
 		return "WebInfo [webId=" + webId + ", webName=" + webName + ", domainName=" + domainName + ", recordsCode=" + recordsCode + ", company=" + company + ", legalPerson=" + legalPerson + ", imageLogo=" + imageLogo + ", webEmail=" + webEmail + "]";
 	}
-
 }

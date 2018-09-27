@@ -17,4 +17,5 @@ public interface ManagerService {
 	 * 编辑 网站信息
 	 */
 	public int updateWebInfo(WebInfo webInfo);
+
 }

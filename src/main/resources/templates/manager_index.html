@@ -40,7 +40,9 @@
 			<li class="nav-item"><a href="javascript:manager_web();"><i class="my-icon nav-icon icon_1"></i><span>网站管理</span><i class="my-icon nav-more"></i></a>
 				<ul>
 					<li><a href="javascript:manager_web_edit();"><span>站点设置</span></a></li>
+					<!--  
 					<li><a href="javascript:manager_menus();"><span>导航设置</span></a></li>
+					-->
 					<li><a href="javascript:manager_admin_users();"><span>管理员信息</span></a></li>
 					<!-- 
 					<li><a href="javascript:;"><span>分类管理</span></a></li>
@@ -68,7 +70,7 @@
 			<h1>中国华人库管理系统</h1>
 		</header>
 		<div class="related">
-			<iframe src="" frameBorder="0" height="800px" width="100%" scrolling="no"></iframe>
+			<iframe src="" frameBorder="0" height="800px" width="100%" scrolling="auto"></iframe>
 		</div>
 	</div>
 	<!-- htmleaf-container end -->
@@ -84,11 +86,12 @@
 		}
 		// 导航设置
 		function manager_menus() {
-			$("iframe").attr("src", "/manager_menus");
+			// 暂时不用
+			// $("iframe").attr("src", "/manager_menus");
 		}
 		// 管理员信息
 		function manager_admin_users() {
-			$("iframe").attr("src", "/manager_admin_users");
+			$("iframe").attr("src", "/AdminUserController/selectAdminUser");
 		}
 		// 新增名人库
 		function manager_celebritys_edit() {

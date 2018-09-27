@@ -2,6 +2,8 @@ package cn.net.cncl.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class News {
 	private Long newsId;
 
@@ -15,6 +17,7 @@ public class News {
 
 	private Long adminUserIdFk;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date ceateTime;
 
 	private Integer browseCount;

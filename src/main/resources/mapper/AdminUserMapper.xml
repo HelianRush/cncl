@@ -66,6 +66,27 @@
 		PASSWORD = #{password}
 	</select>
 
+	<!-- 管理员信息 查询 by name -->
+	<select id="selectAdminUserByName" resultType="cn.net.cncl.entity.AdminUser">
+		SELECT
+		ADMIN_USER_ID AS adminUserID,
+		ADMIN_USER_NAME AS adminUserName,
+		NAME AS name,
+		NICK_NAME AS nickName,
+		MOBILE_PHONE AS mobilePhone,
+		TELEPHONE AS telephone,
+		EMAIL AS email,
+		CREATE_TIME AS createTime,
+		LAST_LOGIN_TIME AS lastLoginTime,
+		LAST_LOGIN_IP AS lastLoginIp
+		FROM T_ADMIN_USER
+		WHERE
+		1 = 1
+		<if test="adminUserName != null and adminUserName != ''">
+			AND ADMIN_USER_ID=#{adminUserName}
+		</if>
+	</select>
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
