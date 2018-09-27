@@ -22,3 +22,33 @@ a:hover {
 	text-decoration: none; /*无下划线*/
 	font-weight: bold;
 }
+
+.table {
+	table-layout: fixed;
+}
+
+/*table的内容样式*/
+/*
+.table-content {
+	word-wrap: break-word;
+	table-layout: fixed;
+}
+
+.table-content-hidden {
+	word-wrap: break-word;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+}
+
+.td{
+	width: 200px;
+}
+*/
+
+th{
+	width: 160px;
+}

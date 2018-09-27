@@ -76,9 +76,11 @@
 
 	<div class="row">
 
+		<!--  
 		<div id="left" class="col-lg-3 col-md-3 col-sm-2">
 			<img th:src="@{/images/m_left.png}" />
 		</div>
+		-->
 
 		<!-- left end -->
 		<div id="middle" class="col-lg-8 col-md-8 col-sm-8">
@@ -112,20 +114,21 @@
 				<!-- 查询 end -->
 
 				<!-- 列表 -->
-				<table class="table table-responsive">
+				<table id="table" class="table table-responsive table-content">
+
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>名称</th>
-							<th>姓名</th>
-							<th>昵称</th>
-							<th>手机</th>
-							<th>座机</th>
-							<th>邮箱</th>
-							<th>创建时间</th>
-							<th>上次登录时间</th>
-							<th>上次登录IP</th>
-							<th>操作</th>
+							<th id="" style="">ID</th>
+							<th id="" style="">名称</th>
+							<th id="" style="">姓名</th>
+							<th id="" style="">昵称</th>
+							<th id="" style="">手机</th>
+							<th id="" style="">座机</th>
+							<th id="" style="">邮箱</th>
+							<th id="" style="">创建时间</th>
+							<th id="" style="">上次登录时间</th>
+							<th id="" style="">上次登录IP</th>
+							<th id="" style="">操作</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -137,8 +140,8 @@
 							<td th:text="${data.mobilePhone}"></td>
 							<td th:text="${data.telephone}"></td>
 							<td th:text="${data.email}"></td>
-							<td th:text="${data.createTime}"></td>
-							<td th:text="${data.lastLoginTime}"></td>
+							<td th:text="${#dates.format(data.createTime,'yyyy-MM-dd')}"></td>
+							<td th:text="${#dates.format(data.lastLoginTime,'yyyy-MM-dd')}"></td>
 							<td th:text="${data.lastLoginIp}"></td>
 							<td><a href="">详情</a> | <a href="">修改</a> | <a href="">删除</a></td>
 						</tr>
@@ -149,32 +152,13 @@
 				<!-- 分页 -->
 				<nav aria-label="...">
 					<ul class="pager">
-						<!--  
-						<li><a href="javascript:older();">上一页</a></li>
-						<li><span id="nowPage">1/5</span><span id="pageStatus" style="display: none">page</span></li>
-						<li><a href="javascript:newer();">下一页 </a></li>
-						-->
-						
-						<li>
-							<a th:if="${not isFirstPage}" th:href="@{${'/AdminUserController/selectAdminUser'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> 
-							<a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a>
-						</li>
-						
-						<li th:each="pageNo: ${#numbers.sequence(1, totalPages)}">
-							<a th:if="${pageNum eq pageNo}" href="javascript:void(0);">
-								<span th:text="${pageNum}"></span>
-							</a>
+						<li><a th:if="${not isFirstPage}" th:href="@{${'/AdminUserController/selectAdminUser'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
 
-							<a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/AdminUserController/selectAdminUser'}(pageNum=${pageNo},size=${pageSize})}">
-								<span th:text="${pageNo}"></span>
-							</a>
-						</li>
-						
-						<li>
-							<a th:if="${not isLastPage}" th:href="@{${'/AdminUserController/selectAdminUser'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a>
-							<a th:if="${isLastPage}" href="javascript:void(0);">下一页</a>
-						</li>
+						<li th:each="pageNo: ${#numbers.sequence(1, totalPages)}"><a th:if="${pageNum eq pageNo}" href="javascript:void(0);"> <span th:text="${pageNum}"></span>
+						</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/AdminUserController/selectAdminUser'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
+						</a></li>
 
+						<li><a th:if="${not isLastPage}" th:href="@{${'/AdminUserController/selectAdminUser'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
 					</ul>
 				</nav>
 
