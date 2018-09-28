@@ -1,0 +1,59 @@
+<input type="button" class="btn btn-primary" value="新增频道"  
+       data-toggle="modal"  
+       data-target="#addChannelInfoModal"  href="${ctx}/channelmanage/channel_info_add.jsp" />
+<!-- 频道信息新增 Modal start -->
+<div class="modal hide fade" id="addChannelInfoModal"  tabindex="-1" role="dialog">
+	<div class="modal-header">
+		<button class="close" type="button" data-dismiss="modal">×</button>
+		<h3>新增频道信息</h3>
+	</div>
+	<div class="modal-body"></div>
+</div>
+<!-- 频道信息新增 Modal end -->
+channel_info_add.jsp页面
+<form action="ChannelManageAction.a" method="post" enctype="multipart/form-data"  class="form-horizontal" id="basic_validate" novalidate="novalidate">
+	       
+	<div class="control-group">
+		             <label class="control-label">频道名称:</label>              
+		<div class="controls">
+			                 <input style="width: 180px" type="text" name="channelName">              
+		</div>
+		         
+	</div>
+	         
+	<div class="control-group">
+		             <label class="control-label" for="s2">频道类型:</label>              
+		<div class="controls">
+			                         <select  style="width: 200px;" name="channelType"  id="s2"><app:dictselect dictType="1105" /></select>              
+		</div>
+		         
+	</div>
+	         
+	<div class="control-group">
+		             <label class="control-label">频道信号源:</label>              
+		<div class="controls">
+			                 <input style="width: 180px" type="text" name="channelSignal" onblur="checkChannelSignal('',this.value)">                  <span id="showMsg" style="color: red"></span>              
+		</div>
+		         
+	</div>
+	         
+	<div class="control-group">
+		             <label class="control-label">频道logo地址:</label>              
+		<div class="controls">
+			                <input type="file" name="fileContent" id="fileContent">              
+		</div>
+		         
+	</div>
+	         
+	<div class="form-actions" style="padding-left: 180px;">
+		             
+		<button type="submit" name="doAddChannelInfo" class="btn btn-primary">
+			             <i class="icon-ok icon-white"></i>保存
+		</button>
+		&nbsp;&nbsp;              
+		<button type="button" class="btn btn-primary cancelBtn">
+			             <i class="icon-remove icon-white"></i>取消
+		</button>
+		         
+	</div>
+</form>

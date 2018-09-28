@@ -43,12 +43,7 @@ a:hover {
 	-moz-text-overflow: ellipsis;
 	-webkit-text-overflow: ellipsis;
 }
-
-.td{
-	width: 200px;
-}
 */
-
-th{
-	width: 160px;
+th {
+	width: 200px;
 }

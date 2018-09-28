@@ -81,7 +81,7 @@ public class AdminUserController {
 	}
 
 	@RequestMapping(value = "/selectAdminUser")
-	public String selectAdminUser(HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "3") Integer pageSize) {
+	public String selectAdminUser(HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") Integer pageNum) {
 
 		String adminUserName = request.getParameter("adminUserName");
 
@@ -100,6 +100,35 @@ public class AdminUserController {
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 		return "/manager_admin_users";
+	}
+
+	/**
+	 * 管理员信息 新增
+	 */
+	@RequestMapping(value = "/addAdminUser")
+	public String addAdminUser(HttpServletRequest request, AdminUser adminUser, Model model, @RequestParam(defaultValue = "1") Integer pageNum) {
+
+		int flag = adminUserService.addAdminUser(request, adminUser);
+
+		PageInfo<AdminUser> pageList = adminUserService.selectAdminUserByName(null, pageNum);
+
+		// 获得当前页
+		model.addAttribute("pageNum", pageList.getPageNum());
+		// 获得一页显示的条数
+		model.addAttribute("pageSize", pageList.getPageSize());
+		// 是否是第一页
+		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
+		// 获得总页数
+		model.addAttribute("totalPages", pageList.getPages());
+		// 是否是最后一页
+		model.addAttribute("isLastPage", pageList.isIsLastPage());
+		// 当前列表
+		model.addAttribute("list", pageList.getList());
+
+		if (0 < flag) {
+			return "/manager_admin_users";
+		} else
+			return "/manager_admin_users";
 	}
 
 	/**

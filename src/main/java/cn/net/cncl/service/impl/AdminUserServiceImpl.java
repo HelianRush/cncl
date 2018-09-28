@@ -1,6 +1,9 @@
 package cn.net.cncl.service.impl;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +15,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
+import cn.net.cncl.common.GetIP;
 import cn.net.cncl.entity.AdminUser;
 import cn.net.cncl.mapper.AdminUserMapper;
 import cn.net.cncl.service.AdminUserService;
@@ -74,7 +78,16 @@ public class AdminUserServiceImpl implements AdminUserService {
 	 * 添加 管理员信息
 	 */
 	@Override
-	public int addAdminUser(AdminUser adminUser) {
+	public int addAdminUser(HttpServletRequest request, AdminUser adminUser) {
+
+		if (null == adminUser.getAdminUserName() || null == adminUser.getPassword()) {
+			return 1;
+		}
+
+		adminUser.setAdminUserId(new Date().getTime());
+		adminUser.setCreateTime(new Date());
+		adminUser.setLastLoginTime(new Date());
+		adminUser.setLastLoginIp(GetIP.getIpAddr(request));
 		return adminUserMapper.insert(adminUser);
 	}
 
