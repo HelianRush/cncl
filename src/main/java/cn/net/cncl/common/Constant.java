@@ -58,7 +58,7 @@ public enum Constant {
 	/**
 	 * 每页显示条数
 	 */
-	public static final Integer PAGE_SIZE = 13;
+	public static final Integer PAGE_SIZE = 15;
 
 	/**
 	 * pageStatus

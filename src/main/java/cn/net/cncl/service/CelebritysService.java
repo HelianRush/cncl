@@ -1,6 +1,6 @@
 package cn.net.cncl.service;
 
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.entity.Celebritys;
 
@@ -23,6 +23,6 @@ public interface CelebritysService {
 	/**
 	 * 名人库列表
 	 */
-	public List<Celebritys> showCelebritysList();
+	public PageInfo<Celebritys> showCelebritysList(int pageNum);
 
 }

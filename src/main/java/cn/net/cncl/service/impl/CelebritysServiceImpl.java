@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+import cn.net.cncl.common.Constant;
+import cn.net.cncl.entity.AdminUser;
 import cn.net.cncl.entity.Celebritys;
 import cn.net.cncl.mapper.CelebritysMapper;
 import cn.net.cncl.service.CelebritysService;
@@ -46,8 +51,11 @@ public class CelebritysServiceImpl implements CelebritysService {
 	 * 名人库列表
 	 */
 	@Override
-	public List<Celebritys> showCelebritysList() {
-		return celebritysMapper.queryCelebritys();
+	public PageInfo<Celebritys> showCelebritysList(int pageNum) {
+		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
+		List<Celebritys> list = celebritysMapper.queryCelebritys();
+		PageInfo<Celebritys> pageInfo = new PageInfo<Celebritys>(list);
+		return pageInfo;
 	}
 
 }

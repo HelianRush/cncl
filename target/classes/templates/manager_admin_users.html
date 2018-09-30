@@ -29,59 +29,10 @@
 		// 验证
 		checkName();
 
-		// 查询
-		// queryAdmin("page");
-
 		//删除
 		// deleteAdmin();
 
 	});
-
-	// 查询
-	/*
-	function queryAdmin(pageStatus) {
-
-		var adminUserName = $("#adminUserName").val();
-
-		// 当前页数
-		var nowPage = $("#nowPage").text();
-		var pageNow = nowPage.substring(0, 1);
-
-		// +page || -page || page
-		if (null == pageStatus || "page" == pageStatus) {
-			pageStatus = "page";
-		}
-
-		$.ajax({
-			type : "POST",
-			url : "/AdminUserController/selectAdminUser",
-			data : {
-				"adminUserName" : adminUserName,
-				"pageNow" : pageNow,
-				"pageStatus" : pageStatus
-			},
-			dataType : "json",
-			async : false,
-			cache : false,
-			success : function(data) {
-				if (null == data) {
-					alert("null");
-				} else {
-					alert("not null");
-				}
-				alert(data);
-			}
-		});
-	}
-	 */
-
-	function older() {
-		queryAdmin("+page");
-	};
-
-	function newer() {
-		queryAdmin("-page");
-	};
 
 	// 新增管理员 登录名验证
 	function checkName() {
@@ -258,8 +209,7 @@
 					<!-- 查询 end -->
 
 					<!-- 列表 -->
-					<table id="table" class="table table-responsive table-content">
-
+					<table id="table" class="table table-bordered table-responsive table-content table-condensed">
 						<thead>
 							<tr>
 								<th id="" style="">ID</th>
@@ -276,7 +226,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="rows" th:each="data:${list}">
+							<tr th:each="data:${list}">
 								<td th:text="${data.adminUserId}"></td>
 								<td th:text="${data.adminUserName}"></td>
 								<td th:text="${data.name}"></td>

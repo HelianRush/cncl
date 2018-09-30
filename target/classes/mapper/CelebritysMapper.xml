@@ -73,6 +73,9 @@
 		SELECT
 		<include refid="Base_Column_List"></include>
 		FROM T_CELEBRITYS
+		ORDER BY
+		CELEBRITY_ID DESC,
+		CELEBRITY_NAME ASC
 		<!-- <where> </where> -->
 	</select>
 
