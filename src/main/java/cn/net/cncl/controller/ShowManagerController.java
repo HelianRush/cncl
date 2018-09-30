@@ -94,4 +94,32 @@ public class ShowManagerController {
 		return "manager_admin_users";
 	}
 
+	/**
+	 * @Title showManagerCelebritysEdit
+	 * @author Jianfei Yu
+	 * @version 1.0.0
+	 * @parameter null
+	 * @throws null
+	 *             访问manager_celebritys_edit.html<br>
+	 *             名人库编辑
+	 */
+	@RequestMapping(value = "/showManagerCelebritysEdit")
+	public String showManagerCelebritysEdit() {
+		return "manager_celebritys_edit";
+	}
+
+	/**
+	 * @Title showManagerCelebritys
+	 * @author Jianfei Yu
+	 * @version 1.0.0
+	 * @parameter null
+	 * @throws null
+	 *             访问manager_celebritys.html<br>
+	 *             名人库展示
+	 */
+	@RequestMapping(value = "/showManagerCelebritys")
+	public String showManagerCelebritys() {
+		return "manager_celebritys";
+	}
+
 }

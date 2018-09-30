@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="cn.net.cncl.mapper.CelebritysMapper">
+
 	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.Celebritys">
 		<id column="CELEBRITY_ID" property="celebrityId" jdbcType="BIGINT" />
 		<result column="CELEBRITY_NAME" property="celebrityName" jdbcType="VARCHAR" />
@@ -9,7 +11,7 @@
 		<result column="NATIONALITY" property="nationality" jdbcType="VARCHAR" />
 		<result column="NATION" property="nation" jdbcType="VARCHAR" />
 		<result column="CONSTELLATION" property="constellation" jdbcType="VARCHAR" />
-		<result column="BLOOD_TYPE" property="bloodType" jdbcType="INTEGER" />
+		<result column="BLOOD_TYPE" property="bloodType" jdbcType="VARCHAR" />
 		<result column="HEIGHT" property="height" jdbcType="INTEGER" />
 		<result column="BIRTHPLACE" property="birthplace" jdbcType="VARCHAR" />
 		<result column="NATIVE_PLACE" property="nativePlace" jdbcType="VARCHAR" />
@@ -30,11 +32,109 @@
 		<result column="INTRODUCE" property="introduce" jdbcType="LONGVARCHAR" />
 	</resultMap>
 
-	<sql id="Base_Column_List">
+	<sql id="Column_List">
 		CELEBRITY_ID, CELEBRITY_NAME, ANOTHER_NAME, FOREIGN_NAME, NATIONALITY, NATION, CONSTELLATION,
 		BLOOD_TYPE, HEIGHT, BIRTHPLACE, NATIVE_PLACE, ANCESTRAL_HOME, IDENTITY_CARD, CERTIFICATE_CODE,
 		CERTIFICATE_NAME, PROFESSION, COMPANY, REPRESENTATIVE_NAME, ACHIEVEMENT, BIRTHDAY,
 		DEATHDAY, VIDEO_ID_FK, IMAGE_ID_FK, BROWSE_COUNT,OUTLINE, INTRODUCE
 	</sql>
+
+	<sql id="Base_Column_List">
+		CELEBRITY_ID AS celebrityId ,
+		CELEBRITY_NAME AS celebrityName ,
+		ANOTHER_NAME AS anotherName ,
+		FOREIGN_NAME AS foreignName ,
+		NATIONALITY AS nationality ,
+		NATION AS nation ,
+		CONSTELLATION AS constellation ,
+		BLOOD_TYPE AS bloodType ,
+		HEIGHT AS height ,
+		BIRTHPLACE AS birthplace ,
+		NATIVE_PLACE AS nativePlace ,
+		ANCESTRAL_HOME AS ancestralHome ,
+		IDENTITY_CARD AS identityCard ,
+		CERTIFICATE_CODE AS certificateCode ,
+		CERTIFICATE_NAME AS certificateName ,
+		PROFESSION AS profession ,
+		COMPANY AS company ,
+		REPRESENTATIVE_NAME AS representativeName ,
+		ACHIEVEMENT AS achievement ,
+		BIRTHDAY AS birthday ,
+		DEATHDAY AS deathday ,
+		OUTLINE AS outline ,
+		INTRODUCE AS introduce ,
+		VIDEO_ID_FK AS videoIdFk ,
+		IMAGE_ID_FK AS imageIdFk ,
+		BROWSE_COUNT AS browseCount
+	</sql>
+
+	<!-- 查询全部 -->
+	<select id="queryCelebritys" resultType="cn.net.cncl.entity.Celebritys">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM T_CELEBRITYS
+		<!-- <where> </where> -->
+	</select>
+
+	<!-- 添加名人库 insertCelebritys -->
+	<insert id="insertCelebritys" parameterType="cn.net.cncl.entity.Celebritys" flushCache="true">
+		INSERT INTO T_CELEBRITYS (
+		CELEBRITY_ID,
+		CELEBRITY_NAME,
+		ANOTHER_NAME,
+		FOREIGN_NAME,
+		NATIONALITY,
+		NATION,
+		CONSTELLATION,
+		BLOOD_TYPE,
+		HEIGHT,
+		BIRTHPLACE,
+		NATIVE_PLACE,
+		ANCESTRAL_HOME,
+		IDENTITY_CARD,
+		CERTIFICATE_CODE,
+		CERTIFICATE_NAME,
+		PROFESSION,
+		COMPANY,
+		REPRESENTATIVE_NAME,
+		ACHIEVEMENT,
+		BIRTHDAY,
+		DEATHDAY,
+		OUTLINE,
+		INTRODUCE,
+		VIDEO_ID_FK,
+		IMAGE_ID_FK,
+		BROWSE_COUNT
+		)
+		VALUES
+		(
+		#{celebrityId},
+		#{celebrityName},
+		#{anotherName},
+		#{foreignName},
+		#{nationality},
+		#{nation},
+		#{constellation},
+		#{bloodType},
+		#{height},
+		#{birthplace},
+		#{nativePlace},
+		#{ancestralHome},
+		#{identityCard},
+		#{certificateCode},
+		#{certificateName},
+		#{profession},
+		#{company},
+		#{representativeName},
+		#{achievement},
+		#{birthday},
+		#{deathday},
+		#{outline},
+		#{introduce},
+		#{videoIdFk},
+		#{imageIdFk},
+		#{browseCount}
+		)
+	</insert>
 
 </mapper>

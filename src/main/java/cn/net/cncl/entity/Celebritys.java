@@ -19,7 +19,7 @@ public class Celebritys {
 
 	private String constellation;
 
-	private Integer bloodType;
+	private String bloodType;
 
 	private Integer height;
 
@@ -115,11 +115,11 @@ public class Celebritys {
 		this.constellation = constellation == null ? null : constellation.trim();
 	}
 
-	public Integer getBloodType() {
+	public String getBloodType() {
 		return bloodType;
 	}
 
-	public void setBloodType(Integer bloodType) {
+	public void setBloodType(String bloodType) {
 		this.bloodType = bloodType;
 	}
 
