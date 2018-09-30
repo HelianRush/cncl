@@ -23,6 +23,12 @@
 <script type="text/javascript">
 	$(function() {
 
+		$("#adminUserName").val("");
+		$("#password").val("");
+
+		// 验证
+		checkName();
+
 		// 查询
 		// queryAdmin("page");
 
@@ -32,6 +38,7 @@
 	});
 
 	// 查询
+	/*
 	function queryAdmin(pageStatus) {
 
 		var adminUserName = $("#adminUserName").val();
@@ -66,6 +73,7 @@
 			}
 		});
 	}
+	 */
 
 	function older() {
 		queryAdmin("+page");
@@ -75,12 +83,37 @@
 		queryAdmin("-page");
 	};
 
+	// 新增管理员 登录名验证
+	function checkName() {
+		$("#adminUserName").blur(function() {
+			adminUserName = $("#adminUserName").val();
+			$.ajax({
+				type : "POST",
+				url : "/AdminUserController/checkAdminUserName",
+				data : {
+					"adminUserName" : adminUserName
+				},//data end
+				dataType : "text",
+				success : function(data) {
+					if ("A0001" == data) {
+						$("#alertAdmin").text("已存在");
+						$("#adminUserName").val("");
+						$("#password").val("");
+					}else{
+						$("#alertAdmin").text("");
+					}
+				}//success end
+			});
+		});
+	}
+
 	// 修改
 	function editAdmin() {
 	}
 
 	// 删除
 	function deleteAdmin() {
+
 	}
 </script>
 
@@ -128,6 +161,9 @@
 											<label for="" class="col-sm-3">管理员名称</label>
 											<div class="col-sm-6">
 												<input type="text" class="form-control" id="adminUserName" name="adminUserName" placeholder="登录用户名...">
+											</div>
+											<div class="col-sm-2">
+												<span id="alertAdmin"></span>
 											</div>
 										</div>
 

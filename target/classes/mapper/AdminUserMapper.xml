@@ -83,9 +83,14 @@
 		WHERE
 		1 = 1
 		<if test="adminUserName != null and adminUserName != ''">
-			AND ADMIN_USER_ID=#{adminUserName}
+			AND ADMIN_USER_NAME=#{adminUserName}
 		</if>
 		ORDER BY CREATE_TIME ,ADMIN_USER_ID DESC
+	</select>
+
+	<!-- 新增管理员 登录名验证 -->
+	<select id="checkAdminUserName" resultType="int">
+		SELECT COUNT(ADMIN_USER_NAME) FROM T_ADMIN_USER WHERE ADMIN_USER_NAME = #{adminUserName}
 	</select>
 
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">

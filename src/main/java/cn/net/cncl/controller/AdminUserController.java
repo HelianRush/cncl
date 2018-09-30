@@ -2,6 +2,7 @@ package cn.net.cncl.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 
@@ -102,6 +104,26 @@ public class AdminUserController {
 		return "/manager_admin_users";
 	}
 
+	// TODO
+	/**
+	 * 新增管理员 登录名验证
+	 * 
+	 * @param @RequestParam
+	 *            String adminUserName
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/checkAdminUserName")
+	public String checkAdminUserName(@RequestParam String adminUserName) {
+
+		if (StringUtils.isBlank(adminUserName)) {
+			return "";
+		}
+		String flag = adminUserService.checkAdminUserName(adminUserName);
+
+		return flag;
+	}
+
+	// TODO
 	/**
 	 * 管理员信息 新增
 	 */

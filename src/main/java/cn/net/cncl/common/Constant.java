@@ -22,7 +22,9 @@ public enum Constant {
 
 	LOGIN_DEFEATED("L0404", "登录失败"),
 
-	SYSTEM_ERROR("SYSTEM_ERROR", "系统错误"),
+	ADMIN_USER_NAME_IS_HAVE("A0001", "已存在"), // 用户名已存在
+
+	SYSTEM_ERROR("SYSTEM_ERROR", "系统错误")
 
 	;
 

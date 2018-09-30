@@ -41,4 +41,12 @@ public interface AdminUserMapper {
 	 * @param AdminUser.AdminUserName
 	 */
 	List<AdminUser> selectAdminUserByName(@Param("adminUserName") String adminUserName);
+
+	/**
+	 * 新增管理员 登录名验证
+	 * 
+	 * @param @RequestParam
+	 *            String adminUserName
+	 */
+	int checkAdminUserName(String adminUserName);
 }

@@ -91,4 +91,21 @@ public class AdminUserServiceImpl implements AdminUserService {
 		return adminUserMapper.insert(adminUser);
 	}
 
+	/**
+	 * 新增管理员 登录名验证
+	 * 
+	 * @param @RequestParam
+	 *            String adminUserName
+	 */
+	@Override
+	public String checkAdminUserName(String adminUserName) {
+		int flag = adminUserMapper.checkAdminUserName(adminUserName);
+
+		if (0 < flag) {
+			return Constant.ADMIN_USER_NAME_IS_HAVE.getCode();
+		} else {
+			return Constant.SUCCESS.getCode();
+		}
+	}
+
 }

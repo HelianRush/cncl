@@ -33,4 +33,12 @@ public interface AdminUserService {
 	 */
 	int addAdminUser(HttpServletRequest request, AdminUser adminUser);
 
+	/**
+	 * 新增管理员 登录名验证
+	 * 
+	 * @param @RequestParam
+	 *            String adminUserName
+	 */
+	String checkAdminUserName(String adminUserName);
+
 }
