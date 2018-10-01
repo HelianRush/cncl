@@ -1,26 +1,26 @@
 $(function() {
 
 	// 验证编码唯一性
-	// checkCode();
+	checkCode();
 
 	// 验证名称唯一性
-	// checkName();
-	
+	checkName();
+
 });
 
 // 验证编码唯一性
 function checkCode() {
-	var code = $("#newsTypeCode").val();
-
-	alert(code);
 
 	$("#newsTypeCode").blur(function() {
 
+		var code = $("#newsTypeCode").val();
+
 		if (null == code || "" == code) {
 			$("#msg1").text("不可为空");
-			return false;
+			$("#submit").attr("disabled","disabled");
 		} else {
 			$("#msg1").text("");
+			$("#submit").removeAttr("disabled");
 		}
 
 		$.ajax({
@@ -33,25 +33,30 @@ function checkCode() {
 			success : function(data) {
 				if ("200" != data) {
 					$("#msg1").text(data);
+					$("#submit").attr("disabled","disabled");
 				} else {
 					$("#msg1").text("");
+					$("#submit").removeAttr("disabled");
 				}
 			}
 		});
 	});
+
 };
 
 // 验证名称唯一性
 function checkName() {
-	var name = $("#newsTypeName").val();
 
 	$("#newsTypeName").blur(function() {
 
+		var name = $("#newsTypeName").val();
+
 		if (null == name || "" == name) {
 			$("#msg2").text("不可为空");
-			return false;
+			$("#submit").attr("disabled","disabled");
 		} else {
 			$("#msg2").text("");
+			$("#submit").removeAttr("disabled");
 		}
 
 		$.ajax({
@@ -64,8 +69,10 @@ function checkName() {
 			success : function(data) {
 				if ("200" != data) {
 					$("#msg2").text(data);
+					$("#submit").attr("disabled","disabled");
 				} else {
 					$("#msg2").text("");
+					$("#submit").removeAttr("disabled");
 				}
 			}
 		});
