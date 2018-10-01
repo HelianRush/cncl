@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="cn.net.cncl.mapper.NewsMapper">
+
 	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.News">
 		<id column="NEWS_ID" property="newsId" jdbcType="BIGINT" />
 		<result column="NEWS_TYPE_FK" property="newsTypeFk" jdbcType="BIGINT" />
@@ -18,5 +20,28 @@
 		NEWS_ID, NEWS_TYPE_FK, NEWS_TITEL, VIDEO_ID_FK, IMAGE_ID_FK, ADMIN_USER_ID_FK, CEATE_TIME,
 		BROWSE_COUNT,NEWS_OUTLINE, NEWS_CONTENT
 	</sql>
-	
+
+	<sql id="News_Column_List">
+		NEWS_ID AS newsId ,
+		NEWS_TYPE_FK AS newsTypeFk ,
+		NEWS_TITEL AS newsTitel ,
+		VIDEO_ID_FK AS videoIdFk ,
+		IMAGE_ID_FK AS imageIdFk ,
+		ADMIN_USER_ID_FK AS adminUserIdFk ,
+		CEATE_TIME AS ceateTime ,
+		BROWSE_COUNT AS browseCount ,
+		NEWS_OUTLINE AS newsOutline ,
+		NEWS_CONTENT AS newsContent
+	</sql>
+
+	<!-- 查询 -->
+	<select id="selectNews" resultType="cn.net.cncl.entity.News">
+		SELECT
+		<include refid="News_Column_List"></include>
+		FROM T_NEWS
+		ORDER BY
+		NEWS_ID DESC,
+		NEWS_TITEL ASC
+	</select>
+
 </mapper>

@@ -13,10 +13,10 @@
 <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
 <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
 <link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
--->
 <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css" />
+-->
 <!-- Manager Page -->
 <link rel="stylesheet" type="text/css" th:href="@{/manager_page/css/htmleaf-demo.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/manager_page/fonts/iconfont.css}" />
@@ -52,13 +52,14 @@
 
 			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>名人库管理</span><i class="my-icon nav-more"></i></a>
 				<ul>
-					<li><a href="javascript:manager_celebritys_edit();"><span>添加名人库</span></a></li>
 					<li><a href="javascript:manager_celebritys();"><span>名人列表</span></a></li>
+					<li><a href="javascript:manager_celebritys_edit();"><span>名人库新增</span></a></li>
 				</ul></li>
 
 			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>资讯管理</span><i class="my-icon nav-more"></i></a>
 				<ul>
 					<li><a href="javascript:manager_news();"><span>资讯列表</span></a></li>
+					<li><a href="javascript:manager_news_edit();"><span>资讯新增</span></a></li>
 					<li><a href="javascript:manager_news_tyep();"><span>资讯类别</span></a></li>
 				</ul></li>
 		</ul>
@@ -104,11 +105,15 @@
 		}
 		// 资讯列表
 		function manager_news() {
-			$("iframe").attr("src", "/manager_news");
+			$("iframe").attr("src", "/NewsController/selectNews");
+		}
+		// 资讯新增
+		function manager_news_edit() {
+			$("iframe").attr("src", "/NewsController/editNewsType");
 		}
 		// 资讯类别
 		function manager_news_tyep() {
-			$("iframe").attr("src", "/manager_news_type");
+			$("iframe").attr("src", "/newsTypeController/queryNewsType");
 		}
 	</script>
 
@@ -117,7 +122,7 @@
 	<script>
 		window.jQuery
 				|| document
-						.write('<script th:src="@{/manager_page/js/jquery-1.11.0.min.js}"><\/script>')
+						.write('<script src="manager_page/js/jquery-1.11.0.min.js"><\/script>')
 	</script>
 	<script type="text/javascript" th:src="@{/manager_page/js/nav.js}"></script>
 	<!-- 引用 -->

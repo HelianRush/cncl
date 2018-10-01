@@ -117,7 +117,7 @@
 					<!-- 分页 -->
 					<nav aria-label="...">
 						<ul class="pager">
-							<li><a th:if="${not isFirstPage}" th:href="@{${'/ClelebritysController/showCelebritysList}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
+							<li><a th:if="${not isFirstPage}" th:href="@{${'/ClelebritysController/showCelebritysList'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
 
 							<li th:each="pageNo: ${#numbers.sequence(1, totalPages)}"><a th:if="${pageNum eq pageNo}" href="javascript:void(0);"> <span th:text="${pageNum}"></span>
 							</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/ClelebritysController/showCelebritysList'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
@@ -126,7 +126,6 @@
 							<li><a th:if="${not isLastPage}" th:href="@{${'/ClelebritysController/showCelebritysList'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
 						</ul>
 					</nav>
-
 					<!-- 分页 end -->
 				</div>
 				<!-- row end -->

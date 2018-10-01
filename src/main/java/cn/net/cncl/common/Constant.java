@@ -6,7 +6,9 @@ public enum Constant {
 
 	SUCCESS("200", "成功"),
 
-	DEFEAT("404", "成功"),
+	DEFEAT("404", "错误"),
+
+	IS_HAVE("300", "已存在"),
 
 	NAME_IS_NULL("L0001", "名称不能为空"),
 
