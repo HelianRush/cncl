@@ -44,4 +44,92 @@
 		NEWS_TITEL ASC
 	</select>
 
+	<!-- 资讯编辑 新增 -->
+	<insert id="insertNews">
+		INSERT INTO T_NEWS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="newsId != null">
+				NEWS_ID,
+			</if>
+			<if test="newsTypeFk != null">
+				NEWS_TYPE_FK,
+			</if>
+			<if test="newsTitel != null">
+				NEWS_TITEL,
+			</if>
+			<if test="adminUserIdFk != null">
+				ADMIN_USER_ID_FK,
+			</if>
+			<if test="ceateTime != null">
+				CEATE_TIME,
+			</if>
+			<if test="browseCount != null">
+				BROWSE_COUNT,
+			</if>
+			<if test="newsOutline != null">
+				NEWS_OUTLINE,
+			</if>
+			<if test="newsContent != null">
+				NEWS_CONTENT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="newsId != null">
+				#{newsId},
+			</if>
+			<if test="newsTypeFk != null">
+				#{newsTypeFk},
+			</if>
+			<if test="newsTitel != null">
+				#{newsTitel},
+			</if>
+			<if test="adminUserIdFk != null">
+				#{adminUserIdFk},
+			</if>
+			<if test="ceateTime != null">
+				#{ceateTime},
+			</if>
+			<if test="browseCount != null">
+				#{browseCount},
+			</if>
+			<if test="newsOutline != null">
+				#{newsOutline},
+			</if>
+			<if test="newsContent != null">
+				#{newsContent},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 资讯编辑 修改 -->
+	<update id="updateNews">
+		UPDATE FROM T_NEWS
+		<set>
+			<if test="newsId != null">
+				NEWS_ID = #{newsId},
+			</if>
+			<if test="newsTypeFk != null">
+				NEWS_TYPE_FK = #{newsTypeFk},
+			</if>
+			<if test="newsTitel != null">
+				NEWS_TITEL = #{newsTitel},
+			</if>
+			<if test="adminUserIdFk != null">
+				ADMIN_USER_ID_FK = #{adminUserIdFk},
+			</if>
+			<if test="ceateTime != null">
+				CEATE_TIME = #{ceateTime},
+			</if>
+			<if test="browseCount != null">
+				BROWSE_COUNT = #{browseCount},
+			</if>
+			<if test="newsOutline != null">
+				NEWS_OUTLINE = #{newsOutline},
+			</if>
+			<if test="newsContent != null">
+				NEWS_CONTENT = #{newsContent},
+			</if>
+		</set>
+	</update>
+
 </mapper>

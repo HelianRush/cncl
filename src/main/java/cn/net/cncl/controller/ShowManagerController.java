@@ -1,14 +1,37 @@
 package cn.net.cncl.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import cn.net.cncl.entity.News;
+import cn.net.cncl.entity.NewsType;
+import cn.net.cncl.service.AdminUserService;
+import cn.net.cncl.service.CelebritysService;
+import cn.net.cncl.service.NewsService;
+import cn.net.cncl.service.NewsTypeService;
 
 @Controller
 public class ShowManagerController {
 
 	private static Logger logger = LoggerFactory.getLogger(ShowManagerController.class);
+
+	@Autowired
+	private AdminUserService adminUserService;
+
+	@Autowired
+	private CelebritysService celebritysService;
+
+	@Autowired
+	private NewsService newsService;
+
+	@Autowired
+	private NewsTypeService newsTypeService;
 
 	/**
 	 * @Title showIndex
@@ -120,6 +143,36 @@ public class ShowManagerController {
 	@RequestMapping(value = "/showManagerCelebritys")
 	public String showManagerCelebritys() {
 		return "manager_celebritys";
+	}
+
+	/**
+	 * @Title showNewsEdit
+	 * @author Jianfei Yu
+	 * @version 1.0.0
+	 * @parameter null
+	 * @throws null
+	 *             访问manager_news_edit.html<br>
+	 *             资讯新增&编辑
+	 */
+	@RequestMapping(value = "/showNewsEdit")
+	public String showNewsEdit(News news, Model model) {
+		List<NewsType> newsTypeList = newsTypeService.queryNewsTypeAll();
+		model.addAttribute("newsTypeList", newsTypeList);
+		return "manager_news_edit";
+	}
+
+	/**
+	 * @Title showNews
+	 * @author Jianfei Yu
+	 * @version 1.0.0
+	 * @parameter null
+	 * @throws null
+	 *             访问showNews.html<br>
+	 *             资讯
+	 */
+	@RequestMapping(value = "/showNews")
+	public String showNews() {
+		return "manager_news";
 	}
 
 }

@@ -53,13 +53,13 @@
 			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>名人库管理</span><i class="my-icon nav-more"></i></a>
 				<ul>
 					<li><a href="javascript:manager_celebritys();"><span>名人列表</span></a></li>
-					<li><a href="javascript:manager_celebritys_edit();"><span>名人库新增</span></a></li>
+					<li><a href="javascript:manager_celebritys_edit();"><span>名人库编辑 </span></a></li>
 				</ul></li>
 
 			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>资讯管理</span><i class="my-icon nav-more"></i></a>
 				<ul>
 					<li><a href="javascript:manager_news();"><span>资讯列表</span></a></li>
-					<li><a href="javascript:manager_news_edit();"><span>资讯新增</span></a></li>
+					<li><a href="javascript:manager_news_edit();"><span>资讯编辑 </span></a></li>
 					<li><a href="javascript:manager_news_tyep();"><span>资讯类别</span></a></li>
 				</ul></li>
 		</ul>
@@ -107,9 +107,9 @@
 		function manager_news() {
 			$("iframe").attr("src", "/NewsController/selectNews");
 		}
-		// 资讯新增
+		// 资讯编辑
 		function manager_news_edit() {
-			$("iframe").attr("src", "/NewsController/editNewsType");
+			$("iframe").attr("src", "/showNewsEdit");
 		}
 		// 资讯类别
 		function manager_news_tyep() {

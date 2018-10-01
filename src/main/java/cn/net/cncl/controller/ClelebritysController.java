@@ -70,26 +70,7 @@ public class ClelebritysController {
 		model.addAttribute("isLastPage", pageList.isIsLastPage());
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
-		return "/manager_celebritys";
+		return "manager_celebritys";
 	}
-
-	/**
-	 * 测试
-	 */
-	// @RequestMapping(value = "/addTest")
-	// public void addTest() {
-	// Celebritys adminUser = null;
-	// for (int i = 0; i < 30; i++) {
-	// adminUser = new Celebritys();
-	// adminUser.setCelebrityId(new Date().getTime());
-	// adminUser.setCelebrityName("测试用户" + String.valueOf(i + 10));
-	// adminUser.setAnotherName("用户" + String.valueOf(i + 10));
-	// adminUser.setForeignName("XioaMing" + String.valueOf(i + 10));
-	// adminUser.setBirthday(new Date());
-	// adminUser.setDeathday(new Date());
-	// System.out.println(adminUser);
-	// celebritysService.insertCelebritys(adminUser);
-	// }
-	// }
 
 }

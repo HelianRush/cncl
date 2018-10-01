@@ -76,4 +76,12 @@ public class NewsTypeServiceImpl implements NewsTypeService {
 		return newsTypeMapper.selectByName(newsTypeName);
 	}
 
+	/**
+	 * 查询全部
+	 */
+	@Override
+	public List<NewsType> queryNewsTypeAll() {
+		return newsTypeMapper.selectNews();
+	}
+
 }

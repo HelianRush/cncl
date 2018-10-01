@@ -1,5 +1,7 @@
 package cn.net.cncl.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.entity.NewsType;
@@ -30,5 +32,10 @@ public interface NewsTypeService {
 	 * 查询名称
 	 */
 	public int selectByName(String newsTypeName);
+
+	/**
+	 * 查询全部
+	 */
+	List<NewsType> queryNewsTypeAll();
 
 }

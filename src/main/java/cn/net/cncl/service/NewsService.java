@@ -12,6 +12,13 @@ public interface NewsService {
 	PageInfo<News> selectNews(Integer pageNum);
 
 	/**
-	 * 资讯编辑
+	 * 资讯编辑 新增
 	 */
+	int addNews(News news);
+
+	/**
+	 * 资讯编辑 修改
+	 */
+	int editNews(News news);
+
 }

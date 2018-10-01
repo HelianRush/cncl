@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.entity.News;
-import cn.net.cncl.entity.NewsType;
 import cn.net.cncl.service.NewsService;
+import cn.net.cncl.service.NewsTypeService;
 
 @Controller
 @RequestMapping("/NewsController")
@@ -23,6 +23,9 @@ public class NewsController {
 
 	@Autowired
 	private NewsService newsService;
+
+	@Autowired
+	private NewsTypeService newsTypeService;
 
 	/**
 	 * 资讯 查询
@@ -44,23 +47,53 @@ public class NewsController {
 		model.addAttribute("isLastPage", pageList.isIsLastPage());
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
-		return "/manager_news";
+		return "manager_news";
 	}
 
 	/**
 	 * 资讯新增&编辑
 	 */
-	@RequestMapping(value = "/editNewsType")
-	public String editNews(NewsType newsType) {
-		return null;
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "/editNews")
+	public String editNews(News news, Model model) {
+		Long newsId = news.getNewsId();
+		int flag = 0;
+		if (null == newsId) {
+			flag = newsService.addNews(news);
+		} else {
+			flag = newsService.editNews(news);
+		}
+
+		PageInfo<News> pageList = newsService.selectNews(1);
+		this.pageModel(model, pageList);
+		// 当前列表
+		model.addAttribute("list", pageList.getList());
+		return "manager_news";
 	}
 
 	/**
 	 * 资讯 删除
 	 */
-	@RequestMapping(value = "removeNews")
+	@RequestMapping(value = "/removeNews")
 	public String removeNews(@RequestParam long newsId) {
 		return null;
+	}
+
+	/**
+	 * 保证分页Model
+	 */
+	private Model pageModel(Model model, PageInfo pageList) {
+		// 获得当前页
+		model.addAttribute("pageNum", pageList.getPageNum());
+		// 获得一页显示的条数
+		model.addAttribute("pageSize", pageList.getPageSize());
+		// 是否是第一页
+		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
+		// 获得总页数
+		model.addAttribute("totalPages", pageList.getPages());
+		// 是否是最后一页
+		model.addAttribute("isLastPage", pageList.isIsLastPage());
+		return model;
 	}
 
 }

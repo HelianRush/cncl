@@ -1,5 +1,6 @@
 package cn.net.cncl.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,6 +35,27 @@ public class NewsServiceImpl implements NewsService {
 		List<News> list = newsMapper.selectNews();
 		PageInfo<News> pageInfo = new PageInfo<News>(list);
 		return pageInfo;
+	}
+
+	/**
+	 * 资讯编辑 新增
+	 */
+	@Override
+	public int addNews(News news) {
+		news.setNewsId(new Date().getTime());
+		// getUser
+		news.setAdminUserIdFk(10000000000000001L);
+		news.setCeateTime(new Date());
+		news.setBrowseCount(0);
+		return newsMapper.insertNews(news);
+	}
+
+	/**
+	 * 资讯编辑 修改
+	 */
+	@Override
+	public int editNews(News news) {
+		return newsMapper.updateNews(news);
 	}
 
 }

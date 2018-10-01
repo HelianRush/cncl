@@ -35,7 +35,7 @@ public class NewsTypeController {
 		model = this.pageModel(model, pageList);
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
-		return "/manager_news_type";
+		return "manager_news_type";
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class NewsTypeController {
 		model = this.pageModel(model, pageList);
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
-		return "/manager_news_type";
+		return "manager_news_type";
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class NewsTypeController {
 		model = this.pageModel(model, pageList);
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
-		return "/manager_news_type";
+		return "manager_news_type";
 	}
 
 	/**

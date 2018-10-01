@@ -79,7 +79,7 @@ public class AdminUserController {
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 
-		return "/manager_admin_users";
+		return "manager_admin_users";
 	}
 
 	@RequestMapping(value = "/selectAdminUser")
@@ -101,7 +101,7 @@ public class AdminUserController {
 		model.addAttribute("isLastPage", pageList.isIsLastPage());
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
-		return "/manager_admin_users";
+		return "manager_admin_users";
 	}
 
 	// TODO
@@ -148,31 +148,9 @@ public class AdminUserController {
 		model.addAttribute("list", pageList.getList());
 
 		if (0 < flag) {
-			return "/manager_admin_users";
+			return "manager_admin_users";
 		} else
-			return "/manager_admin_users";
+			return "manager_admin_users";
 	}
 
-	/**
-	 * 测试
-	 */
-	// private void addTest() {
-	// AdminUser adminUser = null;
-	// for (int i = 0; i < 30; i++) {
-	// adminUser = new AdminUser();
-	// adminUser.setAdminUserId(new Date().getTime());
-	// adminUser.setAdminUserName("testUser" + String.valueOf(i));
-	// adminUser.setPassword("admin" + String.valueOf(i));
-	// adminUser.setName("测试用户" + String.valueOf(i));
-	// adminUser.setNickName("用户" + String.valueOf(i));
-	// adminUser.setTelephone("18900000000");
-	// adminUser.setMobilePhone("010-8000000");
-	// adminUser.setEmail("xxx@cncl.net.cn");
-	// adminUser.setCreateTime(new Date());
-	// adminUser.setLastLoginTime(new Date());
-	// adminUser.setLastLoginIp("172.0.01");
-	// System.out.println(adminUser);
-	// adminUserService.addAdminUser(adminUser);
-	// }
-	// }
 }
