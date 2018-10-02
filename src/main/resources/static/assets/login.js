@@ -1,6 +1,6 @@
 // 获取验证码
 function getCaptcha() {
-	$("#captcha img").attr("src", "@{/getCaptcha?date=" + new Date() + "}");
+	$("#captcha img").attr("src", "/Login/getCaptcha?date=" + new Date());
 }
 
 // 看不清
@@ -40,7 +40,7 @@ $(function() {
 			var validCode = $("#validCode").val();
 			$.ajax({
 				type : "POST",
-				url : "/getCtlCaptcha",
+				url : "/Login/getCtlCaptcha",
 				data : {
 					"validCode" : validCode
 				},
@@ -63,50 +63,3 @@ $(function() {
 	}); // validCode end
 
 });
-
-// 登录
-
-// function login() {
-// var adminUserName = $("#adminUserName").val();
-// var password = $("#password").val();
-// var validCode = $("#validCode").val();
-//
-// if (null == adminUserName || "" == adminUserName) {
-// alert("名称不能为空！");
-// return;
-// }
-//
-// if (null == password || "" == password) {
-// alert("密码不能为空！");
-// return;
-// }
-//
-// if (null == validCode || "" == validCode) {
-// alert("验证码不能为空！");
-// $("#alert3 img").attr("src", "images/e.png");
-// return;
-// }
-//
-// $.ajax({
-// type : "POST",
-// url : "/adminLogion",
-// data : {
-// "adminUserName" : adminUserName,
-// "password" : password,
-// "validCode" : validCode
-// },
-// dataType : "json",
-// async : false,
-// cache : false,
-// success : function(data) {
-// if (data.status == "200") {
-// window.location.href = "/manager_index.html";
-// } else {
-// alert(data);
-// getCaptcha();
-// return false;
-// }
-// }
-// });
-// }
-

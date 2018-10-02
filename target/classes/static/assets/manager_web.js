@@ -1,7 +1,7 @@
 $(function() {
 	$.ajax({
 		type : "POST",
-		url : "/adminLogion",
+		url : "/Login/adminLogion",
 		data : {
 			"adminUserName" : adminUserName,
 			"password" : password,

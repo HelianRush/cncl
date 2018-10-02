@@ -21,7 +21,7 @@ import cn.net.cncl.service.AdminUserService;
 import cn.net.cncl.service.CelebritysService;
 
 @Controller
-@RequestMapping("/ClelebritysController")
+@RequestMapping("/ClelebritysCtl")
 public class ClelebritysController {
 
 	private static Logger logger = LoggerFactory.getLogger(ClelebritysController.class);

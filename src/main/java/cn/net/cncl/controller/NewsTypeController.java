@@ -19,7 +19,7 @@ import cn.net.cncl.entity.NewsType;
 import cn.net.cncl.service.NewsTypeService;
 
 @Controller
-@RequestMapping(value = "/newsTypeController")
+@RequestMapping(value = "/NewsTypeCtl")
 public class NewsTypeController {
 
 	private static Logger logger = LoggerFactory.getLogger(NewsTypeController.class);

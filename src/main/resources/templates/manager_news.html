@@ -87,13 +87,13 @@
 					<!-- 分页 -->
 					<nav aria-label="...">
 						<ul class="pager">
-							<li><a th:if="${not isFirstPage}" th:href="@{${'/NewsController/selectNews'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
+							<li><a th:if="${not isFirstPage}" th:href="@{${'/NewsCtl/selectNews'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
 
 							<li th:each="pageNo: ${#numbers.sequence(1, totalPages)}"><a th:if="${pageNum eq pageNo}" href="javascript:void(0);"> <span th:text="${pageNum}"></span>
-							</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/NewsController/selectNews'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
+							</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/NewsCtl/selectNews'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
 							</a></li>
 
-							<li><a th:if="${not isLastPage}" th:href="@{${'/NewsController/selectNews'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
+							<li><a th:if="${not isLastPage}" th:href="@{${'/NewsCtl/selectNews'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
 						</ul>
 					</nav>
 					<!-- 分页 end -->
@@ -114,7 +114,7 @@
 		function doRemove(object) {
 			var id = $(object).attr("id");
 			if (confirm("是确认删除" + id + "资源？")) {
-				$.post("/NewsController/deleteNews", {
+				$.post("/NewsCtl/deleteNews", {
 					"id" : id
 				}, function(data) {
 					if ("200" == data) {

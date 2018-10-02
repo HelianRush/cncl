@@ -24,12 +24,17 @@ import cn.net.cncl.common.Captcha;
 import cn.net.cncl.common.Constant;
 import cn.net.cncl.common.SessionUser;
 import cn.net.cncl.entity.AdminUser;
+import cn.net.cncl.service.AdminUserService;
+import cn.net.cncl.service.CelebritysService;
 import cn.net.cncl.service.LoginService;
+import cn.net.cncl.service.NewsService;
+import cn.net.cncl.service.NewsTypeService;
 
 /**
  * 登录
  */
 @Controller
+@RequestMapping(value = "/Login")
 public class LoginController {
 
 	private static Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -37,6 +42,32 @@ public class LoginController {
 
 	@Autowired
 	public LoginService loginService;
+
+	@Autowired
+	private AdminUserService adminUserService;
+
+	@Autowired
+	private CelebritysService celebritysService;
+
+	@Autowired
+	private NewsService newsService;
+
+	@Autowired
+	private NewsTypeService newsTypeService;
+
+	/**
+	 * @Title showLogin
+	 * @author Jianfei Yu
+	 * @version 1.0.0
+	 * @parameter null
+	 * @throws null
+	 *             访问login.html<br>
+	 *             登录
+	 */
+	@RequestMapping(value = "/login")
+	public String showLogin() {
+		return "login";
+	}
 
 	/**
 	 * 获取验证码

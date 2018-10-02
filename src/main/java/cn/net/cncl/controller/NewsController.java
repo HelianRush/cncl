@@ -21,7 +21,7 @@ import cn.net.cncl.service.NewsService;
 import cn.net.cncl.service.NewsTypeService;
 
 @Controller
-@RequestMapping("/NewsController")
+@RequestMapping("/NewsCtl")
 public class NewsController {
 	private static Logger logger = LoggerFactory.getLogger(NewsController.class);
 

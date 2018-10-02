@@ -26,7 +26,7 @@
 	$(function() {
 		$.ajax({
 			type : "POST",
-			url : "/ClelebritysController/showCelebritysList",
+			url : "/ClelebritysCtl/showCelebritysList",
 			dataType : "json",
 			async : false,
 			cache : false,
@@ -117,13 +117,13 @@
 					<!-- 分页 -->
 					<nav aria-label="...">
 						<ul class="pager">
-							<li><a th:if="${not isFirstPage}" th:href="@{${'/ClelebritysController/showCelebritysList'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
+							<li><a th:if="${not isFirstPage}" th:href="@{${'/ClelebritysCtl/showCelebritysList'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
 
 							<li th:each="pageNo: ${#numbers.sequence(1, totalPages)}"><a th:if="${pageNum eq pageNo}" href="javascript:void(0);"> <span th:text="${pageNum}"></span>
-							</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/ClelebritysController/showCelebritysList'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
+							</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/ClelebritysCtl/showCelebritysList'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
 							</a></li>
 
-							<li><a th:if="${not isLastPage}" th:href="@{${'/ClelebritysController/showCelebritysList'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
+							<li><a th:if="${not isLastPage}" th:href="@{${'/ClelebritysCtl/showCelebritysList'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
 						</ul>
 					</nav>
 					<!-- 分页 end -->
@@ -143,7 +143,7 @@
 		function doRemove(object) {
 			var id = $(object).attr("id");
 			if (confirm("是确认删除" + id + "资源？")) {
-				$.post("/ClelebritysController/deleteCelebritys", {
+				$.post("/ClelebritysCtl/deleteCelebritys", {
 					"id" : id
 				}, function(data) {
 					if ("200" == data) {

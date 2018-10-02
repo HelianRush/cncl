@@ -25,7 +25,7 @@ function checkCode() {
 
 		$.ajax({
 			type : "POST",
-			url : "/newsTypeController/checkCode",
+			url : "/NewsTypeCtl/checkCode",
 			data : {
 				"code" : code
 			},
@@ -42,7 +42,7 @@ function checkCode() {
 		});
 	});
 
-};
+}
 
 // 验证名称唯一性
 function checkName() {
@@ -61,7 +61,7 @@ function checkName() {
 
 		$.ajax({
 			type : "POST",
-			url : "/newsTypeController/checkName",
+			url : "/NewsTypeCtl/checkName",
 			data : {
 				"name" : name
 			},
@@ -77,12 +77,24 @@ function checkName() {
 			}
 		});
 	});
-};
+}
 
 // 修改
 function editNewsType() {
-};
+}
 
 // 删除
-function removeNewsType() {
-};
+function doRemove(object) {
+	var id = $(object).attr("id");
+	if (confirm("是确认删除" + id + "资源？")) {
+		$.post("/NewsTypeCtl/removeNewsType", {
+			"id" : id
+		}, function(data) {
+			if ("200" == data) {
+				window.location.reload();
+			} else {
+				alert("删除失败！");
+			}
+		});
+	}
+}

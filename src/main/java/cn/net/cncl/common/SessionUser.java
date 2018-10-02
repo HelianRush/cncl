@@ -13,6 +13,7 @@ public class SessionUser {
 	 */
 	public static boolean getUserStatus(HttpServletRequest request) {
 		Long adminUserId = (Long) request.getSession().getAttribute(Constant.ADMIN_USER_ID_KEY);
+		System.out.println("[登录用户] cn.net.cncl.common.SessionUser.getUserStatus() = " + adminUserId);
 		if (null != adminUserId)
 			return true;
 		else
@@ -35,6 +36,7 @@ public class SessionUser {
 		request.getSession().setAttribute("name", adminUser.getName());
 		request.getSession().setAttribute("nickName", adminUser.getNickName());
 		request.getSession().setAttribute(Constant.ADMIN_USER_KEY, adminUser);
+		System.out.println("[创建Session] cn.net.cncl.common.SessionUser.setAdminUser() = " + adminUser);
 	}
 
 	/**
@@ -42,6 +44,7 @@ public class SessionUser {
 	 */
 	public static void clear(HttpServletRequest request) {
 		request.getSession().invalidate();
+		System.out.println("[清空Session] cn.net.cncl.common.SessionUser.clear() = " + "清空");
 	}
 
 	public static void main(String[] args) {

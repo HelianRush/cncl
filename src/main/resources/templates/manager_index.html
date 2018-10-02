@@ -119,11 +119,11 @@
 
 		// 网站管理
 		function manager_web() {
-			$("iframe").attr("src", "/showManagerWeb");
+			$("iframe").attr("src", "/ManagerCtl/updateWebInfo");
 		}
 		// 站点设置
 		function manager_web_edit() {
-			$("iframe").attr("src", "/showManagerWebEdit");
+			$("iframe").attr("src", "/ManagerCtl/showManagerWebEdit");
 		}
 		// 导航设置
 		function manager_menus() {
@@ -132,44 +132,43 @@
 		}
 		// 管理员信息
 		function manager_admin_users() {
-			$("iframe").attr("src", "/AdminUserController/selectAdminUser");
-		}
-		// 新增名人库
-		function manager_celebritys_edit() {
-			$("iframe").attr("src", "/showManagerCelebritysEdit");
+			$("iframe").attr("src", "/AdminCtl/selectAdminUser");
 		}
 		// 名人列表
 		function manager_celebritys() {
-			$("iframe")
-					.attr("src", "/ClelebritysController/showCelebritysList");
+			$("iframe").attr("src", "/ClelebritysCtl/showCelebritysList");
+		}
+		// 名人库
+		function manager_celebritys_edit() {
+			$("iframe").attr("src", "/ManagerCtl/showManagerCelebritysEdit");
 		}
 		// 资讯列表
 		function manager_news() {
-			$("iframe").attr("src", "/NewsController/selectNews");
+			$("iframe").attr("src", "/NewsCtl/selectNews");
 		}
 		// 资讯编辑
 		function manager_news_edit() {
-			$("iframe").attr("src", "/showNewsEdit");
+			$("iframe").attr("src", "/ManagerCtl/showNewsEdit");
 		}
 		// 资讯类别
 		function manager_news_tyep() {
-			$("iframe").attr("src", "/newsTypeController/queryNewsType");
+			$("iframe").attr("src", "/NewsTypeCtl/queryNewsType");
 		}
 		// 编辑专题
 		function manager_special_topic_edit() {
-			$("iframe").attr("src", "/showManagerSpecialTopicEdit");
+			$("iframe").attr("src", "/ManagerCtl/showManagerSpecialTopicEdit");
 		}
 		// 编辑入驻
 		function manager_enter_edit() {
-			$("iframe").attr("src", "/showManagerEnterEdit");
+			$("iframe").attr("src", "/ManagerCtl/showManagerEnterEdit");
 		}
 		// 图片管理
 		function manager_images() {
-			$("iframe").attr("src", "/showManagerImages");
+			$("iframe").attr("src", "/ManagerCtl/showManagerImages");
 		}
 		// 视频管理
 		function manager_videos() {
-			$("iframe").attr("src", "/showManagerVides");
+			$("iframe").attr("src", "/ManagerCtl/showManagerVides");
 		}
 	</script>
 
@@ -178,7 +177,7 @@
 	<script>
 		window.jQuery
 				|| document
-						.write('<script src="manager_page/js/jquery-1.11.0.min.js"><\/script>')
+						.write('<script th:src="@{/manager_page/js/jquery-1.11.0.min.js}"><\/script>')
 	</script>
 	<script type="text/javascript" th:src="@{/manager_page/js/nav.js}"></script>
 	<!-- 引用 -->

@@ -20,7 +20,7 @@ import cn.net.cncl.entity.AdminUser;
 import cn.net.cncl.service.AdminUserService;
 
 @Controller
-@RequestMapping("/AdminUserController")
+@RequestMapping("/AdminCtl")
 public class AdminUserController {
 
 	private static Logger logger = LoggerFactory.getLogger(AdminUserController.class);

@@ -30,7 +30,7 @@
 		<span><h3>管理员登录</h3></span>
 	</div>
 
-	<form th:action="@{adminLogion}" class="form-horizontal" method="post">
+	<form th:action="@{/Login/adminLogion}" class="form-horizontal" method="post">
 
 		<div class="form-group">
 			<label for="adminUserName" class="col-sm-2 control-label">名称</label>
@@ -58,7 +58,7 @@
 				<input type="text" class="form-control" id="validCode" placeholder="验证码...">
 			</div>
 			<div id="captcha" class="col-sm-3">
-				<img alt="验证码" width="50px" height="25px" th:src="@{/getCaptcha}" /> <a id="falsh" href="">看不清</a>
+				<img alt="验证码" width="50px" height="25px" th:src="@{/Login/getCaptcha}" /> <a id="falsh" href="">看不清</a>
 			</div>
 			<div id="alert3" class="col-sm-2">
 				<img alt="提示信息" th:src="@{/images/w.png}" width="25px" height="25px" />
