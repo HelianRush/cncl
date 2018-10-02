@@ -132,4 +132,9 @@
 		</set>
 	</update>
 
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_NEWS
+		where NEWS_ID = #{newsId,jdbcType=BIGINT}
+	</delete>
+
 </mapper>

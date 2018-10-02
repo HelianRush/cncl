@@ -25,4 +25,9 @@ public interface CelebritysService {
 	 */
 	public PageInfo<Celebritys> showCelebritysList(int pageNum);
 
+	/**
+	 * 删除
+	 */
+	public int deleteCelebritys(Long id);
+
 }

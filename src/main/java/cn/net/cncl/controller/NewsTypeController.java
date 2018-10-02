@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -83,17 +84,16 @@ public class NewsTypeController {
 	/**
 	 * 资讯类别 删除
 	 */
-	@RequestMapping(value = "/removeNewsType")
-	public String removeNewsType(Model model, @RequestParam Long newsTypeId) {
+	@ResponseBody
+	@PostMapping(value = "/removeNewsType")
+	public String removeNewsType(Model model, @RequestParam Long id) {
 
-		int flag = newsTypeService.deleteNewsType(newsTypeId);
-
-		Integer pageNum = 1;
-		PageInfo<NewsType> pageList = newsTypeService.selectNewsType(pageNum);
-		model = this.pageModel(model, pageList);
-		// 当前列表
-		model.addAttribute("list", pageList.getList());
-		return "manager_news_type";
+		int flag = newsTypeService.deleteNewsType(id);
+		if (0 < flag) {
+			return Constant.SUCCESS.getCode();
+		} else {
+			return Constant.DEFEAT.getCode();
+		}
 	}
 
 	/**

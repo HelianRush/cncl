@@ -41,4 +41,9 @@ public interface AdminUserService {
 	 */
 	String checkAdminUserName(String adminUserName);
 
+	/**
+	 * 删除
+	 */
+	int deleteAdminUser(Long id);
+
 }

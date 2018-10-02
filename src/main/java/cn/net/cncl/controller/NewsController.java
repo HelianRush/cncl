@@ -7,11 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 
+import cn.net.cncl.common.Constant;
 import cn.net.cncl.common.SessionUser;
 import cn.net.cncl.entity.News;
 import cn.net.cncl.service.NewsService;
@@ -76,9 +79,15 @@ public class NewsController {
 	/**
 	 * 资讯 删除
 	 */
-	@RequestMapping(value = "/removeNews")
-	public String removeNews(@RequestParam long newsId) {
-		return null;
+	@ResponseBody
+	@PostMapping(value = "/deleteNews")
+	public String deleteNews(@RequestParam long id) {
+		int flag = newsService.deleteNews(id);
+		if (0 < flag) {
+			return Constant.SUCCESS.getCode();
+		} else {
+			return Constant.DEFEAT.getCode();
+		}
 	}
 
 	/**

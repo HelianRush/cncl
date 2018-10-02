@@ -18,4 +18,13 @@ public interface CelebritysMapper {
 	 */
 	List<Celebritys> queryCelebritys();
 
+	/**
+	 * 修改
+	 */
+
+	/**
+	 * 删除
+	 */
+	int deleteByPrimaryKey(Long celebrityId);
+
 }

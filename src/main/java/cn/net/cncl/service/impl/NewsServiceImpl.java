@@ -58,4 +58,12 @@ public class NewsServiceImpl implements NewsService {
 		return newsMapper.updateNews(news);
 	}
 
+	/**
+	 * 资讯编辑 删除
+	 */
+	@Override
+	public int deleteNews(Long newsId) {
+		return newsMapper.deleteByPrimaryKey(newsId);
+	}
+
 }

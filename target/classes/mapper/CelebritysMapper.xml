@@ -140,4 +140,9 @@
 		)
 	</insert>
 
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from T_CELEBRITYS
+		where CELEBRITY_ID = #{celebrityId,jdbcType=BIGINT}
+	</delete>
+
 </mapper>

@@ -18,56 +18,13 @@
 <link rel="stylesheet" th:href="@{/assets/manager.css}" />
 <!--  
 <script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
+
+<link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" th:href="@{/pop_up_windows/css/htmleaf-demo.css}">
+<link rel="stylesheet" type="text/css" href="@{/pop_up_windows/css/jquery.alertable.css}">
 -->
+
 <title>管理员信息管理</title>
-
-<script type="text/javascript">
-	$(function() {
-
-		$("#adminUserName").val("");
-		$("#password").val("");
-
-		// 验证
-		checkName();
-
-		//删除
-		// deleteAdmin();
-
-	});
-
-	// 新增管理员 登录名验证
-	function checkName() {
-		$("#adminUserName").blur(function() {
-			adminUserName = $("#adminUserName").val();
-			$.ajax({
-				type : "POST",
-				url : "/AdminUserController/checkAdminUserName",
-				data : {
-					"adminUserName" : adminUserName
-				},//data end
-				dataType : "text",
-				success : function(data) {
-					if ("A0001" == data) {
-						$("#alertAdmin").text("已存在");
-						$("#adminUserName").val("");
-						$("#password").val("");
-					} else {
-						$("#alertAdmin").text("");
-					}
-				}//success end
-			});
-		});
-	}
-
-	// 修改
-	function editAdmin() {
-	}
-
-	// 删除
-	function deleteAdmin() {
-
-	}
-</script>
 
 </head>
 
@@ -240,7 +197,7 @@
 								<td th:text="${#dates.format(data.lastLoginTime,'yyyy-MM-dd')}"></td>
 								<td th:text="${data.lastLoginIp}"></td>
 								<td>
-									<!-- <a href="">详情</a> |  --> <a id="deleteId" href="javascript:editAdmin()">修改</a> | <a id="deleteId" href="javascript:deleteAdmin()">删除</a>
+									<!-- <a href="">详情</a> |  --> <a href="">修改</a> | <a id="remove" th:id="${data.adminUserId}" th:onclick="'doRemove(this)'">删除</a>
 								</td>
 							</tr>
 						</tbody>
@@ -273,5 +230,56 @@
 			<!-- right end -->
 		</div>
 		<!-- row end -->
+
+		<script type="text/javascript">
+			$(function() {
+				$("#adminUserName").val("");
+				$("#password").val("");
+				// 验证
+				checkName();
+				//删除
+				// deleteAdmin();
+			});
+
+			// 新增管理员 登录名验证
+			function checkName() {
+				$("#adminUserName").blur(function() {
+					adminUserName = $("#adminUserName").val();
+					$.ajax({
+						type : "POST",
+						url : "/AdminUserController/checkAdminUserName",
+						data : {
+							"adminUserName" : adminUserName
+						},//data end
+						dataType : "text",
+						success : function(data) {
+							if ("A0001" == data) {
+								$("#alertAdmin").text("已存在");
+								$("#adminUserName").val("");
+								$("#password").val("");
+							} else {
+								$("#alertAdmin").text("");
+							}
+						}//success end
+					});
+				});
+			}
+
+			// 删除
+			function doRemove(object) {
+				var id = $(object).attr("id");
+				if (confirm("是确认删除" + id + "用户？")) {
+					$.post("/AdminUserController/deleteAdminUser", {
+						"id" : id
+					}, function(data) {
+						if ("200" == data) {
+							window.location.reload();
+						} else {
+							alert("删除失败！");
+						}
+					});
+				}
+			}
+		</script>
 </body>
 </html>

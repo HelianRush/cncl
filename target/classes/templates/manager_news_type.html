@@ -121,7 +121,7 @@
 							<td th:text="${data.newsTypeCode}"></td>
 							<td th:text="${data.newsTypeName}"></td>
 							<td>
-								<!-- <a href="">详情</a> |  --> <a id="deleteId" href="javascript:editAdmin()">修改</a> | <a id="deleteId" href="javascript:deleteAdmin()">删除</a>
+								<!-- <a href="">详情</a> |  --> <a href="">修改</a> | <a id="remove" th:id="${data.newsTypeId}" th:onclick="'doRemove(this)'">删除</a>
 							</td>
 						</tr>
 					</tbody>
@@ -150,8 +150,26 @@
 		</div>
 		-->
 		<!-- right end -->
-
 	</div>
 	<!-- row end -->
+
+	<!-- Javascript -->
+	<script type="text/javascript">
+		// 删除
+		function doRemove(object) {
+			var id = $(object).attr("id");
+			if (confirm("是确认删除" + id + "资源？")) {
+				$.post("/newsTypeController/removeNewsType", {
+					"id" : id
+				}, function(data) {
+					if ("200" == data) {
+						window.location.reload();
+					} else {
+						alert("删除失败！");
+					}
+				});
+			}
+		}
+	</script>
 </body>
 </html>

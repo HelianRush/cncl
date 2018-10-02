@@ -108,4 +108,12 @@ public class AdminUserServiceImpl implements AdminUserService {
 		}
 	}
 
+	/**
+	 * 删除
+	 */
+	@Override
+	public int deleteAdminUser(Long id) {
+		return adminUserMapper.deleteByPrimaryKey(id);
+	}
+
 }

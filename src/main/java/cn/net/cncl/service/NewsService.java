@@ -21,4 +21,9 @@ public interface NewsService {
 	 */
 	int editNews(News news);
 
+	/**
+	 * 资讯编辑 删除
+	 */
+	int deleteNews(Long newsId);
+
 }

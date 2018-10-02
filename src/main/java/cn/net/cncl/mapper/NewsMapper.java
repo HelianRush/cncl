@@ -22,4 +22,9 @@ public interface NewsMapper {
 	 * 资讯编辑 修改
 	 */
 	int updateNews(News news);
+
+	/**
+	 * 资讯编辑 修改
+	 */
+	int deleteByPrimaryKey(Long newsId);
 }
