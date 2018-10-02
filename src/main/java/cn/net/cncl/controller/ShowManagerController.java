@@ -200,4 +200,36 @@ public class ShowManagerController {
 	public String showNews(HttpServletRequest request) {
 		return "manager_news";
 	}
+
+	/**
+	 * 编辑专题
+	 */
+	@RequestMapping(value = "/showManagerSpecialTopicEdit")
+	public String showManagerSpecialTopicEdit() {
+		return "201";
+	}
+
+	/**
+	 * 编辑入驻
+	 */
+	@RequestMapping(value = "/showManagerEnterEdit")
+	public String showManagerEnterEdit() {
+		return "201";
+	}
+
+	/**
+	 * 图片管理
+	 */
+	@RequestMapping(value = "/showManagerImages")
+	public String showManagerImages() {
+		return "201";
+	}
+
+	/**
+	 * 视频管理
+	 */
+	@RequestMapping(value = "/showManagerVides")
+	public String showManagerVides() {
+		return "201";
+	}
 }

@@ -63,10 +63,20 @@
 					<li><a href="javascript:manager_news_tyep();"><span>资讯类别</span></a></li>
 				</ul></li>
 
+			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>专题管理</span><i class="my-icon nav-more"></i></a>
+				<ul>
+					<li><a href="javascript:manager_special_topic_edit();"><span>编辑专题</span></a></li>
+				</ul></li>
+
+			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>入驻管理</span><i class="my-icon nav-more"></i></a>
+				<ul>
+					<li><a href="javascript:manager_enter_edit();"><span>编辑入驻</span></a></li>
+				</ul></li>
+
 			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>资源管理</span><i class="my-icon nav-more"></i></a>
 				<ul>
-					<li><a href=""><span>图片管理</span></a></li>
-					<li><a href=""><span>视频管理</span></a></li>
+					<li><a href="javascript:manager_images();"><span>图片管理</span></a></li>
+					<li><a href="javascript:manager_videos();"><span>视频管理</span></a></li>
 				</ul></li>
 		</ul>
 	</div>
@@ -144,6 +154,22 @@
 		// 资讯类别
 		function manager_news_tyep() {
 			$("iframe").attr("src", "/newsTypeController/queryNewsType");
+		}
+		// 编辑专题
+		function manager_special_topic_edit() {
+			$("iframe").attr("src", "/showManagerSpecialTopicEdit");
+		}
+		// 编辑入驻
+		function manager_enter_edit() {
+			$("iframe").attr("src", "/showManagerEnterEdit");
+		}
+		// 图片管理
+		function manager_images() {
+			$("iframe").attr("src", "/showManagerImages");
+		}
+		// 视频管理
+		function manager_videos() {
+			$("iframe").attr("src", "/showManagerVides");
 		}
 	</script>
 

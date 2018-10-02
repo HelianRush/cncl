@@ -14,7 +14,7 @@ public class Application extends WebMvcConfigurerAdapter { //
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new ErrorInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(new ErrorInterceptor()).addPathPatterns("/**").excludePathPatterns("/login");
 		super.addInterceptors(registry);
 	}
 

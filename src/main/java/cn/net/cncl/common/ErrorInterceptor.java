@@ -19,15 +19,15 @@ public class ErrorInterceptor implements HandlerInterceptor {
 			modelAndView.setViewName("/500");
 		} else if (response.getStatus() == 404) {
 			modelAndView.setViewName("/404");
-		} else if (SessionUser.getUserStatus(request)) {
-			modelAndView.setViewName("/300");
 		}
+
+		// if (SessionUser.getUserStatus(request)) {
+		// modelAndView.setViewName("/300");
+		// }
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 }
