@@ -68,5 +68,6 @@ public enum Constant {
 	public static final String PAGE_PLUS = "+page";
 	public static final String PAGE_SUBTRACT = "-page";
 	public static final String PAGE_NOW = "page";
-
+	public static final String ADMIN_USER_ID_KEY = "fc1b41257caae21b";
+	public static final String ADMIN_USER_KEY = "c744bd39b5126deb";
 }

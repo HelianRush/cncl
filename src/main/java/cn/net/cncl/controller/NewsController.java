@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
 
+import cn.net.cncl.common.SessionUser;
 import cn.net.cncl.entity.News;
 import cn.net.cncl.service.NewsService;
 import cn.net.cncl.service.NewsTypeService;
@@ -55,10 +56,11 @@ public class NewsController {
 	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/editNews")
-	public String editNews(News news, Model model) {
+	public String editNews(HttpServletRequest request, News news, Model model) {
 		Long newsId = news.getNewsId();
 		int flag = 0;
 		if (null == newsId) {
+			news.setAdminUserIdFk(SessionUser.getUser(request).getAdminUserId());
 			flag = newsService.addNews(news);
 		} else {
 			flag = newsService.editNews(news);

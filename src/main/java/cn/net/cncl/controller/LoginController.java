@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.net.cncl.common.Captcha;
 import cn.net.cncl.common.Constant;
+import cn.net.cncl.common.SessionUser;
 import cn.net.cncl.entity.AdminUser;
 import cn.net.cncl.service.LoginService;
 
@@ -72,17 +74,36 @@ public class LoginController {
 	 * 登录
 	 */
 	@PostMapping("/adminLogion")
-	public String login(AdminUser adminUser) {
+	public String login(HttpServletRequest request, AdminUser adminUser) {
+
 		String adminUserName = adminUser.getAdminUserName();
 		String password = adminUser.getAdminUserName();
 
 		// 校验用户名和密码
-		String flag = loginService.verificationLogin(adminUserName, password);
+		adminUser = loginService.verificationLogin(adminUserName, password);
 
-		if (flag.equals(Constant.SUCCESS.getCode()))
+		String flag = "";
+		if (null != adminUser.getAdminUserId())
+			flag = Constant.SUCCESS.getCode();
+
+		if (flag.equals(Constant.SUCCESS.getCode())) {
+			// 添加Session
+			SessionUser.setAdminUser(request, adminUser);
 			return "manager_index";
-		else
+		} else
 			return "login";
+	}
+
+	/**
+	 * 退出
+	 * 
+	 * 清空Session
+	 */
+	@ResponseBody
+	@PostMapping("/clearSession")
+	public String clearSession(HttpServletRequest request, Model model) {
+		SessionUser.clear(request);
+		return Constant.SUCCESS.getCode();
 	}
 
 }

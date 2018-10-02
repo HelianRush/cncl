@@ -69,6 +69,18 @@
 	<div class="htmleaf-container">
 		<header class="htmleaf-header">
 			<h1>中国华人库管理系统</h1>
+
+			<br>
+
+			<div class="row">
+				<div class="col-lg-11">
+					<img alt="user.png" th:src="@{/images/user.png}" width="25px" height="25px"> <label>ID：</label><span th:text="${session.fc1b41257caae21b}"></span> <label>用户：</label><span th:text="${session.user}"></span> <label>名称：</label><span th:text="${session.name}"></span> <label>昵称：</label><span th:text="${session.nickName}"></span>
+				</div>
+				<div class="col-lg-1">
+					<a href="javascript:exit();"><span>退出</span></a>
+				</div>
+			</div>
+
 		</header>
 		<div class="related">
 			<iframe src="" frameBorder="0" height="800px" width="100%" scrolling="auto"></iframe>
@@ -76,7 +88,19 @@
 	</div>
 	<!-- htmleaf-container end -->
 
-	<script type="text/javascript">
+	<script type="text/javascript" language="javascript">
+		// 退出
+
+		function exit() {
+			// 清除session
+			$.post("/clearSession",{},function(data){
+				if("200"==data){
+					alert("清除session");
+					// window.location.replace("https://www.baidu.com/");
+				}
+			});
+		}
+
 		// 网站管理
 		function manager_web() {
 			$("iframe").attr("src", "/showManagerWeb");

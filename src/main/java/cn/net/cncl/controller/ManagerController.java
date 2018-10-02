@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.net.cncl.entity.WebInfo;
+import cn.net.cncl.service.AdminUserService;
 import cn.net.cncl.service.CelebritysService;
 import cn.net.cncl.service.LoginService;
 import cn.net.cncl.service.ManagerService;
@@ -26,6 +27,9 @@ public class ManagerController {
 
 	@Autowired
 	private LoginService loginService;
+
+	@Autowired
+	private AdminUserService adminUserService;
 
 	@Autowired
 	private ManagerService managerService;
@@ -46,8 +50,6 @@ public class ManagerController {
 	 * 查询 网站信息
 	 */
 	@ResponseBody
-	// @GetMapping(value = "/getWebInfoObject")
-	// @PostMapping(value = "/getWebInfoObject")
 	@RequestMapping(value = "/getWebInfoObject")
 	public WebInfo getWebInfoObject(HttpServletRequest request) {
 		return managerService.getWebInfoObject();

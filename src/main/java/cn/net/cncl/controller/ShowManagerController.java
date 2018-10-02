@@ -2,6 +2,8 @@ package cn.net.cncl.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.net.cncl.common.Constant;
+import cn.net.cncl.common.SessionUser;
 import cn.net.cncl.entity.News;
 import cn.net.cncl.entity.NewsType;
 import cn.net.cncl.service.AdminUserService;
@@ -62,6 +66,30 @@ public class ShowManagerController {
 	}
 
 	/**
+	 * Error Page
+	 */
+	@RequestMapping(value = "/404")
+	public String show404() {
+		return "404";
+	}
+
+	/**
+	 * Error Page
+	 */
+	@RequestMapping(value = "/500")
+	public String show500() {
+		return "500";
+	}
+
+	/**
+	 * Error Page
+	 */
+	@RequestMapping(value = "/300")
+	public String show300() {
+		return "300";
+	}
+
+	/**
 	 * @Title showManagerWeb
 	 * @author Jianfei Yu
 	 * @version 1.0.0
@@ -71,8 +99,12 @@ public class ShowManagerController {
 	 *             网站信息
 	 */
 	@RequestMapping(value = "/showManagerWeb")
-	public String showManagerWeb() {
-		return "manager_web";
+	public String showManagerWeb(HttpServletRequest request) {
+		String flag = this.getLogin(request);
+		if (flag.equals(Constant.SUCCESS.getCode()))
+			return "manager_web";
+		else
+			return flag;
 	}
 
 	/**
@@ -85,8 +117,12 @@ public class ShowManagerController {
 	 *             网站信息编辑
 	 */
 	@RequestMapping(value = "/showManagerWebEdit")
-	public String showManagerWebEdit() {
-		return "manager_web_edit";
+	public String showManagerWebEdit(HttpServletRequest request) {
+		String flag = this.getLogin(request);
+		if (flag.equals(Constant.SUCCESS.getCode()))
+			return "manager_web_edit";
+		else
+			return flag;
 	}
 
 	/**
@@ -99,7 +135,7 @@ public class ShowManagerController {
 	 *             导航
 	 */
 	@RequestMapping(value = "/showManagerMenus")
-	public String showManagerMenus() {
+	public String showManagerMenus(HttpServletRequest request) {
 		return "manager_menus";
 	}
 
@@ -113,8 +149,12 @@ public class ShowManagerController {
 	 *             管理员信息
 	 */
 	@RequestMapping(value = "/showManagerAdminUsers")
-	public String showManagerAdminUsers() {
-		return "manager_admin_users";
+	public String showManagerAdminUsers(HttpServletRequest request) {
+		String flag = this.getLogin(request);
+		if (flag.equals(Constant.SUCCESS.getCode()))
+			return "manager_admin_users";
+		else
+			return flag;
 	}
 
 	/**
@@ -127,8 +167,12 @@ public class ShowManagerController {
 	 *             名人库编辑
 	 */
 	@RequestMapping(value = "/showManagerCelebritysEdit")
-	public String showManagerCelebritysEdit() {
-		return "manager_celebritys_edit";
+	public String showManagerCelebritysEdit(HttpServletRequest request) {
+		String flag = this.getLogin(request);
+		if (flag.equals(Constant.SUCCESS.getCode()))
+			return "manager_celebritys_edit";
+		else
+			return flag;
 	}
 
 	/**
@@ -141,8 +185,12 @@ public class ShowManagerController {
 	 *             名人库展示
 	 */
 	@RequestMapping(value = "/showManagerCelebritys")
-	public String showManagerCelebritys() {
-		return "manager_celebritys";
+	public String showManagerCelebritys(HttpServletRequest request) {
+		String flag = this.getLogin(request);
+		if (flag.equals(Constant.SUCCESS.getCode()))
+			return "manager_celebritys";
+		else
+			return flag;
 	}
 
 	/**
@@ -155,10 +203,14 @@ public class ShowManagerController {
 	 *             资讯新增&编辑
 	 */
 	@RequestMapping(value = "/showNewsEdit")
-	public String showNewsEdit(News news, Model model) {
-		List<NewsType> newsTypeList = newsTypeService.queryNewsTypeAll();
-		model.addAttribute("newsTypeList", newsTypeList);
-		return "manager_news_edit";
+	public String showNewsEdit(HttpServletRequest request, News news, Model model) {
+		String flag = this.getLogin(request);
+		if (flag.equals(Constant.SUCCESS.getCode())) {
+			List<NewsType> newsTypeList = newsTypeService.queryNewsTypeAll();
+			model.addAttribute("newsTypeList", newsTypeList);
+			return "manager_news_edit";
+		} else
+			return flag;
 	}
 
 	/**
@@ -171,8 +223,23 @@ public class ShowManagerController {
 	 *             资讯
 	 */
 	@RequestMapping(value = "/showNews")
-	public String showNews() {
-		return "manager_news";
+	public String showNews(HttpServletRequest request) {
+		String flag = this.getLogin(request);
+		if (flag.equals(Constant.SUCCESS.getCode()))
+			return "manager_news";
+		else
+			return flag;
 	}
 
+	/**
+	 * 判断是否登录
+	 */
+	private String getLogin(HttpServletRequest request) {
+		boolean flag = SessionUser.getUserStatus(request);
+		if (flag) {
+			return Constant.SUCCESS.getCode();
+		} else {
+			return "300";
+		}
+	}
 }

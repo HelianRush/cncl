@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cn.net.cncl.common.Constant;
 import cn.net.cncl.entity.AdminUser;
 import cn.net.cncl.mapper.AdminUserMapper;
 import cn.net.cncl.service.LoginService;
@@ -40,24 +39,9 @@ public class LoginServiceImpl implements LoginService {
 	 * 登录查询
 	 */
 	@Override
-	public String verificationLogin(String adminUserName, String password) {
-
-		int user = adminUserMapper.selectByNameHave(adminUserName);
+	public AdminUser verificationLogin(String adminUserName, String password) {
 		AdminUser adminUser = adminUserMapper.checkAdminUserLogin(adminUserName, password);
-
-		if (1 != user) {
-			return Constant.NAME_ERROR.getMessage();
-		}
-
-		if (null == adminUser) {
-			return Constant.PASSWORD_ERROR.getMessage();
-		}
-
-		if (1 == user && null != adminUser) {
-			return Constant.SUCCESS.getCode();
-		} else {
-			return Constant.LOGIN_DEFEATED.getMessage();
-		}
+		return adminUser;
 	}
 
 }

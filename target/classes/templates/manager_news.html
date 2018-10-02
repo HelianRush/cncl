@@ -71,7 +71,7 @@
 								<td >---</td><!-- th:text="${data.newsOutline}" -->
 								<td >---</td><!-- th:text="${data.newsContent}" -->
 								<td th:text="${data.adminUserIdFk}"></td>
-								<td th:text="${data.ceateTime}"></td>
+								<td th:text="${#dates.format(data.ceateTime,'yyyy-MM-dd')}"></td>
 								<td th:text="${data.browseCount}"></td>
 								<td><a href="">修改</a> | <a href="">删除</a></td>
 							</tr>
