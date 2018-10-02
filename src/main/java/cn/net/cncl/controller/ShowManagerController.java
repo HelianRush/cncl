@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.net.cncl.common.Constant;
-import cn.net.cncl.common.SessionUser;
 import cn.net.cncl.entity.News;
 import cn.net.cncl.entity.NewsType;
 import cn.net.cncl.service.AdminUserService;
@@ -100,11 +98,7 @@ public class ShowManagerController {
 	 */
 	@RequestMapping(value = "/showManagerWeb")
 	public String showManagerWeb(HttpServletRequest request) {
-		String flag = this.getLogin(request);
-		if (flag.equals(Constant.SUCCESS.getCode()))
-			return "manager_web";
-		else
-			return flag;
+		return "manager_web";
 	}
 
 	/**
@@ -118,11 +112,7 @@ public class ShowManagerController {
 	 */
 	@RequestMapping(value = "/showManagerWebEdit")
 	public String showManagerWebEdit(HttpServletRequest request) {
-		String flag = this.getLogin(request);
-		if (flag.equals(Constant.SUCCESS.getCode()))
-			return "manager_web_edit";
-		else
-			return flag;
+		return "manager_web_edit";
 	}
 
 	/**
@@ -150,11 +140,7 @@ public class ShowManagerController {
 	 */
 	@RequestMapping(value = "/showManagerAdminUsers")
 	public String showManagerAdminUsers(HttpServletRequest request) {
-		String flag = this.getLogin(request);
-		if (flag.equals(Constant.SUCCESS.getCode()))
-			return "manager_admin_users";
-		else
-			return flag;
+		return "manager_admin_users";
 	}
 
 	/**
@@ -168,11 +154,7 @@ public class ShowManagerController {
 	 */
 	@RequestMapping(value = "/showManagerCelebritysEdit")
 	public String showManagerCelebritysEdit(HttpServletRequest request) {
-		String flag = this.getLogin(request);
-		if (flag.equals(Constant.SUCCESS.getCode()))
-			return "manager_celebritys_edit";
-		else
-			return flag;
+		return "manager_celebritys_edit";
 	}
 
 	/**
@@ -186,11 +168,7 @@ public class ShowManagerController {
 	 */
 	@RequestMapping(value = "/showManagerCelebritys")
 	public String showManagerCelebritys(HttpServletRequest request) {
-		String flag = this.getLogin(request);
-		if (flag.equals(Constant.SUCCESS.getCode()))
-			return "manager_celebritys";
-		else
-			return flag;
+		return "manager_celebritys";
 	}
 
 	/**
@@ -204,13 +182,9 @@ public class ShowManagerController {
 	 */
 	@RequestMapping(value = "/showNewsEdit")
 	public String showNewsEdit(HttpServletRequest request, News news, Model model) {
-		String flag = this.getLogin(request);
-		if (flag.equals(Constant.SUCCESS.getCode())) {
-			List<NewsType> newsTypeList = newsTypeService.queryNewsTypeAll();
-			model.addAttribute("newsTypeList", newsTypeList);
-			return "manager_news_edit";
-		} else
-			return flag;
+		List<NewsType> newsTypeList = newsTypeService.queryNewsTypeAll();
+		model.addAttribute("newsTypeList", newsTypeList);
+		return "manager_news_edit";
 	}
 
 	/**
@@ -224,22 +198,6 @@ public class ShowManagerController {
 	 */
 	@RequestMapping(value = "/showNews")
 	public String showNews(HttpServletRequest request) {
-		String flag = this.getLogin(request);
-		if (flag.equals(Constant.SUCCESS.getCode()))
-			return "manager_news";
-		else
-			return flag;
-	}
-
-	/**
-	 * 判断是否登录
-	 */
-	private String getLogin(HttpServletRequest request) {
-		boolean flag = SessionUser.getUserStatus(request);
-		if (flag) {
-			return Constant.SUCCESS.getCode();
-		} else {
-			return "300";
-		}
+		return "manager_news";
 	}
 }

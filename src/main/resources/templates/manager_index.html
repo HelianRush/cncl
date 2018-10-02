@@ -62,6 +62,12 @@
 					<li><a href="javascript:manager_news_edit();"><span>资讯编辑 </span></a></li>
 					<li><a href="javascript:manager_news_tyep();"><span>资讯类别</span></a></li>
 				</ul></li>
+
+			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>资源管理</span><i class="my-icon nav-more"></i></a>
+				<ul>
+					<li><a href=""><span>图片管理</span></a></li>
+					<li><a href=""><span>视频管理</span></a></li>
+				</ul></li>
 		</ul>
 	</div>
 	<!-- nav end -->
@@ -93,8 +99,8 @@
 
 		function exit() {
 			// 清除session
-			$.post("/clearSession",{},function(data){
-				if("200"==data){
+			$.post("/clearSession", {}, function(data) {
+				if ("200" == data) {
 					alert("清除session");
 					// window.location.replace("https://www.baidu.com/");
 				}

@@ -13,7 +13,6 @@ public class SessionUser {
 	 */
 	public static boolean getUserStatus(HttpServletRequest request) {
 		Long adminUserId = (Long) request.getSession().getAttribute(Constant.ADMIN_USER_ID_KEY);
-		System.out.println(adminUserId);
 		if (null != adminUserId)
 			return true;
 		else
