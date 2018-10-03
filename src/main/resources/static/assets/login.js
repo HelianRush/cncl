@@ -34,7 +34,7 @@ $(function() {
 
 	$("#validCode").blur(function() {
 		if (null == $("#validCode").val() || "" == $("#validCode").val()) {
-			$("#alert3 img").attr("src", "images/e.png");
+			$("#alert3 img").attr("src", "/images/e.png");
 		} else {
 
 			var validCode = $("#validCode").val();
@@ -49,9 +49,9 @@ $(function() {
 				cache : false,
 				success : function(data) {
 					if (validCode == data) {
-						$("#alert3 img").attr("src", "images/r.png");
+						$("#alert3 img").attr("src", "/images/r.png");
 					} else {
-						$("#alert3 img").attr("src", "images/e.png");
+						$("#alert3 img").attr("src", "/images/e.png");
 						$("#adminUserName").val("");
 						$("#password").val("");
 						$("#validCode").val("");

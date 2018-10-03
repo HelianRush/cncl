@@ -109,7 +109,7 @@
 
 		function exit() {
 			// 清除session
-			$.post("/clearSession", {}, function(data) {
+			$.post("/Login/clearSession", {}, function(data) {
 				if ("200" == data) {
 					alert("清除session");
 					// window.location.replace("https://www.baidu.com/");
