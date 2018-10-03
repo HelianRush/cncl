@@ -42,16 +42,24 @@ public class ClelebritysController {
 	 * 名人库信息 新增&编辑
 	 */
 	@RequestMapping(value = "/editCelebritys", method = RequestMethod.GET)
-	public String editCelebritys(Celebritys celebrity) {
+	public String editCelebritys(HttpServletRequest request, Celebritys celebrity, Model model) {
+
 		int flag = 0;
+
 		if (null == celebrity.getCelebrityId()) {
+			// 新增
 			flag = celebritysService.insertCelebritys(celebrity);
 		} else {
+			// 修改
 			flag = celebritysService.updateCelebritys(celebrity);
 		}
-		if (0 < flag)
+		if (0 < flag) {
+			PageInfo<Celebritys> pageList = celebritysService.showCelebritysList(1);
+			this.pageModel(model, pageList);
+			// 当前列表
+			model.addAttribute("list", pageList.getList());
 			return "manager_celebritys";
-		else
+		} else
 			return "manager_celebritys_edit";
 	}
 
@@ -61,16 +69,7 @@ public class ClelebritysController {
 	@RequestMapping(value = "/showCelebritysList")
 	public String showCelebritysList(HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") Integer pageNum) {
 		PageInfo<Celebritys> pageList = celebritysService.showCelebritysList(pageNum);
-		// 获得当前页
-		model.addAttribute("pageNum", pageList.getPageNum());
-		// 获得一页显示的条数
-		model.addAttribute("pageSize", pageList.getPageSize());
-		// 是否是第一页
-		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
-		// 获得总页数
-		model.addAttribute("totalPages", pageList.getPages());
-		// 是否是最后一页
-		model.addAttribute("isLastPage", pageList.isIsLastPage());
+		this.pageModel(model, pageList);
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 		return "manager_celebritys";
@@ -83,9 +82,6 @@ public class ClelebritysController {
 	/**
 	 * 删除
 	 */
-	/**
-	 * 删除
-	 */
 	@ResponseBody
 	@PostMapping(value = "/deleteCelebritys")
 	public String deleteCelebritys(@RequestParam Long id) {
@@ -95,5 +91,22 @@ public class ClelebritysController {
 		} else {
 			return Constant.DEFEAT.getCode();
 		}
+	}
+
+	/**
+	 * 保证分页Model
+	 */
+	private Model pageModel(Model model, PageInfo pageList) {
+		// 获得当前页
+		model.addAttribute("pageNum", pageList.getPageNum());
+		// 获得一页显示的条数
+		model.addAttribute("pageSize", pageList.getPageSize());
+		// 是否是第一页
+		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
+		// 获得总页数
+		model.addAttribute("totalPages", pageList.getPages());
+		// 是否是最后一页
+		model.addAttribute("isLastPage", pageList.isIsLastPage());
+		return model;
 	}
 }
