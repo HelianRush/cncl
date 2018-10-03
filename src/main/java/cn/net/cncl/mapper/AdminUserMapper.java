@@ -49,4 +49,5 @@ public interface AdminUserMapper {
 	 *            String adminUserName
 	 */
 	int checkAdminUserName(String adminUserName);
+
 }

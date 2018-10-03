@@ -36,19 +36,8 @@ public class NewsController {
 	 */
 	@RequestMapping(value = "/selectNews")
 	public String selectNews(HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") Integer pageNum) {
-
 		PageInfo<News> pageList = newsService.selectNews(pageNum);
-
-		// 获得当前页
-		model.addAttribute("pageNum", pageList.getPageNum());
-		// 获得一页显示的条数
-		model.addAttribute("pageSize", pageList.getPageSize());
-		// 是否是第一页
-		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
-		// 获得总页数
-		model.addAttribute("totalPages", pageList.getPages());
-		// 是否是最后一页
-		model.addAttribute("isLastPage", pageList.isIsLastPage());
+		this.pageModel(model, pageList);
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 		return "manager_news";

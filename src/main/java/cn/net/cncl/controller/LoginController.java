@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.net.cncl.common.Captcha;
@@ -108,21 +109,44 @@ public class LoginController {
 	public String login(HttpServletRequest request, AdminUser adminUser) {
 
 		String adminUserName = adminUser.getAdminUserName();
-		String password = adminUser.getAdminUserName();
+		String password = adminUser.getPassword();
 
 		// 校验用户名和密码
 		adminUser = loginService.verificationLogin(adminUserName, password);
 
-		String flag = "";
-		if (null != adminUser.getAdminUserId())
-			flag = Constant.SUCCESS.getCode();
-
-		if (flag.equals(Constant.SUCCESS.getCode())) {
-			// 添加Session
-			SessionUser.setAdminUser(request, adminUser);
-			return "manager_index";
-		} else
+		if (null != adminUser) {
+			String flag = null;
+			if (null != adminUser.getAdminUserId())
+				flag = Constant.SUCCESS.getCode();
+			if (flag.equals(Constant.SUCCESS.getCode())) {
+				// 添加Session
+				SessionUser.setAdminUser(request, adminUser);
+				return "manager_index";
+			} else
+				return "login";
+		} else {
 			return "login";
+		}
+	}
+
+	/**
+	 * 验证登录
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/checkLogin")
+	public String checkLogin(@RequestParam String adminUserName, @RequestParam String password) {
+		String flagByName = loginService.checkAdminUserName(adminUserName);
+		String flagByPassword = null;
+		if (Constant.SUCCESS.getCode().equals(flagByName)) {
+			flagByPassword = loginService.checkPassword(adminUserName, password);
+			if (Constant.SUCCESS.getCode().equals(flagByPassword)) {
+				return Constant.SUCCESS.getCode();
+			} else {
+				return Constant.PASSWORD_ERROR.getCode();
+			}
+		} else {
+			return Constant.NAME_ERROR.getCode();
+		}
 	}
 
 	/**
