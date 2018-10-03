@@ -197,7 +197,7 @@
 								<td th:text="${#dates.format(data.lastLoginTime,'yyyy-MM-dd')}"></td>
 								<td th:text="${data.lastLoginIp}"></td>
 								<td>
-									<!-- <a href="">详情</a> |  --> <a href="">修改</a> | <a id="remove" th:id="${data.adminUserId}" th:onclick="'doRemove(this)'">删除</a>
+									<!-- <a href="">详情</a> |  --> <a data-target="#add">修改</a> | <a id="remove" th:id="${data.adminUserId}" th:onclick="'doRemove(this)'">删除</a>
 								</td>
 							</tr>
 						</tbody>
@@ -244,24 +244,29 @@
 			// 新增管理员 登录名验证
 			function checkName() {
 				$("#adminUserName").blur(function() {
-					adminUserName = $("#adminUserName").val();
-					$.ajax({
-						type : "POST",
-						url : "/AdminCtl/checkAdminUserName",
-						data : {
-							"adminUserName" : adminUserName
-						},//data end
-						dataType : "text",
-						success : function(data) {
-							if ("A0001" == data) {
-								$("#alertAdmin").text("已存在");
-								$("#adminUserName").val("");
-								$("#password").val("");
-							} else {
-								$("#alertAdmin").text("");
-							}
-						}//success end
-					});
+					var adminUserName = $("#adminUserName").val();
+
+					if (null == adminUserName || "" == adminUserName) {
+						$("#alertAdmin").text("不可空");
+					} else {
+						$.ajax({
+							type : "POST",
+							url : "/AdminCtl/checkAdminUserName",
+							data : {
+								"adminUserName" : adminUserName
+							},//data end
+							dataType : "text",
+							success : function(data) {
+								if ("A0001" == data) {
+									$("#alertAdmin").text("已存在");
+									$("#adminUserName").val("");
+									$("#password").val("");
+								} else {
+									$("#alertAdmin").text("");
+								}
+							}//success end
+						});
+					}
 				});
 			}
 

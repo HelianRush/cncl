@@ -37,21 +37,21 @@
 	<!-- 查询全部 -->
 	<select id="selectAll" resultType="cn.net.cncl.entity.AdminUser">
 		<include refid="Base_Column_List_As"></include>
-		FROM T_ADMIN_USER
+		FROM t_admin_user
 	</select>
 
 	<!-- 根据ID查询 -->
 	<select id="selectById" resultType="cn.net.cncl.entity.AdminUser">
 		SELECT
 		<include refid="Base_Column_List_As"></include>
-		FROM T_ADMIN_USER
+		FROM t_admin_user
 		WHERE ADMIN_USER_ID = #{adminUserName}
 	</select>
 
 	<!-- 根据用户名查询是否存在 -->
 	<select id="selectByNameHave" resultType="int">
 		SELECT COUNT(*)
-		FROM T_ADMIN_USER
+		FROM t_admin_user
 		WHERE ADMIN_USER_NAME = #{adminUserName}
 	</select>
 
@@ -59,7 +59,7 @@
 	<select id="checkAdminUserLogin" resultType="cn.net.cncl.entity.AdminUser">
 		SELECT
 		<include refid="Base_Column_List_As"></include>
-		FROM T_ADMIN_USER
+		FROM t_admin_user
 		WHERE
 		ADMIN_USER_NAME = #{adminUserName}
 		AND
@@ -79,7 +79,7 @@
 		CREATE_TIME AS createTime,
 		LAST_LOGIN_TIME AS lastLoginTime,
 		LAST_LOGIN_IP AS lastLoginIp
-		FROM T_ADMIN_USER
+		FROM t_admin_user
 		WHERE
 		1 = 1
 		<if test="adminUserName != null and adminUserName != ''">
@@ -90,7 +90,7 @@
 
 	<!-- 新增管理员 登录名验证 -->
 	<select id="checkAdminUserName" resultType="int">
-		SELECT COUNT(ADMIN_USER_NAME) FROM T_ADMIN_USER WHERE ADMIN_USER_NAME = #{adminUserName}
+		SELECT COUNT(ADMIN_USER_NAME) FROM t_admin_user WHERE ADMIN_USER_NAME = #{adminUserName}
 	</select>
 
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">

@@ -38,7 +38,7 @@
 	<select id="selectNews" resultType="cn.net.cncl.entity.News">
 		SELECT
 		<include refid="News_Column_List"></include>
-		FROM T_NEWS
+		FROM t_news
 		ORDER BY
 		NEWS_ID DESC,
 		NEWS_TITEL ASC
@@ -46,7 +46,7 @@
 
 	<!-- 资讯编辑 新增 -->
 	<insert id="insertNews">
-		INSERT INTO T_NEWS
+		INSERT INTO t_news
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="newsId != null">
 				NEWS_ID,
@@ -103,7 +103,7 @@
 
 	<!-- 资讯编辑 修改 -->
 	<update id="updateNews">
-		UPDATE FROM T_NEWS
+		UPDATE FROM t_news
 		<set>
 			<if test="newsId != null">
 				NEWS_ID = #{newsId},
@@ -133,7 +133,7 @@
 	</update>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from T_NEWS
+		delete from t_news
 		where NEWS_ID = #{newsId,jdbcType=BIGINT}
 	</delete>
 

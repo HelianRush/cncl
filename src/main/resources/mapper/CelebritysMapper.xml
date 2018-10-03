@@ -72,7 +72,7 @@
 	<select id="queryCelebritys" resultType="cn.net.cncl.entity.Celebritys">
 		SELECT
 		<include refid="Base_Column_List"></include>
-		FROM T_CELEBRITYS
+		FROM t_celebritys
 		ORDER BY
 		CELEBRITY_ID DESC,
 		CELEBRITY_NAME ASC
@@ -81,7 +81,7 @@
 
 	<!-- 添加名人库 insertCelebritys -->
 	<insert id="insertCelebritys" parameterType="cn.net.cncl.entity.Celebritys" flushCache="true">
-		INSERT INTO T_CELEBRITYS (
+		INSERT INTO t_celebritys (
 		CELEBRITY_ID,
 		CELEBRITY_NAME,
 		ANOTHER_NAME,
@@ -141,7 +141,7 @@
 	</insert>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from T_CELEBRITYS
+		delete from t_celebritys
 		where CELEBRITY_ID = #{celebrityId,jdbcType=BIGINT}
 	</delete>
 

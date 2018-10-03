@@ -32,7 +32,7 @@
 	<select id="getWebInfo" resultType="Map">
 		SELECT
 		<include refid="SQL_QueryAll2"></include>
-		FROM T_WEB_INFO
+		FROM t_web_info
 		WHERE WEB_ID = 1
 	</select>
 
@@ -40,13 +40,13 @@
 	<select id="getWebInfoObject" resultType="cn.net.cncl.entity.WebInfo">
 		SELECT
 		<include refid="SQL_QueryAll2"></include>
-		FROM T_WEB_INFO
+		FROM t_web_info
 		WHERE WEB_ID = 1
 	</select>
 
 	<!-- 编辑 网站信息 -->
 	<update id="updateWebInfo" parameterType="cn.net.cncl.entity.WebInfo">
-		UPDATE T_WEB_INFO
+		UPDATE t_web_info
 		<set>
 			<if test="webName!=null">
 				WEB_NAME = #{webName,jdbcType=VARCHAR},
