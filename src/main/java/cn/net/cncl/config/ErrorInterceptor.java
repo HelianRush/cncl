@@ -15,7 +15,8 @@ public class ErrorInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		System.out.println("[拦截器]cn.net.cncl.common.ErrorInterceptor.postHandle() = " + "执行");
+		// System.out.println("[拦截器]cn.net.cncl.common.ErrorInterceptor.postHandle() = "
+		// + "执行");
 		if (response.getStatus() == 500) {
 			modelAndView.setViewName("/500");
 		} else if (response.getStatus() == 404) {

@@ -2,6 +2,7 @@ package cn.net.cncl.service.impl;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +66,32 @@ public class ManagerServiceImpl implements ManagerService {
 	 */
 	@Override
 	public int updateWebInfo(WebInfo webInfo) {
-		if (null == webInfo.getWebName() && null == webInfo.getDomainName() && null == webInfo.getRecordsCode() && null == webInfo.getCompany() && null == webInfo.getLegalPerson() && null == webInfo.getWebEmail() && null == webInfo.getImageLogo()) {
+
+		if (StringUtils.isBlank(webInfo.getWebName()) && StringUtils.isBlank(webInfo.getDomainName()) && StringUtils.isBlank(webInfo.getRecordsCode()) && StringUtils.isBlank(webInfo.getCompany()) && StringUtils.isBlank(webInfo.getLegalPerson()) && StringUtils.isBlank(webInfo.getWebEmail()) && StringUtils.isBlank(webInfo.getImageLogo())) {
 			return 1;
 		} else {
+			if (StringUtils.isBlank(webInfo.getWebName()))
+				webInfo.setWebName(null);
+
+			if (StringUtils.isBlank(webInfo.getDomainName()))
+				webInfo.setDomainName(null);
+
+			if (StringUtils.isBlank(webInfo.getRecordsCode()))
+				webInfo.setRecordsCode(null);
+
+			if (StringUtils.isBlank(webInfo.getCompany()))
+				webInfo.setCompany(null);
+
+			if (StringUtils.isBlank(webInfo.getLegalPerson()))
+				webInfo.setLegalPerson(null);
+
+			if (StringUtils.isBlank(webInfo.getWebEmail()))
+				webInfo.setWebEmail(null);
+
+			if (StringUtils.isBlank(webInfo.getImageLogo()))
+				webInfo.setImageLogo(null);
+
+			// System.out.println(webInfo);
 			return webInfoMapper.updateWebInfo(webInfo);
 		}
 	}

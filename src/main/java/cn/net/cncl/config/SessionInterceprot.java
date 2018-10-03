@@ -18,20 +18,18 @@ public class SessionInterceprot implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+		System.out.println("|------------------------------------- ------------------------------------- Session Interceprot ------------------------------------- -------------------------------------|");
 		String requestURI = request.getRequestURI();
-		System.out.println("[Session拦截器]cn.net.cncl.common.SessionInterceprot.postHandle().requestURI = " + requestURI);
-
-		System.out.println("[Session拦截器]cn.net.cncl.common.SessionInterceprot.postHandle() = " + "执行");
+		System.out.println("[Session拦截器]cn.net.cncl.common.SessionInterceprot.postHandle() = " + "执行" + " --- requestURI = " + requestURI);
 		AdminUser user = SessionUser.getUser(request);
-		System.out.println("[Session拦截器]cn.net.cncl.common.SessionInterceprot.postHandle() = " + user + " 用户状态");
-
+		boolean userStatus = SessionUser.getUserStatus(request);
 		if (SessionUser.getUserStatus(request)) {
-			System.out.println("[Session拦截器-]cn.net.cncl.common.SessionInterceprot.postHandle() = " + "用户状态：登录");
+			System.out.println("[Session拦截器-]cn.net.cncl.common.SessionInterceprot.postHandle() = " + "Session：存在：" + userStatus + "");
 		} else {
-			System.out.println("[Session拦截器-]cn.net.cncl.common.SessionInterceprot.postHandle()= " + "Session：清空");
+			System.out.println("[Session拦截器-]cn.net.cncl.common.SessionInterceprot.postHandle() = " + "Session：清空：" + userStatus + "");
 			modelAndView.setViewName("/300");
 		}
+		System.out.println("|------------------------------------- ------------------------------------- --------------------- ------------------------------------- -------------------------------------|");
 	}
 
 	@Override

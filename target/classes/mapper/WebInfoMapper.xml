@@ -48,26 +48,26 @@
 	<update id="updateWebInfo" parameterType="cn.net.cncl.entity.WebInfo">
 		UPDATE T_WEB_INFO
 		<set>
-			<if test="webName != null">
-				WEB_NAME = #{webName},
+			<if test="webName!=null">
+				WEB_NAME = #{webName,jdbcType=VARCHAR},
 			</if>
-			<if test="domainName != null">
-				DOMAIN_NAME = #{domainName},
+			<if test="domainName!=null">
+				DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
 			</if>
-			<if test="recordsCode != null">
-				RECORDS_CODE = #{recordsCode},
+			<if test="recordsCode!=null">
+				RECORDS_CODE = #{recordsCode,jdbcType=VARCHAR},
 			</if>
-			<if test="company != null">
-				COMPANY = #{company},
+			<if test="company!=null">
+				COMPANY = #{company,jdbcType=VARCHAR},
 			</if>
-			<if test="legalPerson != null">
-				LEGAL_PERSON = #{legalPerson},
+			<if test="legalPerson!=null">
+				LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
 			</if>
-			<if test="webEmail != null">
-				WEB_EMAIL = #{webEmail},
+			<if test="webEmail!=null">
+				WEB_EMAIL = #{webEmail,jdbcType=VARCHAR},
 			</if>
-			<if test="imageLogo != null">
-				IMAGE_LOGO = #{imageLogo},
+			<if test="imageLogo!=null">
+				IMAGE_LOGO = #{imageLogo,jdbcType=VARCHAR},
 			</if>
 		</set>
 		WHERE WEB_ID = 1

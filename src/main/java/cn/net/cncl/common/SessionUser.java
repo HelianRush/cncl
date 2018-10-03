@@ -13,7 +13,8 @@ public class SessionUser {
 	 */
 	public static boolean getUserStatus(HttpServletRequest request) {
 		Long adminUserId = (Long) request.getSession().getAttribute(Constant.ADMIN_USER_ID_KEY);
-		System.out.println("[登录用户] cn.net.cncl.common.SessionUser.getUserStatus() = " + adminUserId);
+		// System.out.println("[登录用户] cn.net.cncl.common.SessionUser.getUserStatus() = "
+		// + adminUserId);
 		if (null != adminUserId)
 			return true;
 		else
