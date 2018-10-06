@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
+
+<title>图片管理</title>
+</head>
+<body>
+
+	<div class="row">
+
+		<!-- Title -->
+		<div class="col-lg-11">
+			<h3>图片资源管理</h3>
+		</div>
+
+		<div class="col-lg-12">
+			<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		</div>
+
+		<table id="table" class="table table-bordered table-responsive table-content table-condensed" style="word-break: break-all; word-wrap: break-all;">
+			<thead>
+				<tr>
+					<th>缩略图</th>
+					<th>编号</th>
+					<th>编码</th>
+					<th>图片名称</th>
+					<th>扩展名</th>
+					<th>资源所属</th>
+					<th>图片标题</th>
+					<th>相对地址</th>
+					<th>图片地址</th>
+					<th>图片配文</th>
+					<th>描述</th>
+					<th>操作</th>
+				</tr>
+				<tr>
+					<th>Thumbnail</th>
+					<th>IMAGE_ID</th>
+					<th>IMAGE_CODE</th>
+					<th>IMAGE_NAME</th>
+					<th>EXTENSION_NAME</th>
+					<th>RESOURCE_BY</th>
+					<th>IMAGE_TITLE</th>
+					<th>IMAGE_PATHS</th>
+					<th>IMAGE_PATH</th>
+					<th>IMAGE_CONTENT</th>
+					<th>DESCRIPTION</th>
+					<th>OPERATION</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="data:${list}">
+					<td><a href="#" class="thumbnail"><img th:src="@{${data.imagePaths}}" alt="..." /> </a></td>
+					<td th:text="${data.imageId}">imageId</td>
+					<td th:text="${data.imageCode}">imageCode</td>
+					<td th:text="${data.imageName}">imageName</td>
+					<td th:text="${data.extensionName}">extensionName</td>
+					<td th:text="${data.resourceBy}">resourceBy</td>
+					<td th:text="${data.imageTitle}">imageTitle</td>
+					<td th:text="${data.imagePaths}">imagePath</td>
+					<td th:text="${data.imagePath}">imagePath</td>
+					<td th:text="${data.imageContent}">imageContent</td>
+					<td th:text="${data.description}">description</td>
+					<td>
+						<!-- <a id="copyPath" th:id="${data.imagePath}" th:onclick="'doCopyPath(this)'">复制地址</a><br>  -->
+						<a href="">编辑资源</a><br> <a id="remove" th:id="${data.imageId}" th:onclick="'doRemove(this)'">删除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- 分页 -->
+		<nav aria-label="...">
+			<ul class="pager">
+				<li><a th:if="${not isFirstPage}" th:href="@{${'/ImagesCtl/showImages'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
+
+				<li th:each="pageNo: ${#numbers.sequence(1, totalPages)}"><a th:if="${pageNum eq pageNo}" href="javascript:void(0);"> <span th:text="${pageNum}"></span>
+				</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/ImagesCtl/showImages'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
+				</a></li>
+
+				<li><a th:if="${not isLastPage}" th:href="@{${'/ImagesCtl/showImages'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
+			</ul>
+		</nav>
+		<!-- 分页 end -->
+
+	</div>
+	<!-- row end -->
+</body>
+
+<!-- Javascript -->
+<script type="text/javascript">
+	// 复制
+	function doCopyPath(object) {
+		window.clipboardData.setData("Text", object);
+	}
+
+	// 删除
+	function doRemove(object) {
+		var id = $(object).attr("id");
+		if (confirm("是确认删除" + id + "资源？")) {
+			$.post("/ImagesCtl/removeImage", {
+				"id" : id
+			}, function(data) {
+				if ("200" == data) {
+					window.location.reload();
+				} else {
+					alert("删除失败！");
+				}
+			});
+		}
+	}
+</script>
+
+</html>

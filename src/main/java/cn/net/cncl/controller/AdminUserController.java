@@ -168,7 +168,7 @@ public class AdminUserController {
 		if (0 < flag) {
 			return Constant.SUCCESS.getCode();
 		} else {
-			return Constant.DEFEAT.getCode();
+			return Constant.ERROR.getCode();
 		}
 	}
 

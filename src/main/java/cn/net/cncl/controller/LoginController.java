@@ -76,7 +76,7 @@ public class LoginController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/getCaptcha", method = RequestMethod.GET)
-	public ServletOutputStream getCaptcha(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public ServletOutputStream getCaptcha(HttpServletRequest req, HttpServletResponse resp) throws Exception, IOException, IllegalStateException {
 		captchaList = Captcha.getCaptchaNumber();
 		BufferedImage captchaImage = Captcha.getCaptchaImage(captchaList);
 		ServletOutputStream osOutputStream = resp.getOutputStream();

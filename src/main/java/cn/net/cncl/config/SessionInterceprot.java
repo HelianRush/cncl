@@ -18,6 +18,7 @@ public class SessionInterceprot implements HandlerInterceptor {
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+
 		System.out.println("|------------------------------------- ------------------------------------- Session Interceprot ------------------------------------- -------------------------------------|");
 		String requestURI = request.getRequestURI();
 		System.out.println("[Session拦截器]cn.net.cncl.common.SessionInterceprot.postHandle() = " + "执行" + " --- requestURI = " + requestURI);
@@ -30,6 +31,7 @@ public class SessionInterceprot implements HandlerInterceptor {
 			modelAndView.setViewName("/300");
 		}
 		System.out.println("|------------------------------------- ------------------------------------- --------------------- ------------------------------------- -------------------------------------|");
+
 	}
 
 	@Override

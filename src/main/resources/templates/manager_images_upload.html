@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Fileinput -->
+<link th:href="@{/fileinput/fileinput.css}" rel="stylesheet" />
+<script th:src="@{/fileinput/fileinput.js}" type="text/javascript"></script>
+<script th:src="@{/fileinput/fileinput_locale_zh.js}" type="text/javascript"></script>
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
+
+<title>图片上传</title>
+</head>
+<body>
+	<div class="row">
+
+		<!-- Title -->
+		<div class="col-lg-11">
+			<h3>图片资源管理</h3>
+		</div>
+
+		<div class="col-lg-12">
+			<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		</div>
+
+		<div class="col-lg-12">
+			<div class="container kv-main ">
+				<!-- Form -->
+				<form method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<!-- Input -->
+						<input id="file-1" name="files" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
+					</div>
+				</form>
+
+				<!-- 提示 -->
+				<div>
+					<span>提示：</span>
+					<!--  -->
+					<br>
+					<!--  -->
+					<span>1 . 单次图片上传数量为10个.</span> <br>
+					<!--  -->
+					<span>2 . 单个图片上传大小不能超过10MB；总大小不能超过100MB.</span> <br>
+					<!--  -->
+					<span>3 . 支持图片类型：*.jpg、*.jpeg、*.gif、*.bmp、*.png</span> <br>
+				</div>
+				<!-- 提示 -->
+			</div>
+			<!-- container kv-main end-->
+		</div>
+	</div>
+	<!-- row end -->
+</body>
+
+<script>
+	$("#file-1").fileinput({
+		language : 'zh',
+		uploadUrl : '/ImagesCtl/fileUpload',
+		allowedFileExtensions : [ 'jpg', 'png', 'gif', 'jpeg', 'bmp' ],
+		//allowedFileTypes: ['image', 'video', 'flash'],
+		overwriteInitial : false,
+		maxFileSize : 102400,
+		maxFilesNum : 10,
+		slugCallback : function(filename) {
+			return filename.replace('(', '_').replace(']', '_');
+		}
+	});
+</script>
+
+</html>

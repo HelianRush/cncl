@@ -6,7 +6,7 @@ public enum Constant {
 
 	SUCCESS("200", "成功"),
 
-	DEFEAT("404", "错误"),
+	ERROR("404", "错误"),
 
 	IS_HAVE("300", "已存在"),
 
@@ -70,4 +70,18 @@ public enum Constant {
 	public static final String PAGE_NOW = "page";
 	public static final String ADMIN_USER_ID_KEY = "fc1b41257caae21b";
 	public static final String ADMIN_USER_KEY = "c744bd39b5126deb";
+
+	/**
+	 * 图片类型
+	 */
+	public static final String IMAGE_PNG = "image/png";
+	public static final String IMAGE_BMP = "image/bmp";
+	public static final String IMAGE_GIF = "image/gif";
+	public static final String IMAGE_JPG_JPEG = "image/jpeg";
+
+	/**
+	 * 图片路径
+	 */
+	public static final String STATIC_PATH = "/static/";
+	public static final String STATIC_FILE_PATH = "/imageFileUpload/";
 }

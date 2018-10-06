@@ -75,6 +75,7 @@
 
 			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>资源管理</span><i class="my-icon nav-more"></i></a>
 				<ul>
+					<li><a href="javascript:manager_images_upload();"><span>图片上传</span></a></li>
 					<li><a href="javascript:manager_images();"><span>图片管理</span></a></li>
 					<li><a href="javascript:manager_videos();"><span>视频管理</span></a></li>
 				</ul></li>
@@ -162,9 +163,13 @@
 		function manager_enter_edit() {
 			$("iframe").attr("src", "/ManagerCtl/showManagerEnterEdit");
 		}
+		// 图片上传
+		function manager_images_upload() {
+			$("iframe").attr("src", "/ManagerCtl/showManagerImagesUpload");
+		}
 		// 图片管理
 		function manager_images() {
-			$("iframe").attr("src", "/ManagerCtl/showManagerImages");
+			$("iframe").attr("src", "/ImagesCtl/showImages");
 		}
 		// 视频管理
 		function manager_videos() {

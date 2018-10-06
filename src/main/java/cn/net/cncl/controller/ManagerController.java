@@ -18,6 +18,7 @@ import cn.net.cncl.entity.NewsType;
 import cn.net.cncl.entity.WebInfo;
 import cn.net.cncl.service.AdminUserService;
 import cn.net.cncl.service.CelebritysService;
+import cn.net.cncl.service.ImagesService;
 import cn.net.cncl.service.LoginService;
 import cn.net.cncl.service.ManagerService;
 import cn.net.cncl.service.NewsService;
@@ -49,6 +50,9 @@ public class ManagerController {
 
 	@Autowired
 	private NewsTypeService newsTypeService;
+
+	@Autowired
+	private ImagesService imagesService;
 
 	/**
 	 * Error Page
@@ -236,11 +240,11 @@ public class ManagerController {
 	}
 
 	/**
-	 * 图片管理
+	 * 图片上传
 	 */
-	@RequestMapping(value = "/showManagerImages")
-	public String showManagerImages() {
-		return "201";
+	@RequestMapping(value = "/showManagerImagesUpload")
+	public String showManagerImagesUpload() {
+		return "manager_images_upload";
 	}
 
 	/**
