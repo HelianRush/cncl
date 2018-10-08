@@ -1,81 +1,99 @@
 $(function() {
 
-	// 验证编码唯一性
+	// 注册验证 submitButton
+	submitNews();
+
+	// 为空验证
 	checkCode();
-
-	// 验证名称唯一性
 	checkName();
-
 });
 
-// 验证编码唯一性
-function checkCode() {
+// 注册验证 submitButton // 检查唯一性
+function submitNews() {
 
-	$("#newsTypeCode").blur(function() {
+	$("#submitButton").click(function() {
 
 		var code = $("#newsTypeCode").val();
+		var name = $("#newsTypeName").val();
+		var flagCode = 0;
+		var flagName = 0;
 
+		if (null == code || "" == code || null == name || "" == name) {
+			alert("不允许为空");
+		} else {
+
+			// 检查编码
+			$.ajax({
+				type : "POST",
+				url : "/NewsTypeCtl/checkCode",
+				async : false,
+				data : {
+					"code" : code
+				},
+				dataType : "text",
+				success : function(data) {
+					if ("200" != data) {
+						$("#msg1").text(data);
+					} else {
+						flagCode = 1;
+						$("#msg1").text("");
+					}
+				}
+			});
+
+			// 检查名称
+			$.ajax({
+				type : "POST",
+				url : "/NewsTypeCtl/checkName",
+				data : {
+					"name" : name
+				},
+				async : false,
+				dataType : "text",
+				success : function(data) {
+					if ("200" != data) {
+						$("#msg2").text(data);
+					} else {
+						flagName = 1;
+						$("#msg2").text("");
+					}
+				}
+			});
+
+		} // if end
+
+		if ((flagCode + flagName) == 2) {
+			$("#editNewsType").submit();
+		}
+
+	}); // $(#submitButton) end
+} // submitNewsAdd() end
+
+// 编码为空检查
+function checkCode() {
+	$("#newsTypeCode").blur(function() {
+		var code = $("#newsTypeCode").val();
 		if (null == code || "" == code) {
 			$("#msg1").text("不可为空");
-			$("#submit").attr("disabled", "disabled");
+			// $("#submit").attr("disabled", "disabled");
 		} else {
 			$("#msg1").text("");
-			$("#submit").removeAttr("disabled");
+			// $("#submit").removeAttr("disabled");
 		}
-
-		$.ajax({
-			type : "POST",
-			url : "/NewsTypeCtl/checkCode",
-			data : {
-				"code" : code
-			},
-			dataType : "text",
-			success : function(data) {
-				if ("200" != data) {
-					$("#msg1").text(data);
-					$("#submit").attr("disabled", "disabled");
-				} else {
-					$("#msg1").text("");
-					$("#submit").removeAttr("disabled");
-				}
-			}
-		});
 	});
-
 }
 
-// 验证名称唯一性
+// 名称为空检查
 function checkName() {
-
 	$("#newsTypeName").blur(function() {
-
 		var name = $("#newsTypeName").val();
-
 		if (null == name || "" == name) {
 			$("#msg2").text("不可为空");
-			$("#submit").attr("disabled", "disabled");
+			// $("#submit").attr("disabled", "disabled");
 		} else {
 			$("#msg2").text("");
-			$("#submit").removeAttr("disabled");
+			// $("#submit").removeAttr("disabled");
 		}
-
-		$.ajax({
-			type : "POST",
-			url : "/NewsTypeCtl/checkName",
-			data : {
-				"name" : name
-			},
-			dataType : "text",
-			success : function(data) {
-				if ("200" != data) {
-					$("#msg2").text(data);
-					$("#submit").attr("disabled", "disabled");
-				} else {
-					$("#msg2").text("");
-					$("#submit").removeAttr("disabled");
-				}
-			}
-		});
 	});
 }
 

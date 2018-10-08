@@ -1,8 +1,3 @@
-// 获取验证码
-function getCaptcha() {
-	$("#captcha img").attr("src", "/Login/getCaptcha?date=" + new Date());
-}
-
 $(function() {
 
 	// 刷验证码 // 看不清
@@ -63,11 +58,16 @@ $(function() {
 			}); // ajax end
 		}
 	}); // validCode end
-	
+
 	// 登录验证
 	checkLogin();
-	
+
 }); // $(function end
+
+// 获取验证码
+function getCaptcha() {
+	$("#captcha img").attr("src", "/Login/getCaptcha?date=" + new Date());
+}
 
 // 登录验证
 function checkLogin() {
