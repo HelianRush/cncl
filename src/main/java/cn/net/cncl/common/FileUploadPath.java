@@ -11,14 +11,18 @@ public class FileUploadPath {
 	 */
 	public static File getFileUploadPath() throws Exception {
 		File path = new File(ResourceUtils.getURL("classpath:").getPath(), Constant.STATIC_PATH + Constant.STATIC_FILE_PATH);
+
+		// return this.request.getSession().getServletContext().getRealPath("/") + path;
+
 		// 如果路径不存在
-		if (!path.exists() || !path.getParentFile().exists()) {
-			if (!path.getParentFile().mkdirs()) {
-				System.out.println("创建目标文件所在目录失败！");
-			}
+		if (!path.exists() && !path.getParentFile().exists()) {
+			path.getParentFile().mkdirs();
+			path.mkdirs();
+			return path;
+		} else {
+			System.out.println("已存在");
+			return path;
 		}
-		// System.out.println(path.getAbsolutePath());
-		return path;
 	}
 
 	/*

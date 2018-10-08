@@ -1,6 +1,7 @@
 package cn.net.cncl.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,6 +79,23 @@ public class ClelebritysController {
 	/**
 	 * 修改
 	 */
+	@RequestMapping(value = "/showManagerCelebritysEdit")
+	public String showManagerCelebritysEdit(HttpSession session, @RequestParam Long celebrityId) {
+		session.setAttribute("celebrityId", celebrityId);
+		return "manager_celebritys_edit";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getCelebrityById")
+	public Celebritys getCelebrityById(HttpSession session) {
+		Long celebrityId = (Long) session.getAttribute("celebrityId");
+		Celebritys celebrity = null;
+		if (null != celebrityId) {
+			celebrity = celebritysService.queryCelebritysByID(celebrityId);
+		}
+		session.removeAttribute("celebrityId");
+		return celebrity;
+	}
 
 	/**
 	 * 删除

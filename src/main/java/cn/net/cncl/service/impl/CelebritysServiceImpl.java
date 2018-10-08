@@ -54,7 +54,7 @@ public class CelebritysServiceImpl implements CelebritysService {
 	 */
 	@Override
 	public int updateCelebritys(Celebritys celebritys) {
-		return 0;
+		return celebritysMapper.updateCelebritys(celebritys);
 	}
 
 	/**
@@ -63,6 +63,14 @@ public class CelebritysServiceImpl implements CelebritysService {
 	@Override
 	public int deleteCelebritys(Long id) {
 		return celebritysMapper.deleteByPrimaryKey(id);
+	}
+
+	/**
+	 * 根据ID查询
+	 */
+	@Override
+	public Celebritys queryCelebritysByID(Long celebrityId) {
+		return celebritysMapper.selectCelebritysByID(celebrityId);
 	}
 
 }

@@ -88,7 +88,18 @@ public class AdminUserServiceImpl implements AdminUserService {
 		adminUser.setCreateTime(new Date());
 		adminUser.setLastLoginTime(new Date());
 		adminUser.setLastLoginIp(GetIP.getIpAddr(request));
-		return adminUserMapper.insert(adminUser);
+		// return adminUserMapper.insert(adminUser);
+		return adminUserMapper.insertSelective(adminUser);
+	}
+
+	/**
+	 * 修改 管理员信息
+	 */
+	@Override
+	public int editAdminUser(HttpServletRequest request, AdminUser adminUser) {
+		adminUser.setLastLoginTime(new Date());
+		adminUser.setLastLoginIp(GetIP.getIpAddr(request));
+		return adminUserMapper.updateByPrimaryKeySelective(adminUser);
 	}
 
 	/**
@@ -114,6 +125,14 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Override
 	public int deleteAdminUser(Long id) {
 		return adminUserMapper.deleteByPrimaryKey(id);
+	}
+
+	/**
+	 * 查询ByID
+	 */
+	@Override
+	public AdminUser queryById(Long id) {
+		return adminUserMapper.selectByPrimaryKey(id);
 	}
 
 }

@@ -35,54 +35,6 @@ public class AdminUserController {
 	 * @param AdminUser.AdminUserName
 	 *            HttpServletRequest request,
 	 */
-	@RequestMapping(value = "/selectAdminUser_old")
-	public String selectAdminUser(HttpServletRequest request, Model model) {
-
-		String adminUserName = request.getParameter("adminUserName");
-		String pageNow = request.getParameter("pageNow");
-		String pageStatus = request.getParameter("pageStatus");
-
-		if (null == pageNow || "" == pageNow)
-			pageNow = "1";
-
-		if (null == pageStatus || "" == pageStatus)
-			pageStatus = Constant.PAGE_NOW;
-
-		int pageNum = Integer.valueOf(pageNow);
-
-		switch (pageStatus) {
-		case Constant.PAGE_PLUS:
-			pageNum = pageNum + 1;
-			break;
-		case Constant.PAGE_SUBTRACT:
-			pageNum = pageNum - 1;
-			break;
-		case Constant.PAGE_NOW:
-			pageNum = pageNum + 0;
-			break;
-		}
-
-		// List<AdminUser> list = adminUserService.selectAdminUserByName(adminUserName);
-		// model.addAttribute("list", list);
-
-		PageInfo<AdminUser> pageList = adminUserService.selectAdminUserByName(adminUserName, pageNum);
-
-		// 获得当前页
-		model.addAttribute("pageNum", pageList.getPageNum());
-		// 获得一页显示的条数
-		model.addAttribute("pageSize", pageList.getPageSize());
-		// 是否是第一页
-		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
-		// 获得总页数
-		model.addAttribute("totalPages", pageList.getPages());
-		// 是否是最后一页
-		model.addAttribute("isLastPage", pageList.isIsLastPage());
-		// 当前列表
-		model.addAttribute("list", pageList.getList());
-
-		return "manager_admin_users";
-	}
-
 	@RequestMapping(value = "/selectAdminUser")
 	public String selectAdminUser(HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") Integer pageNum) {
 
@@ -90,16 +42,8 @@ public class AdminUserController {
 
 		PageInfo<AdminUser> pageList = adminUserService.selectAdminUserByName(adminUserName, pageNum);
 
-		// 获得当前页
-		model.addAttribute("pageNum", pageList.getPageNum());
-		// 获得一页显示的条数
-		model.addAttribute("pageSize", pageList.getPageSize());
-		// 是否是第一页
-		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
-		// 获得总页数
-		model.addAttribute("totalPages", pageList.getPages());
-		// 是否是最后一页
-		model.addAttribute("isLastPage", pageList.isIsLastPage());
+		// 保证分页Model
+		this.pageModel(model, pageList);
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 		return "manager_admin_users";
@@ -131,20 +75,17 @@ public class AdminUserController {
 	@RequestMapping(value = "/addAdminUser")
 	public String addAdminUser(HttpServletRequest request, AdminUser adminUser, Model model, @RequestParam(defaultValue = "1") Integer pageNum) {
 
-		int flag = adminUserService.addAdminUser(request, adminUser);
+		int flag = 0;
+		if (null == adminUser.getAdminUserId()) {
+			flag = adminUserService.addAdminUser(request, adminUser);
+		} else {
+			flag = adminUserService.editAdminUser(request, adminUser);
+		}
 
 		PageInfo<AdminUser> pageList = adminUserService.selectAdminUserByName(null, pageNum);
 
-		// 获得当前页
-		model.addAttribute("pageNum", pageList.getPageNum());
-		// 获得一页显示的条数
-		model.addAttribute("pageSize", pageList.getPageSize());
-		// 是否是第一页
-		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
-		// 获得总页数
-		model.addAttribute("totalPages", pageList.getPages());
-		// 是否是最后一页
-		model.addAttribute("isLastPage", pageList.isIsLastPage());
+		// 保证分页Model
+		this.pageModel(model, pageList);
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 
@@ -154,9 +95,13 @@ public class AdminUserController {
 			return "manager_admin_users";
 	}
 
-	/**
-	 * 编辑
-	 */
+	// 编辑显示
+	@ResponseBody
+	@PostMapping(value = "/showEdit")
+	public AdminUser showEdit(@RequestParam Long id) {
+		AdminUser adminUser = adminUserService.queryById(id);
+		return adminUser;
+	}
 
 	/**
 	 * 删除
@@ -170,6 +115,23 @@ public class AdminUserController {
 		} else {
 			return Constant.ERROR.getCode();
 		}
+	}
+
+	/**
+	 * 保证分页Model
+	 */
+	private Model pageModel(Model model, PageInfo pageList) {
+		// 获得当前页
+		model.addAttribute("pageNum", pageList.getPageNum());
+		// 获得一页显示的条数
+		model.addAttribute("pageSize", pageList.getPageSize());
+		// 是否是第一页
+		model.addAttribute("isFirstPage", pageList.isIsFirstPage());
+		// 获得总页数
+		model.addAttribute("totalPages", pageList.getPages());
+		// 是否是最后一页
+		model.addAttribute("isLastPage", pageList.isIsLastPage());
+		return model;
 	}
 
 }

@@ -11,13 +11,13 @@ import cn.net.cncl.entity.AdminUser;
 public interface AdminUserMapper {
 	int deleteByPrimaryKey(Long adminUserId);
 
-	int insert(AdminUser record);
+	int insert(AdminUser adminUser);
 
-	int insertSelective(AdminUser record);
+	int insertSelective(AdminUser adminUser);
 
 	AdminUser selectByPrimaryKey(Long adminUserId);
 
-	int updateByPrimaryKeySelective(AdminUser record);
+	int updateByPrimaryKeySelective(AdminUser adminUser);
 
 	int updateByPrimaryKey(AdminUser record);
 

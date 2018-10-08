@@ -21,21 +21,6 @@
 
 <title>名人库管理</title>
 
-<script type="text/javascript">
-	<script type="text/javascript">
-	$(function() {
-		$.ajax({
-			type : "POST",
-			url : "/ClelebritysCtl/showCelebritysList",
-			dataType : "json",
-			async : false,
-			cache : false,
-			success : function(data) {
-			}
-		});
-	});
-</script>
-
 </head>
 
 <body>
@@ -107,9 +92,11 @@
 								<td th:text="${data.representativeName}"></td>
 								<td th:text="${data.achievement}"></td>
 								<td th:text="${data.browseCount}"></td>
-								<td>
-									<!-- <a href="">详情</a> |  --> <a href="">修改</a> | <a id="remove" th:id="${data.celebrityId}" th:onclick="'doRemove(this)'">删除</a>
-								</td>
+								<td><a href="">详情</a> | <a th:href="@{${'/ClelebritysCtl/showManagerCelebritysEdit'}(celebrityId=${data.celebrityId})}">修改</a> | <a id="remove" th:id="${data.celebrityId}" th:onclick="'doRemove(this)'">删除</a></td>
+								<!--  
+									<button type="button" id="doEdit" class="btn btn-primary" th:id="${data.celebrityId}" th:onclick="'doEdit(this)'">编辑</button>
+									<button tyep="button" id="doRemove" class="btn btn-primary" th:id="${data.celebrityId}" th:onclick="'doRemove(this)'">删除</button>
+								-->
 							</tr>
 						</tbody>
 					</table>
@@ -136,24 +123,27 @@
 
 	</div>
 	<!-- row end -->
-
-	<!-- Javascript -->
-	<script type="text/javascript">
-		// 删除
-		function doRemove(object) {
-			var id = $(object).attr("id");
-			if (confirm("是确认删除" + id + "资源？")) {
-				$.post("/ClelebritysCtl/deleteCelebritys", {
-					"id" : id
-				}, function(data) {
-					if ("200" == data) {
-						window.location.reload();
-					} else {
-						alert("删除失败！");
-					}
-				});
-			}
-		}
-	</script>
 </body>
+<!-- Javascript -->
+
+<script type="text/javascript">
+	$(function() {
+	})
+
+	// 删除
+	function doRemove(object) {
+		var id = $(object).attr("id");
+		if (confirm("是确认删除" + id + "资源？")) {
+			$.post("/ClelebritysCtl/deleteCelebritys", {
+				"id" : id
+			}, function(data) {
+				if ("200" == data) {
+					window.location.reload();
+				} else {
+					alert("删除失败！");
+				}
+			});
+		}
+	}
+</script>
 </html>

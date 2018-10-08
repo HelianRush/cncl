@@ -34,6 +34,11 @@ public interface AdminUserService {
 	int addAdminUser(HttpServletRequest request, AdminUser adminUser);
 
 	/**
+	 * 修改 管理员信息
+	 */
+	int editAdminUser(HttpServletRequest request, AdminUser adminUser);
+
+	/**
 	 * 新增管理员 登录名验证
 	 * 
 	 * @param @RequestParam
@@ -45,5 +50,10 @@ public interface AdminUserService {
 	 * 删除
 	 */
 	int deleteAdminUser(Long id);
+
+	/**
+	 * 查询ByID
+	 */
+	AdminUser queryById(Long id);
 
 }

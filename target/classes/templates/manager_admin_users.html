@@ -48,11 +48,11 @@
 					</div>
 
 					<div class="col-lg-1 center-block">
-						<button class="btn btn-primary" data-toggle="modal" data-target="#add">新增</button>
+						<button type="button" id="doAdd" class="btn btn-primary" data-toggle="modal" data-target="#editData">新增</button>
 					</div>
 
 					<!-- 弹窗 -->
-					<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal fade" id="editData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 
 							<div class="modal-content">
@@ -70,6 +70,8 @@
 											<div class="col-sm-1"></div>
 											<label for="" class="col-sm-3">管理员名称</label>
 											<div class="col-sm-6">
+												<input type="text" id="adminUserId" name="adminUserId" hidden="true">
+												<!-- adminUserName -->
 												<input type="text" class="form-control" id="adminUserName" name="adminUserName" placeholder="登录用户名...">
 											</div>
 											<div class="col-sm-2">
@@ -105,7 +107,7 @@
 											<div class="col-sm-1"></div>
 											<label for="" class="col-sm-3">手机</label>
 											<div class="col-sm-6">
-												<input type="text" class="form-control" id="mobilePhone" name="mobilePhone" placeholder="13900000000">
+												<input type="number" class="form-control" id="mobilePhone" name="mobilePhone" placeholder="13900000000">
 											</div>
 										</div>
 
@@ -121,7 +123,7 @@
 											<div class="col-sm-1"></div>
 											<label for="" class="col-sm-3">邮箱</label>
 											<div class="col-sm-6">
-												<input type="text" class="form-control" id="email" name="email" placeholder="xxx@cncl.net.cn">
+												<input type="email" class="form-control" id="email" name="email" placeholder="xxx@cncl.net.cn">
 											</div>
 										</div>
 
@@ -197,8 +199,11 @@
 								<td th:text="${#dates.format(data.lastLoginTime,'yyyy-MM-dd')}"></td>
 								<td th:text="${data.lastLoginIp}"></td>
 								<td>
-									<!-- <a href="">详情</a> |  --> <a data-target="#add">修改</a> | <a id="remove" th:id="${data.adminUserId}" th:onclick="'doRemove(this)'">删除</a>
+									<!-- <a href="">详情</a> | <a id="doEdit">修改</a> | <a id="remove" th:id="${data.adminUserId}" th:onclick="'doRemove(this)'">删除</a>-->
+									<button type="button" id="doEdit" class="btn btn-primary" data-toggle="modal" data-target="#editData" th:id="${data.adminUserId}" th:onclick="'doEdit(this)'">编辑</button>
+									<button tyep="button" id="doRemove" class="btn btn-primary" th:id="${data.adminUserId}" th:onclick="'doRemove(this)'">删除</button>
 								</td>
+								<!-- th:id="${data.adminUserId}" th:onclick="'doEdit(this)'" -->
 							</tr>
 						</tbody>
 
@@ -233,8 +238,8 @@
 
 		<script type="text/javascript">
 			$(function() {
-				$("#adminUserName").val("");
-				$("#password").val("");
+				// $("#adminUserName").val("");
+				// $("#password").val("");
 				// 验证
 				checkName();
 				//删除
@@ -259,13 +264,39 @@
 							success : function(data) {
 								if ("A0001" == data) {
 									$("#alertAdmin").text("已存在");
-									$("#adminUserName").val("");
-									$("#password").val("");
+									// $("#adminUserName").val("");
+									// $("#password").val("");
 								} else {
 									$("#alertAdmin").text("");
 								}
 							}//success end
 						});
+					}
+				});
+			}
+
+			// 编辑 弹窗
+			function doEdit(object) {
+				var id = $(object).attr("id");
+				$.ajax({
+					url : "/AdminCtl/showEdit",
+					type : "POST",
+					async : false,
+					cache : false,
+					data : {
+						"id" : id
+					},
+					dataType : "json",
+					success : function(data) {
+						$("#adminUserId").val(data.adminUserId);
+						$("#adminUserName").val(data.adminUserName);
+						// $("#adminUserName").attr("readonly","readonly")
+						$("#password").val(data.password);
+						$("#name").val(data.name);
+						$("#nickName").val(data.nickName);
+						$("#mobilePhone").val(data.mobilePhone);
+						$("#telephone").val(data.telephone);
+						$("#email").val(data.email);
 					}
 				});
 			}

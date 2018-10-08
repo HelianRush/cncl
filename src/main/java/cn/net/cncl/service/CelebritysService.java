@@ -30,4 +30,9 @@ public interface CelebritysService {
 	 */
 	public int deleteCelebritys(Long id);
 
+	/**
+	 * 根据ID查询
+	 */
+	public Celebritys queryCelebritysByID(Long id);
+
 }

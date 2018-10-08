@@ -16,8 +16,17 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		ADMIN_USER_ID, ADMIN_USER_NAME, PASSWORD, NAME, NICK_NAME, MOBILE_PHONE, TELEPHONE,
-		EMAIL, CREATE_TIME, LAST_LOGIN_TIME, LAST_LOGIN_IP
+		ADMIN_USER_ID,
+		ADMIN_USER_NAME,
+		PASSWORD,
+		NAME,
+		NICK_NAME,
+		MOBILE_PHONE,
+		TELEPHONE,
+		EMAIL,
+		CREATE_TIME,
+		LAST_LOGIN_TIME,
+		LAST_LOGIN_IP
 	</sql>
 
 	<sql id="Base_Column_List_As">
@@ -38,6 +47,8 @@
 	<select id="selectAll" resultType="cn.net.cncl.entity.AdminUser">
 		<include refid="Base_Column_List_As"></include>
 		FROM t_admin_user
+		ORDER BY
+		ADMIN_USER_ID DESC
 	</select>
 
 	<!-- 根据ID查询 -->
@@ -93,26 +104,27 @@
 		SELECT COUNT(ADMIN_USER_NAME) FROM t_admin_user WHERE ADMIN_USER_NAME = #{adminUserName}
 	</select>
 
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	<select id="selectByPrimaryKey" resultType="cn.net.cncl.entity.AdminUser" parameterType="java.lang.Long">
 		select
-		<include refid="Base_Column_List" />
+		<include refid="Base_Column_List_As" />
 		from t_admin_user
 		where ADMIN_USER_ID = #{adminUserId,jdbcType=BIGINT}
 	</select>
+
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from t_admin_user
 		where ADMIN_USER_ID = #{adminUserId,jdbcType=BIGINT}
 	</delete>
+
 	<insert id="insert" parameterType="cn.net.cncl.entity.AdminUser">
-		insert into t_admin_user (ADMIN_USER_ID, ADMIN_USER_NAME, PASSWORD,
-		NAME, NICK_NAME, MOBILE_PHONE,
-		TELEPHONE, EMAIL, CREATE_TIME,
-		LAST_LOGIN_TIME, LAST_LOGIN_IP)
+		insert into t_admin_user (
+		ADMIN_USER_ID, ADMIN_USER_NAME, PASSWORD,NAME, NICK_NAME, MOBILE_PHONE,TELEPHONE, EMAIL, CREATE_TIME,LAST_LOGIN_TIME, LAST_LOGIN_IP)
 		values (#{adminUserId,jdbcType=BIGINT}, #{adminUserName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR},
 		#{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE},
 		#{lastLoginTime,jdbcType=DATE}, #{lastLoginIp,jdbcType=VARCHAR})
 	</insert>
+
 	<insert id="insertSelective" parameterType="cn.net.cncl.entity.AdminUser">
 		insert into t_admin_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -186,6 +198,7 @@
 			</if>
 		</trim>
 	</insert>
+
 	<update id="updateByPrimaryKeySelective" parameterType="cn.net.cncl.entity.AdminUser">
 		update t_admin_user
 		<set>
@@ -222,6 +235,7 @@
 		</set>
 		where ADMIN_USER_ID = #{adminUserId,jdbcType=BIGINT}
 	</update>
+
 	<update id="updateByPrimaryKey" parameterType="cn.net.cncl.entity.AdminUser">
 		update t_admin_user
 		set ADMIN_USER_NAME = #{adminUserName,jdbcType=VARCHAR},
@@ -236,4 +250,5 @@
 		LAST_LOGIN_IP = #{lastLoginIp,jdbcType=VARCHAR}
 		where ADMIN_USER_ID = #{adminUserId,jdbcType=BIGINT}
 	</update>
+
 </mapper>

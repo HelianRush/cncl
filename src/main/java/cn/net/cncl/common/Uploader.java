@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -177,8 +178,9 @@ public class Uploader {
 	 * 接受并保存以base64格式上传的文件
 	 * 
 	 * @param fieldName
+	 * @throws FileNotFoundException
 	 */
-	public void uploadBase64(String fieldName) {
+	public void uploadBase64(String fieldName) throws FileNotFoundException {
 		String savePath = this.getFolder(this.savePath);
 		String base64Data = this.request.getParameter(fieldName);
 		this.fileName = this.getName("test.png");
@@ -243,8 +245,9 @@ public class Uploader {
 	 * 
 	 * @param path
 	 * @return
+	 * @throws FileNotFoundException
 	 */
-	private String getFolder(String path) {
+	private String getFolder(String path) throws FileNotFoundException {
 		SimpleDateFormat formater = new SimpleDateFormat("yyyyMMdd");
 		path += "/" + formater.format(new Date());
 		File dir = new File(this.getPhysicalPath(path));
@@ -264,13 +267,10 @@ public class Uploader {
 	 * 
 	 * @param path
 	 * @return
+	 * @throws FileNotFoundException
 	 */
-	private String getPhysicalPath(String path) {
-		// String servletPath = this.request.getServletPath();
-		// String realPath =
-		// this.request.getSession().getServletContext().getRealPath(servletPath);
-		// return new File(realPath).getParent() + "/" + path;
-
+	private String getPhysicalPath(String path) throws FileNotFoundException {
+		// 源码
 		return this.request.getSession().getServletContext().getRealPath("/") + path;
 	}
 

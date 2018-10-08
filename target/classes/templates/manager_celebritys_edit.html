@@ -22,21 +22,76 @@
 <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <!-- Myself Javascript & CSS -->
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <link rel="stylesheet" th:href="@{/assets/manager.css}" />
 <!--  
-<script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
+<script type="text/javascript" th:src="@{/jquery/jquerySession.js}"></script>
 -->
 <!-- UMeditor -->
 <link rel="stylesheet" th:href="@{/assets/cncl_umeditor.css}" />
 
 <title>编辑名人库</title>
 
-<style type="text/css">
-</style>
 <script type="text/javascript">
 	$(function() {
+		// 获取编辑信息
+		getCelebrity();
 	});
+
+	function getCelebrity() {
+		$.ajax({
+			type : "GET",
+			url : "/ClelebritysCtl/getCelebrityById",
+			async : false,
+			cache : false,
+			dataType : "json",
+			success : function(data) {
+				if (null != data.celebrityId || "" != data.celebrityId) {
+					$("#celebrityId").val(data.celebrityId);
+					$("#celebrityName").val(data.celebrityName);
+					$("#anotherName").val(data.anotherName);
+					$("#foreignName").val(data.foreignName);
+					$("#nationality").val(data.nationality);
+					$("#birthplace").val(data.birthplace);
+					$("#nativePlace").val(data.nativePlace);
+					$("#ancestralHome").val(data.ancestralHome);
+					$("#nation").val(data.nation);
+					$("#constellation").val(data.constellation);
+					$("#bloodType").val(data.bloodType);
+					$("#height").val(data.height);
+					$("#identityCard").val(data.identityCard);
+					$("#certificateCode").val(data.certificateCode);
+					$("#certificateName").val(data.certificateName);
+					$("#company").val(data.company);
+					$("#profession").val(data.profession);
+					//$("#birthday").val(data.birthday);
+					//$("#deathday").val(data.deathday);
+					$("#achievement").val(data.achievement);
+					$("#representativeName").val(data.representativeName);
+					um.execCommand('insertHtml', data.introduce)
+
+					var birthday = new Date(data.birthday);
+					var birthday_day = ("0" + birthday.getDate()).slice(-2);
+					var birthday_month = ("0" + (birthday.getMonth() + 1))
+							.slice(-2);
+					var birthday_today = birthday.getFullYear() + "-"
+							+ (birthday_month) + "-" + (birthday_day);
+					$("#birthday").val(birthday_today);
+
+					var deathday = new Date(data.deathday);
+					var deathday_day = ("0" + deathday.getDate()).slice(-2);
+					var deathday_month = ("0" + (deathday.getMonth() + 1))
+							.slice(-2);
+					var deathday_today = deathday.getFullYear() + "-"
+							+ (deathday_month) + "-" + (deathday_day);
+					$("#deathday").val(deathday_today);
+
+				}
+			}
+		});
+	}
 </script>
+
 </head>
 
 <body>
@@ -67,6 +122,8 @@
 						<div class="form-group">
 							<label for="celebrityName" class="col-sm-3 control-label">名称</label>
 							<div class="col-sm-9">
+								<input type="text" id="celebrityId" name="celebrityId" hidden="true">
+								<!--  -->
 								<input type="text" class="form-control" id="celebrityName" name="celebrityName" placeholder="名人名称...">
 							</div>
 						</div>
@@ -299,35 +356,54 @@
 	</div>
 	<!-- <div class="row"> end -->
 
-	<!--  
+	<!--
 	<div class="clear">
-		<button class="btn" unselected="on" onclick="getAllHtml()">获得整个html的内容</button>&nbsp;
-		<button class="btn" onclick="getContent()">获得内容</button>&nbsp;
-		<button class="btn" onclick="setContent()">写入内容</button>&nbsp;
-		<button class="btn" onclick="setContent(true)">追加内容</button>&nbsp;
-		<button class="btn" onclick="getContentTxt()">获得纯文本</button>&nbsp;
-		<button class="btn" onclick="getPlainTxt()">获得带格式的纯文本</button>&nbsp;
+		<button class="btn" unselected="on" onclick="getAllHtml()">获得整个html的内容</button>
+		&nbsp;
+		<button class="btn" onclick="getContent()">获得内容</button>
+		&nbsp;
+		<button class="btn" onclick="setContent()">写入内容</button>
+		&nbsp;
+		<button class="btn" onclick="setContent(true)">追加内容</button>
+		&nbsp;
+		<button class="btn" onclick="getContentTxt()">获得纯文本</button>
+		&nbsp;
+		<button class="btn" onclick="getPlainTxt()">获得带格式的纯文本</button>
+		&nbsp;
 		<button class="btn" onclick="hasContent()">判断是否有内容</button>
-		
-		<button class="btn" onclick="setFocus()">编辑器获得焦点</button>&nbsp;
-		<button class="btn" onmousedown="isFocus();return false;">编辑器是否获得焦点</button>&nbsp;
-		<button class="btn" onclick="doBlur()">编辑器取消焦点</button>&nbsp;
-		<button class="btn" onclick="insertHtml()">插入给定的内容</button>&nbsp;
-		<button class="btn" onclick="getContentTxt()">获得纯文本</button>&nbsp;
-		<button class="btn" id="enable" onclick="setEnabled()">可以编辑</button>&nbsp;
+
+		<button class="btn" onclick="setFocus()">编辑器获得焦点</button>
+		&nbsp;
+		<button class="btn" onmousedown="isFocus();return false;">编辑器是否获得焦点</button>
+		&nbsp;
+		<button class="btn" onclick="doBlur()">编辑器取消焦点</button>
+		&nbsp;
+		<button class="btn" onclick="insertHtml()">插入给定的内容</button>
+		&nbsp;
+		<button class="btn" onclick="getContentTxt()">获得纯文本</button>
+		&nbsp;
+		<button class="btn" id="enable" onclick="setEnabled()">可以编辑</button>
+		&nbsp;
 		<button class="btn" onclick="setDisabled()">不可编辑</button>
 
-		<button class="btn" onclick="UM.getEditor('myEditor').setHide()">隐藏编辑器</button>&nbsp;
-		<button class="btn" onclick="UM.getEditor('myEditor').setShow()">显示编辑器</button>&nbsp;
-		<button class="btn" onclick="UM.getEditor('myEditor').setHeight(300)">设置编辑器的高度为300</button>&nbsp;
+		<button class="btn" onclick="UM.getEditor('myEditor').setHide()">隐藏编辑器</button>
+		&nbsp;
+		<button class="btn" onclick="UM.getEditor('myEditor').setShow()">显示编辑器</button>
+		&nbsp;
+		<button class="btn" onclick="UM.getEditor('myEditor').setHeight(300)">设置编辑器的高度为300</button>
+		&nbsp;
 		<button class="btn" onclick="UM.getEditor('myEditor').setWidth(1200)">设置编辑器的宽度为1200</button>
 
-		<button class="btn" onclick="createEditor()" />创建编辑器</button>
-		<button class="btn" onclick="deleteEditor()" />删除编辑器</button>
-				
+		<button class="btn" onclick="createEditor()" />
+		创建编辑器
+		</button>
+		<button class="btn" onclick="deleteEditor()" />
+		删除编辑器
+		</button>
+
 		<h3 id="focush2"></h3>
 	</div>
-	-->
+	  -->
 	<script type="text/javascript">
 		//实例化编辑器
 		var um = UM.getEditor('myEditor');

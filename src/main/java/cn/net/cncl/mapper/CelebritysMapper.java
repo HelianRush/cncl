@@ -21,10 +21,16 @@ public interface CelebritysMapper {
 	/**
 	 * 修改
 	 */
+	int updateCelebritys(Celebritys celebritys);
 
 	/**
 	 * 删除
 	 */
 	int deleteByPrimaryKey(Long celebrityId);
+
+	/**
+	 * 根据ID查询
+	 */
+	Celebritys selectCelebritysByID(Long celebrityId);
 
 }
