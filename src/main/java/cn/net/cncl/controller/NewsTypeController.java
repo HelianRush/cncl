@@ -72,13 +72,24 @@ public class NewsTypeController {
 	 */
 	@RequestMapping(value = "/editNewsType")
 	public String editNewsType(Model model, NewsType newsType) {
-		int flag = newsTypeService.editNewsType(newsType);
+		Long newsTypeId = newsType.getNewsTypeId();
+		newsTypeService.editNewsType(newsType);
 		Integer pageNum = 1;
 		PageInfo<NewsType> pageList = newsTypeService.selectNewsType(pageNum);
 		model = this.pageModel(model, pageList);
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 		return "manager_news_type";
+	}
+
+	/**
+	 * 编辑显示
+	 */
+	@ResponseBody
+	@PostMapping(value = "/showEditNewsType")
+	public NewsType showEdit(@RequestParam Long id) {
+		NewsType newsType = newsTypeService.queryById(id);
+		return newsType;
 	}
 
 	/**

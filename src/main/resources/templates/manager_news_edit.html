@@ -32,7 +32,27 @@
 </style>
 <script type="text/javascript">
 	$(function() {
+		getNews();
 	});
+
+	function getNews() {
+		$.ajax({
+			type : "GET",
+			url : "/NewsCtl/getNewsById",
+			async : false,
+			cache : false,
+			dataType : "json",
+			success : function(data) {
+				if (null != data.newsId && "" != data.newsId) {
+					$("#newsId").val(data.newsId);
+					$("#newsTitel").val(data.newsTitel);
+					$("#newsTypeFk").val(data.newsTypeFk);
+					//.append(data.newsTypeFk); //.val(data.newsTypeFk);
+					um.execCommand('insertHtml', data.newsContent)
+				}
+			}
+		});
+	}
 </script>
 </head>
 
@@ -64,6 +84,8 @@
 						<div class="form-group">
 							<label for="newsTitel" class="col-sm-3 control-label">标题</label>
 							<div class="col-sm-9">
+								<input type="text" id="newsId" name="newsId" hidden="true">
+								<!--  -->
 								<input type="text" class="form-control" id="newsTitel" name="newsTitel" placeholder="标题...">
 							</div>
 						</div>
@@ -73,7 +95,7 @@
 						<div class="form-group">
 							<label for="newsTypeFk" class="col-sm-3 control-label">类别</label>
 							<div class="col-sm-9">
-								<select class="form-control" id="newsTypeFk" name="newsTypeFk">
+								<select class="form-control" id="newsTypeFk" name="newsTypeFk" >
 									<option value="">--- 请选择 ---</option>
 									<option th:each="newsType:${newsTypeList}" th:value="${newsType.newsTypeId}" th:text="${newsType.newsTypeName}" th:selected="${newsType.newsTypeName}">
 									</option>
@@ -104,10 +126,12 @@
 			<!-- related end -->
 		</div>
 		<!-- middle end -->
-
+		
+		<!--  
 		<div id="right" class="col-lg-1 col-md-1 col-sm-1">
 			<img th:src="@{/images/m_left.png}" />
 		</div>
+		-->
 		<!-- right end -->
 
 	</div>

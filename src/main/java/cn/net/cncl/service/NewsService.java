@@ -26,4 +26,9 @@ public interface NewsService {
 	 */
 	int deleteNews(Long newsId);
 
+	/**
+	 * 根据ID查询
+	 */
+	News queryNewsByID(Long newsId);
+
 }

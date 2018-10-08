@@ -38,4 +38,9 @@ public interface NewsTypeService {
 	 */
 	List<NewsType> queryNewsTypeAll();
 
+	/**
+	 * 编辑显示
+	 */
+	NewsType queryById(Long id);
+
 }

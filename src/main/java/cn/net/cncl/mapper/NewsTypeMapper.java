@@ -35,6 +35,9 @@ public interface NewsTypeMapper {
 
 	int insertSelective(NewsType record);
 
+	/**
+	 * 根据ID查询
+	 */
 	NewsType selectByPrimaryKey(Long newsTypeId);
 
 	int updateByPrimaryKey(NewsType record);

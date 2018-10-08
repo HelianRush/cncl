@@ -27,4 +27,9 @@ public interface NewsMapper {
 	 * 资讯编辑 修改
 	 */
 	int deleteByPrimaryKey(Long newsId);
+
+	/**
+	 * 根据ID查询
+	 */
+	News selectNewsByID(Long newsId);
 }

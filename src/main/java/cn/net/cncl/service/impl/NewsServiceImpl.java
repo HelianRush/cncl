@@ -66,4 +66,12 @@ public class NewsServiceImpl implements NewsService {
 		return newsMapper.deleteByPrimaryKey(newsId);
 	}
 
+	/**
+	 * 根据ID查询
+	 */
+	@Override
+	public News queryNewsByID(Long newsId) {
+		return newsMapper.selectNewsByID(newsId);
+	}
+
 }

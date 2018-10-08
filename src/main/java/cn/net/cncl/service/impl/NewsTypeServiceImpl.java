@@ -46,7 +46,6 @@ public class NewsTypeServiceImpl implements NewsTypeService {
 		int flag = 0;
 		if (null == newsType.getNewsTypeId() || 0 == newsType.getNewsTypeId()) {
 			newsType.setNewsTypeId(new Date().getTime());
-
 			flag = newsTypeMapper.insert(newsType);
 		} else {
 			flag = newsTypeMapper.updateNewsType(newsType);
@@ -82,6 +81,14 @@ public class NewsTypeServiceImpl implements NewsTypeService {
 	@Override
 	public List<NewsType> queryNewsTypeAll() {
 		return newsTypeMapper.selectNews();
+	}
+
+	/**
+	 * 根据ID查询
+	 */
+	@Override
+	public NewsType queryById(Long newsTypeId) {
+		return newsTypeMapper.selectByPrimaryKey(newsTypeId);
 	}
 
 }

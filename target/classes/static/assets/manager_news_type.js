@@ -17,7 +17,7 @@ function checkCode() {
 
 		if (null == code || "" == code) {
 			$("#msg1").text("不可为空");
-			$("#submit").attr("disabled","disabled");
+			$("#submit").attr("disabled", "disabled");
 		} else {
 			$("#msg1").text("");
 			$("#submit").removeAttr("disabled");
@@ -33,7 +33,7 @@ function checkCode() {
 			success : function(data) {
 				if ("200" != data) {
 					$("#msg1").text(data);
-					$("#submit").attr("disabled","disabled");
+					$("#submit").attr("disabled", "disabled");
 				} else {
 					$("#msg1").text("");
 					$("#submit").removeAttr("disabled");
@@ -53,7 +53,7 @@ function checkName() {
 
 		if (null == name || "" == name) {
 			$("#msg2").text("不可为空");
-			$("#submit").attr("disabled","disabled");
+			$("#submit").attr("disabled", "disabled");
 		} else {
 			$("#msg2").text("");
 			$("#submit").removeAttr("disabled");
@@ -69,7 +69,7 @@ function checkName() {
 			success : function(data) {
 				if ("200" != data) {
 					$("#msg2").text(data);
-					$("#submit").attr("disabled","disabled");
+					$("#submit").attr("disabled", "disabled");
 				} else {
 					$("#msg2").text("");
 					$("#submit").removeAttr("disabled");
@@ -80,7 +80,23 @@ function checkName() {
 }
 
 // 修改
-function editNewsType() {
+function doEdit(object) {
+	var id = $(object).attr("id");
+	$.ajax({
+		url : "/NewsTypeCtl/showEditNewsType",
+		type : "POST",
+		async : false,
+		cache : false,
+		data : {
+			"id" : id
+		},
+		dataType : "json",
+		success : function(data) {
+			$("#newsTypeId").val(data.newsTypeId);
+			$("#newsTypeCode").val(data.newsTypeCode);
+			$("#newsTypeName").val(data.newsTypeName);
+		}
+	});
 }
 
 // 删除

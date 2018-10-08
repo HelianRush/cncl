@@ -103,11 +103,8 @@
 
 	<!-- 资讯编辑 修改 -->
 	<update id="updateNews">
-		UPDATE FROM t_news
+		UPDATE t_news
 		<set>
-			<if test="newsId != null">
-				NEWS_ID = #{newsId},
-			</if>
 			<if test="newsTypeFk != null">
 				NEWS_TYPE_FK = #{newsTypeFk},
 			</if>
@@ -130,11 +127,22 @@
 				NEWS_CONTENT = #{newsContent},
 			</if>
 		</set>
+		WHERE 
+		NEWS_ID = #{newsId}
 	</update>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from t_news
 		where NEWS_ID = #{newsId,jdbcType=BIGINT}
 	</delete>
+
+	<!-- 根据ID查询 -->
+	<select id="selectNewsByID" resultType="cn.net.cncl.entity.News" parameterType="java.lang.Long">
+		SELECT
+		<include refid="News_Column_List"></include>
+		FROM t_news
+		WHERE
+		NEWS_ID = #{newsId,jdbcType=BIGINT}
+	</select>
 
 </mapper>
