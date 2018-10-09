@@ -47,7 +47,7 @@
 					$("#newsId").val(data.newsId);
 					$("#newsTitel").val(data.newsTitel);
 					$("#newsTypeFk").val(data.newsTypeFk);
-					//.append(data.newsTypeFk); //.val(data.newsTypeFk);
+					$("#imageIdFk").val(data.imageIdFk);
 					um.execCommand('insertHtml', data.newsContent)
 				}
 			}
@@ -100,6 +100,15 @@
 									<option th:each="newsType:${newsTypeList}" th:value="${newsType.newsTypeId}" th:text="${newsType.newsTypeName}" th:selected="${newsType.newsTypeName}">
 									</option>
 								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="imageIdFk" class="col-sm-3 control-label">标题图片</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="imageIdFk" name="imageIdFk" placeholder="图片ID">
 							</div>
 						</div>
 					</div>
