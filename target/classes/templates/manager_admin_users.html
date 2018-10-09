@@ -16,9 +16,9 @@
 
 <!-- Myself Javascript & CSS -->
 <link rel="stylesheet" th:href="@{/assets/manager.css}" />
-<!--  
-<script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
+<script type="text/javascript" th:src="@{/assets/manager_admin.js}"></script>
 
+<!--  
 <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" th:href="@{/pop_up_windows/css/htmleaf-demo.css}">
 <link rel="stylesheet" type="text/css" href="@{/pop_up_windows/css/jquery.alertable.css}">
@@ -62,13 +62,13 @@
 									<h4 class="modal-title" id="myModalLabel">新增管理员</h4>
 								</div>
 
-								<form th:action="@{/AdminCtl/addAdminUser}" class="form-horizontal" method="post">
+								<form id="editForm" th:action="@{/AdminCtl/addAdminUser}" class="form-horizontal" method="post">
 
 									<div class="modal-body">
 
 										<div class="form-group">
 											<div class="col-sm-1"></div>
-											<label for="" class="col-sm-3">管理员名称</label>
+											<label for="" class="col-sm-3">管理员名称 * </label>
 											<div class="col-sm-6">
 												<input type="text" id="adminUserId" name="adminUserId" hidden="true">
 												<!-- adminUserName -->
@@ -81,9 +81,12 @@
 
 										<div class="form-group">
 											<div class="col-sm-1"></div>
-											<label for="" class="col-sm-3">密码</label>
+											<label for="" class="col-sm-3">密码 * </label>
 											<div class="col-sm-6">
 												<input type="password" class="form-control" id="password" name="password" placeholder="密码...">
+											</div>
+											<div class="col-sm-2">
+												<span id="alertPass"></span>
 											</div>
 										</div>
 
@@ -131,8 +134,11 @@
 									<!-- modal-body end -->
 
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal" id="close" onclick="closeWindow()">关闭</button>
+										<!--  
 										<input type="submit" class="btn btn-primary" value="提交">
+										-->
+										<input type="button" class="btn btn-default" value="提交" id="submitButton" />
 									</div>
 
 								</form>
@@ -235,87 +241,8 @@
 			<!-- right end -->
 		</div>
 		<!-- row end -->
-
-		<script type="text/javascript">
-			$(function() {
-				// $("#adminUserName").val("");
-				// $("#password").val("");
-				// 验证
-				checkName();
-				//删除
-				// deleteAdmin();
-			});
-
-			// 新增管理员 登录名验证
-			function checkName() {
-				$("#adminUserName").blur(function() {
-					var adminUserName = $("#adminUserName").val();
-
-					if (null == adminUserName || "" == adminUserName) {
-						$("#alertAdmin").text("不可空");
-					} else {
-						$.ajax({
-							type : "POST",
-							url : "/AdminCtl/checkAdminUserName",
-							data : {
-								"adminUserName" : adminUserName
-							},//data end
-							dataType : "text",
-							success : function(data) {
-								if ("A0001" == data) {
-									$("#alertAdmin").text("已存在");
-									// $("#adminUserName").val("");
-									// $("#password").val("");
-								} else {
-									$("#alertAdmin").text("");
-								}
-							}//success end
-						});
-					}
-				});
-			}
-
-			// 编辑 弹窗
-			function doEdit(object) {
-				var id = $(object).attr("id");
-				$.ajax({
-					url : "/AdminCtl/showEdit",
-					type : "POST",
-					async : false,
-					cache : false,
-					data : {
-						"id" : id
-					},
-					dataType : "json",
-					success : function(data) {
-						$("#adminUserId").val(data.adminUserId);
-						$("#adminUserName").val(data.adminUserName);
-						// $("#adminUserName").attr("readonly","readonly")
-						$("#password").val(data.password);
-						$("#name").val(data.name);
-						$("#nickName").val(data.nickName);
-						$("#mobilePhone").val(data.mobilePhone);
-						$("#telephone").val(data.telephone);
-						$("#email").val(data.email);
-					}
-				});
-			}
-
-			// 删除
-			function doRemove(object) {
-				var id = $(object).attr("id");
-				if (confirm("是确认删除" + id + "用户？")) {
-					$.post("/AdminCtl/deleteAdminUser", {
-						"id" : id
-					}, function(data) {
-						if ("200" == data) {
-							window.location.reload();
-						} else {
-							alert("删除失败！");
-						}
-					});
-				}
-			}
-		</script>
 </body>
+<script type="text/javascript">
+	
+</script>
 </html>

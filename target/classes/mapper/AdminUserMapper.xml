@@ -48,7 +48,7 @@
 		<include refid="Base_Column_List_As"></include>
 		FROM t_admin_user
 		ORDER BY
-		ADMIN_USER_ID DESC
+		CREATE_TIME,ADMIN_USER_ID DESC
 	</select>
 
 	<!-- 根据ID查询 -->
@@ -96,7 +96,7 @@
 		<if test="adminUserName != null and adminUserName != ''">
 			AND ADMIN_USER_NAME=#{adminUserName}
 		</if>
-		ORDER BY CREATE_TIME ,ADMIN_USER_ID DESC
+		ORDER BY CREATE_TIME DESC
 	</select>
 
 	<!-- 新增管理员 登录名验证 -->

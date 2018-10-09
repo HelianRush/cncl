@@ -8,6 +8,11 @@ $(function() {
 	checkName();
 });
 
+//关闭
+function closeWindow() {
+	$("#editNewsType")[0].reset();
+}
+
 // 注册验证 submitButton // 检查唯一性
 function submitNews() {
 

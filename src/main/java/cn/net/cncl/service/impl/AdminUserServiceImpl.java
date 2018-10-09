@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,8 +81,16 @@ public class AdminUserServiceImpl implements AdminUserService {
 	@Override
 	public int addAdminUser(HttpServletRequest request, AdminUser adminUser) {
 
-		if (null == adminUser.getAdminUserName() || null == adminUser.getPassword()) {
+		if (StringUtils.isBlank(adminUser.getAdminUserName()) || StringUtils.isBlank(adminUser.getPassword())) {
 			return 1;
+		}
+
+		if (StringUtils.isBlank(adminUser.getName())) {
+			adminUser.setName(adminUser.getAdminUserName());
+		}
+
+		if (StringUtils.isBlank(adminUser.getNickName())) {
+			adminUser.setNickName(adminUser.getAdminUserName());
 		}
 
 		adminUser.setAdminUserId(new Date().getTime());
