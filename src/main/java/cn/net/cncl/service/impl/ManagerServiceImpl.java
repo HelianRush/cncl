@@ -44,11 +44,12 @@ public class ManagerServiceImpl implements ManagerService {
 	 * 查询 网站信息
 	 */
 	@Override
-	public String getWebInfo() {
+	public JSONObject getWebInfo() {
 		Map<String, Object> webInfo = webInfoMapper.getWebInfo();
 		String jsonString = JSONObject.toJSONString(webInfo);
+		JSONObject jsonObject = JSONObject.parseObject(jsonString);
 		// System.out.println(jsonString);
-		return jsonString;
+		return jsonObject;
 	}
 
 	/**

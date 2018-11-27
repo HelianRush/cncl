@@ -1,7 +1,12 @@
 package cn.net.cncl.service;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.entity.Images;
@@ -25,4 +30,21 @@ public interface ImagesService {
 	 */
 	int deleteImage(Long id);
 
+	/**
+	 * 获取 滚动图片ID
+	 */
+	Map<String, String> getTopImages();
+
+	/**
+	 * 设置滚动图片
+	 */
+	int editTopImages(HttpServletRequest request);
+
+	/********************************************************************************
+	 *********************************** API 接口 ***********************************
+	 ********************************************************************************/
+	/**
+	 * 获取 滚动图片
+	 */
+	JSONObject getApiTopImages();
 }

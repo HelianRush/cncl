@@ -9,17 +9,11 @@ import cn.net.cncl.entity.Images;
 @Mapper
 public interface ImagesMapper {
 
-	// int insert(ImagesWithBLOBs record);
-
-	// int insertSelective(ImagesWithBLOBs record);
-
-	// ImagesWithBLOBs selectByPrimaryKey(Long imageId);
-
-	// int updateByPrimaryKeySelective(ImagesWithBLOBs record);
-
-	// int updateByPrimaryKeyWithBLOBs(ImagesWithBLOBs record);
-
-	int updateByPrimaryKey(Images record);
+	/*
+	 * 自动生成
+	 */
+	// int deleteByPrimaryKey(Long imageId);
+	// int updateByPrimaryKey(Images record);
 
 	/**
 	 * 图片上传<br>
@@ -40,4 +34,25 @@ public interface ImagesMapper {
 	 * 删除
 	 */
 	int deleteByPrimaryKey(Long imageId);
+
+	/**
+	 * 获取 滚动图片ID
+	 */
+	List<String> getTopImages();
+
+	/**
+	 * 设置滚动图片
+	 */
+	int editTopImages(List<String> editList);
+
+	int editTopImagesByNull(List<String> editList);
+
+	/********************************************************************************
+	 *********************************** API 接口 ***********************************
+	 ********************************************************************************/
+	/**
+	 * 获取 滚动图片
+	 */
+	List<Images> getApiTopImages();
+
 }

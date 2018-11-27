@@ -61,6 +61,7 @@ public enum Constant {
 	 * 每页显示条数
 	 */
 	public static final Integer PAGE_SIZE = 15;
+	public static final int API_PAGE_SIZE = 20;
 
 	/**
 	 * pageStatus
@@ -84,4 +85,33 @@ public enum Constant {
 	 */
 	public static final String STATIC_PATH = "/static/";
 	public static final String STATIC_FILE_PATH = "/imageFileUpload/";
+
+	/**
+	 * 接口名称
+	 */
+	// 网站基本信息
+	public static final String API_WEB_INFO = "webInfo";
+	// 名人库精确搜索
+	public static final String API_QUERY_BY_CLELBRITY = "queryByCelebrity";
+	// 站内搜索
+	public static final String API_QUERY_ALL = "queryAll";
+	// 滚动图片展示
+	public static final String API_TOP_IMAGES = "topImages";
+	// 资讯菜单
+	public static final String API_NEWS_TYPE_LIST = "newsTypeList";
+	// 资讯推荐列表
+	public static final String API_TOP_NEWS = "topNews";
+	// 名人库推荐列表
+	public static final String API_TOP_CELEBRITY = "topCelebrity";
+	// 名人库查询
+	public static final String API_QUERY_CELEBRITY_BY_NAME = "queryCelebrityByName";
+	// 名人库列表
+	public static final String API_CELEBRITY_LIST = "celebrityList";
+	// 单条名人库
+	public static final String API_QUERY_CELEBRITY_BY_ID = "queryCelebrityById";
+	// 资讯列表
+	public static final String API_NEWS_LIST = "newsList";
+	// 单条资讯
+	public static final String API_QUERY_NEWS_BY_ID = "queryNewsByID";
+
 }

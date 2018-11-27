@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -89,6 +91,28 @@ public class NewsTypeServiceImpl implements NewsTypeService {
 	@Override
 	public NewsType queryById(Long newsTypeId) {
 		return newsTypeMapper.selectByPrimaryKey(newsTypeId);
+	}
+
+	/********************************************************************************
+	 *********************************** API 接口 ***********************************
+	 ********************************************************************************/
+
+	/**
+	 * 获取资讯类别
+	 */
+	@Override
+	public JSONObject getNewsTypeList() {
+
+		JSONObject body = new JSONObject();
+		JSONArray dataList = new JSONArray();
+		List<NewsType> list = newsTypeMapper.selectNews();
+
+		for (NewsType newsType : list) {
+			dataList.add(newsType);
+		}
+
+		body.put("dataList", dataList);
+		return body;
 	}
 
 }

@@ -43,6 +43,7 @@
 					<!--  
 					<li><a href="javascript:manager_menus();"><span>导航设置</span></a></li>
 					-->
+					<li><a href="javascript:manager_topImages();"><span>滚动图片设置</span></a></li>
 					<li><a href="javascript:manager_admin_users();"><span>管理员信息</span></a></li>
 					<!-- 
 					<li><a href="javascript:;"><span>分类管理</span></a></li>
@@ -132,6 +133,10 @@
 		function manager_menus() {
 			// 暂时不用
 			// $("iframe").attr("src", "/manager_menus");
+		}
+		// 滚动图片设置
+		function manager_topImages() {
+			$("iframe").attr("src", "/ManagerCtl/topImages");
 		}
 		// 管理员信息
 		function manager_admin_users() {

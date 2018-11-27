@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -76,15 +75,6 @@ public class ManagerController {
 	@RequestMapping(value = "/300")
 	public String show300() {
 		return "300";
-	}
-
-	/**
-	 * 查询 网站信息
-	 */
-	@ResponseBody
-	@GetMapping(value = "/getWebInfo")
-	public String getWebInfo(HttpServletRequest request) {
-		return managerService.getWebInfo();
 	}
 
 	/**
@@ -253,6 +243,14 @@ public class ManagerController {
 	@RequestMapping(value = "/showManagerVides")
 	public String showManagerVides() {
 		return "201";
+	}
+
+	/**
+	 * 滚动图片
+	 */
+	@RequestMapping(value = "/topImages")
+	public String showTopImages() {
+		return "manager_topImages";
 	}
 
 }

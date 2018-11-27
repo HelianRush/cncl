@@ -1,7 +1,9 @@
 package cn.net.cncl.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -72,6 +76,69 @@ public class NewsServiceImpl implements NewsService {
 	@Override
 	public News queryNewsByID(Long newsId) {
 		return newsMapper.selectNewsByID(newsId);
+	}
+
+	/********************************************************************************
+	 *********************************** API 接口 ***********************************
+	 ********************************************************************************/
+
+	/**
+	 * 根据标题 模糊查询
+	 */
+	@Override
+	public List<News> queryNewsByName(Map<String, Object> params) {
+		String newsTitel = null;
+		List<News> list = null;
+		if (0 == params.size()) {
+			list = new ArrayList<News>();
+		} else {
+			if (params.containsKey("keyword")) {
+				newsTitel = params.get("keyword").toString();
+			}
+			list = newsMapper.queryNewsByName(newsTitel);
+		}
+		return list;
+	}
+
+	/**
+	 * 获取推荐资讯列表
+	 */
+	@Override
+	public JSONObject getTopNews(Map<String, Object> params) {
+		JSONObject body = new JSONObject();
+		JSONArray dataList = new JSONArray();
+		List<News> list = newsMapper.getTopNews();
+		for (News news : list) {
+			dataList.add(news);
+		}
+		body.put("dataList", dataList);
+		return body;
+	}
+
+	/**
+	 * 资讯列表
+	 */
+	@Override
+	public JSONObject newsList(Map<String, Object> params) {
+		JSONObject body = new JSONObject();
+		int pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
+		PageHelper.startPage(pageNum, Constant.API_PAGE_SIZE);
+		List<News> list = newsMapper.queryNews(params);
+		PageInfo<News> pageInfo = new PageInfo<News>(list);
+		body.put("dataList", pageInfo);
+		return body;
+	}
+
+	/**
+	 * 单条资讯
+	 */
+	@Override
+	public JSONObject apiQueryNewsById(Map<String, Object> params) {
+		JSONObject body = new JSONObject();
+		long newsId = Long.valueOf(params.get("newsId").toString());
+		News news = newsMapper.selectNewsByID(newsId);
+		body.put("news", news);
+		return body;
 	}
 
 }

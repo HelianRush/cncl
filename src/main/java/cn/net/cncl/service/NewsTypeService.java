@@ -2,6 +2,7 @@ package cn.net.cncl.service;
 
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.entity.NewsType;
@@ -42,5 +43,14 @@ public interface NewsTypeService {
 	 * 编辑显示
 	 */
 	NewsType queryById(Long id);
+
+	/********************************************************************************
+	 *********************************** API 接口 ***********************************
+	 ********************************************************************************/
+
+	/**
+	 * 获取资讯类别
+	 */
+	JSONObject getNewsTypeList();
 
 }

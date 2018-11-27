@@ -2,8 +2,6 @@ package cn.net.cncl.entity;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class Images {
 	private Long imageId;
 
@@ -23,33 +21,16 @@ public class Images {
 
 	private Long imageSize;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
+
+	private String topStatus;
 
 	private String imageContent;
 
 	private String description;
 
-	/* Getter & Setter */
-
 	public Long getImageId() {
 		return imageId;
-	}
-
-	public String getImageContent() {
-		return imageContent;
-	}
-
-	public void setImageContent(String imageContent) {
-		this.imageContent = imageContent;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public void setImageId(Long imageId) {
@@ -96,6 +77,14 @@ public class Images {
 		this.imageTitle = imageTitle == null ? null : imageTitle.trim();
 	}
 
+	public String getImagePaths() {
+		return imagePaths;
+	}
+
+	public void setImagePaths(String imagePaths) {
+		this.imagePaths = imagePaths == null ? null : imagePaths.trim();
+	}
+
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -120,17 +109,27 @@ public class Images {
 		this.createTime = createTime;
 	}
 
-	public String getImagePaths() {
-		return imagePaths;
+	public String getTopStatus() {
+		return topStatus;
 	}
 
-	public void setImagePaths(String imagePaths) {
-		this.imagePaths = imagePaths;
+	public void setTopStatus(String topStatus) {
+		this.topStatus = topStatus == null ? null : topStatus.trim();
 	}
 
-	@Override
-	public String toString() {
-		return "Images [imageId=" + imageId + ", imageCode=" + imageCode + ", resourceBy=" + resourceBy + ", imageName=" + imageName + ", extensionName=" + extensionName + ", imageTitle=" + imageTitle + ", imagePaths=" + imagePaths + ", imagePath=" + imagePath + ", imageSize=" + imageSize + ", createTime=" + createTime + ", imageContent=" + imageContent + ", description=" + description + "]";
+	public String getImageContent() {
+		return imageContent;
 	}
 
+	public void setImageContent(String imageContent) {
+		this.imageContent = imageContent == null ? null : imageContent.trim();
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description == null ? null : description.trim();
+	}
 }

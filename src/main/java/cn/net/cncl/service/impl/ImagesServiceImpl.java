@@ -1,8 +1,13 @@
 package cn.net.cncl.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -121,4 +128,65 @@ public class ImagesServiceImpl implements ImagesService {
 
 		return 0;
 	}
+
+	/**
+	 * 获取 滚动图片ID
+	 */
+	@Override
+	public Map<String, String> getTopImages() {
+		List<String> topImages = imagesMapper.getTopImages();
+		Map<String, String> map = new HashMap<String, String>();
+		for (int i = 0; i < topImages.size(); i++) {
+			map.put("topImage" + (i + 1), topImages.get(i));
+		}
+		return map;
+	}
+
+	/**
+	 * 设置滚动图片
+	 */
+	@Override
+	public int editTopImages(HttpServletRequest request) {
+
+		String topImage1 = request.getParameter("topImage1");
+		String topImage2 = request.getParameter("topImage2");
+		String topImage3 = request.getParameter("topImage3");
+		String topImage4 = request.getParameter("topImage4");
+		String topImage5 = request.getParameter("topImage5");
+
+		List<String> editList = new ArrayList<String>();
+		editList.add(topImage1);
+		editList.add(topImage2);
+		editList.add(topImage3);
+		editList.add(topImage4);
+		editList.add(topImage5);
+
+		imagesMapper.editTopImagesByNull(editList);
+		return imagesMapper.editTopImages(editList);
+	}
+
+	/********************************************************************************
+	 *********************************** API 接口 ***********************************
+	 ********************************************************************************/
+	/**
+	 * 获取 滚动图片
+	 */
+	public JSONObject getApiTopImages() {
+
+		JSONObject body = new JSONObject();
+		JSONArray dataList = new JSONArray();
+
+		List<Images> topImages = imagesMapper.getApiTopImages();
+		if (0 == topImages.size()) {
+			topImages = new ArrayList<Images>();
+		}
+
+		for (Images img : topImages) {
+			dataList.add(img);
+		}
+
+		body.put("dataList", dataList);
+		return body;
+	}
+
 }

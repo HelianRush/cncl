@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.net.cncl.mapper.ImagesMapper">
 
 	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.Images">
-		<id column="IMAGE_ID" jdbcType="BIGINT" property="imageId" />
-		<result column="IMAGE_CODE" jdbcType="VARCHAR" property="imageCode" />
-		<result column="RESOURCE_BY" jdbcType="BIGINT" property="resourceBy" />
-		<result column="IMAGE_NAME" jdbcType="VARCHAR" property="imageName" />
-		<result column="EXTENSION_NAME" jdbcType="VARCHAR" property="extensionName" />
-		<result column="IMAGE_TITLE" jdbcType="VARCHAR" property="imageTitle" />
-		<result column="IMAGE_PATHS" jdbcType="VARCHAR" property="imagePaths" />
-		<result column="IMAGE_PATH" jdbcType="VARCHAR" property="imagePath" />
-		<result column="IMAGE_SIZE" jdbcType="BIGINT" property="imageSize" />
-		<result column="CREATE_TIME" jdbcType="DATE" property="createTime" />
-		<result column="IMAGE_CONTENT" jdbcType="LONGVARCHAR" property="imageContent" />
-		<result column="DESCRIPTION" jdbcType="LONGVARCHAR" property="description" />
+		<id column="IMAGE_ID" property="imageId" jdbcType="BIGINT" />
+		<result column="IMAGE_CODE" property="imageCode" jdbcType="VARCHAR" />
+		<result column="RESOURCE_BY" property="resourceBy" jdbcType="BIGINT" />
+		<result column="IMAGE_NAME" property="imageName" jdbcType="VARCHAR" />
+		<result column="EXTENSION_NAME" property="extensionName" jdbcType="VARCHAR" />
+		<result column="IMAGE_TITLE" property="imageTitle" jdbcType="VARCHAR" />
+		<result column="IMAGE_PATHS" property="imagePaths" jdbcType="VARCHAR" />
+		<result column="IMAGE_PATH" property="imagePath" jdbcType="VARCHAR" />
+		<result column="IMAGE_SIZE" property="imageSize" jdbcType="BIGINT" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="TOP_STATUS" property="topStatus" jdbcType="VARCHAR" />
+		<result column="IMAGE_CONTENT" property="imageContent" jdbcType="LONGVARCHAR" />
+		<result column="DESCRIPTION" property="description" jdbcType="LONGVARCHAR" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		IMAGE_ID, IMAGE_CODE, RESOURCE_BY, IMAGE_NAME, EXTENSION_NAME, IMAGE_TITLE, IMAGE_PATHS,IMAGE_PATH,IMAGE_SIZE, CREATE_TIME,IMAGE_CONTENT, DESCRIPTION
+		IMAGE_ID, IMAGE_CODE, RESOURCE_BY, IMAGE_NAME, EXTENSION_NAME, IMAGE_TITLE, IMAGE_PATHS,IMAGE_PATH, IMAGE_SIZE, CREATE_TIME, TOP_STATUS,IMAGE_CONTENT, DESCRIPTION
 	</sql>
 
 	<sql id="Column_List">
@@ -34,7 +34,8 @@
 		IMAGE_PATH AS imagePath,
 		IMAGE_CONTENT AS imageContent,
 		DESCRIPTION AS description,
-		CREATE_TIME AS createTime
+		CREATE_TIME AS createTime,
+		TOP_STATUS AS topStatus
 	</sql>
 
 	<!-- 新增图片 -->
@@ -100,5 +101,37 @@
 		IMAGE_ID = #{imageId,jdbcType=BIGINT}
 	</delete>
 	<!-- 删除图片 By ID end -->
+
+	<!-- 获取 滚动图片ID -->
+	<select id="getTopImages" resultType="java.lang.String">
+		SELECT IMAGE_ID FROM t_images WHERE TOP_STATUS = "top"
+	</select>
+	<!-- 获取 滚动图片ID end -->
+
+	<!-- 设置滚动图片 -->
+	<update id="editTopImages" parameterType="java.util.List">
+		UPDATE t_images SET TOP_STATUS = "top" WHERE IMAGE_ID IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id="editTopImagesByNull" parameterType="java.util.List">
+		UPDATE t_images SET TOP_STATUS = "" WHERE IMAGE_ID NOT IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	<!-- 设置滚动图片 end -->
+
+	<!-- Api 获取滚动图片 -->
+	<select id="getApiTopImages" resultType="cn.net.cncl.entity.Images">
+		SELECT
+		<include refid="Column_List"></include>
+		FROM
+		t_images
+		WHERE
+		TOP_STATUS = "top"
+	</select>
 
 </mapper>

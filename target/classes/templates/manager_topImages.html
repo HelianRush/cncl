@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
+<!--  
+<script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
+-->
+<title>滚动图片设置</title>
+
+<script type="text/javascript">
+	$(function() {
+		$.ajax({
+			type : "GET",
+			url : "/ImagesCtl/getTopImages",
+			dataType : "json",
+			async : false,
+			cache : false,
+			success : function(data) {
+				$("#topImage1").val(data.topImage1);
+				$("#topImage2").val(data.topImage2);
+				$("#topImage3").val(data.topImage3);
+				$("#topImage4").val(data.topImage4);
+				$("#topImage5").val(data.topImage5);
+			}
+		});
+	});
+</script>
+
+</head>
+<body>
+	<div class="row">
+
+		<div id="left" class="col-lg-3 col-md-3 col-sm-3">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- left end -->
+
+		<div id="middle" class="col-lg-8 col-md-8 col-sm-8">
+			<div class="related container">
+
+				<div class="row">
+					<!-- Title -->
+					<div class="col-lg-11">
+						<h3>滚动图片设置</h3>
+					</div>
+					<div class="col-lg-12">
+						<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+				</div>
+				<!-- row end -->
+
+				<form th:action="@{/ImagesCtl/editTopImages}" class="form-horizontal" method="post">
+
+					<div class="form-group">
+						<label for="topImage1" class="col-sm-2 control-label">图片 1 ID</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="topImage1" name="topImage1" placeholder="图片ID">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="topImage2" class="col-sm-2 control-label">图片 2 ID</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="topImage2" name="topImage2" placeholder="图片ID">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="topImage3" class="col-sm-2 control-label">图片 3 ID</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="topImage3" name="topImage3" placeholder="图片ID">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="topImage4" class="col-sm-2 control-label">图片 4 ID</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="topImage4" name="topImage4" placeholder="图片ID">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="topImage5" class="col-sm-2 control-label">图片 5 ID</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="topImage5" name="topImage5" placeholder="图片ID">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-4">
+							<button type="submit" class="btn btn-primary">确定</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+			<!-- related container end -->
+		</div>
+		<!-- middle end -->
+
+		<div id="right" class="col-lg-1 col-md-1 col-sm-1">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- right end -->
+
+	</div>
+</body>

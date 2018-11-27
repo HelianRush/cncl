@@ -1,5 +1,7 @@
 package cn.net.cncl.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
@@ -24,6 +27,7 @@ import cn.net.cncl.service.ImagesService;
 public class ImagesController {
 
 	private static Logger logger = LoggerFactory.getLogger(ImagesController.class);
+
 	@Autowired
 	private ImagesService ImagesService;
 
@@ -46,6 +50,28 @@ public class ImagesController {
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 		return "manager_images";
+	}
+
+	/**
+	 * 获取 滚动图片ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getTopImages")
+	public String getTopImages() {
+		Map<String, String> images = ImagesService.getTopImages();
+		return JSONObject.toJSONString(images);
+		// return JSONObject.parseObject(JSONObject.toJSONString(images));
+	}
+
+	/**
+	 * 设置滚动图片
+	 */
+	@RequestMapping(value = "/editTopImages")
+	public String editTopImages(HttpServletRequest request) {
+		int flag = ImagesService.editTopImages(request);
+		return "manager_topImages";
+
+		// 1538734038995 1538734039081 1538734039153 1538734039166 1538734039219
 	}
 
 	/**
@@ -85,5 +111,4 @@ public class ImagesController {
 		model.addAttribute("isLastPage", pageList.isIsLastPage());
 		return model;
 	}
-
 }
