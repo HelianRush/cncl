@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.net.cncl.mapper.ImagesMapper">
+
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.Images">
+		<id column="IMAGE_ID" property="imageId" jdbcType="BIGINT" />
+		<result column="IMAGE_CODE" property="imageCode" jdbcType="VARCHAR" />
+		<result column="RESOURCE_BY" property="resourceBy" jdbcType="BIGINT" />
+		<result column="IMAGE_NAME" property="imageName" jdbcType="VARCHAR" />
+		<result column="EXTENSION_NAME" property="extensionName" jdbcType="VARCHAR" />
+		<result column="IMAGE_TITLE" property="imageTitle" jdbcType="VARCHAR" />
+		<result column="IMAGE_PATHS" property="imagePaths" jdbcType="VARCHAR" />
+		<result column="IMAGE_PATH" property="imagePath" jdbcType="VARCHAR" />
+		<result column="IMAGE_SIZE" property="imageSize" jdbcType="BIGINT" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="TOP_STATUS" property="topStatus" jdbcType="VARCHAR" />
+		<result column="IMAGE_CONTENT" property="imageContent" jdbcType="LONGVARCHAR" />
+		<result column="DESCRIPTION" property="description" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		IMAGE_ID, IMAGE_CODE, RESOURCE_BY, IMAGE_NAME, EXTENSION_NAME, IMAGE_TITLE, IMAGE_PATHS,IMAGE_PATH, IMAGE_SIZE, CREATE_TIME, TOP_STATUS,IMAGE_CONTENT, DESCRIPTION
+	</sql>
+
+	<sql id="Column_List">
+		IMAGE_ID AS imageId,
+		IMAGE_CODE AS imageCode,
+		RESOURCE_BY AS resourceBy,
+		EXTENSION_NAME AS extensionName,
+		IMAGE_SIZE AS imageSize,
+		IMAGE_NAME AS imageName,
+		IMAGE_TITLE AS imageTitle,
+		IMAGE_PATHS AS imagePaths,
+		IMAGE_PATH AS imagePath,
+		IMAGE_CONTENT AS imageContent,
+		DESCRIPTION AS description,
+		CREATE_TIME AS createTime,
+		TOP_STATUS AS topStatus
+	</sql>
+
+	<!-- 新增图片 -->
+	<insert id="inputImage">
+		INSERT INTO t_images
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="imageId != null">IMAGE_ID,</if>
+			<if test="imageCode != null">IMAGE_CODE,</if>
+			<if test="resourceBy != null">RESOURCE_BY,</if>
+			<if test="imageName != null">IMAGE_NAME,</if>
+			<if test="extensionName != null">EXTENSION_NAME,</if>
+			<if test="imageTitle != null">IMAGE_TITLE,</if>
+			<if test="imagePaths != null">IMAGE_PATHS,</if>
+			<if test="imagePath != null">IMAGE_PATH,</if>
+			<if test="imageSize != null">IMAGE_SIZE,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="imageContent != null">IMAGE_CONTENT,</if>
+			<if test="description != null">DESCRIPTION,</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test="imageId != null">#{imageId},</if>
+			<if test="imageCode != null">#{imageCode},</if>
+			<if test="resourceBy != null">#{resourceBy},</if>
+			<if test="imageName != null">#{imageName},</if>
+			<if test="extensionName != null">#{extensionName},</if>
+			<if test="imageTitle != null">#{imageTitle},</if>
+			<if test="imagePaths != null">#{imagePaths},</if>
+			<if test="imagePath != null">#{imagePath},</if>
+			<if test="imageSize != null">#{imageSize},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="imageContent != null">#{imageContent},</if>
+			<if test="description != null">#{description},</if>
+		</trim>
+	</insert>
+	<!-- 新增图片 End -->
+
+	<!-- 查询图片 -->
+	<select id="selectImages" resultType="cn.net.cncl.entity.Images">
+		SELECT
+		<include refid="Column_List"></include>
+		FROM t_images
+		<!-- WHERE 1 = 1 AND -->
+		ORDER BY
+		CREATE_TIME DESC,
+		IMAGE_ID ASC
+	</select>
+	<!-- 查询图片 End -->
+
+	<!-- 查询图片 By ID -->
+	<select id="selectImageById" resultType="cn.net.cncl.entity.Images" parameterType="java.lang.Long">
+		SELECT
+		<include refid="Column_List"></include>
+		FROM t_images
+		WHERE
+		IMAGE_ID = #{imageId,jdbcType=BIGINT}
+	</select>
+	<!-- 查询图片 By ID End -->
+
+	<!-- 删除图片 -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_images
+		WHERE
+		IMAGE_ID = #{imageId,jdbcType=BIGINT}
+	</delete>
+	<!-- 删除图片 By ID end -->
+
+	<!-- 获取 滚动图片ID -->
+	<select id="getTopImages" resultType="java.lang.String">
+		SELECT IMAGE_ID FROM t_images WHERE TOP_STATUS = "top"
+	</select>
+	<!-- 获取 滚动图片ID end -->
+
+	<!-- 设置滚动图片 -->
+	<update id="editTopImages" parameterType="java.util.List">
+		UPDATE t_images SET TOP_STATUS = "top" WHERE IMAGE_ID IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+	<update id="editTopImagesByNull" parameterType="java.util.List">
+		UPDATE t_images SET TOP_STATUS = "" WHERE IMAGE_ID NOT IN
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	<!-- 设置滚动图片 end -->
+
+	<!-- Api 获取滚动图片 -->
+	<select id="getApiTopImages" resultType="cn.net.cncl.entity.Images">
+		SELECT
+		<include refid="Column_List"></include>
+		FROM
+		t_images
+		WHERE
+		TOP_STATUS = "top"
+	</select>
+
+</mapper>

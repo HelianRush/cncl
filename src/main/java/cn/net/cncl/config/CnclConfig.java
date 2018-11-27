@@ -9,7 +9,10 @@ public class CnclConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new ErrorInterceptor()).addPathPatterns("/**");
-		registry.addInterceptor(new SessionInterceprot()).addPathPatterns("/AdminCtl/**", "/ClelebritysCtl/**", "/ManagerCtl/**", "/NewsCtl/**", "/NewsTypeCtl/**", "/ImagesCtl/**").excludePathPatterns("/Show/**");
+		// registry.addInterceptor(new
+		// SessionInterceprot()).addPathPatterns("/AdminCtl/**", "/ClelebritysCtl/**",
+		// "/ManagerCtl/**", "/NewsCtl/**", "/NewsTypeCtl/**",
+		// "/ImagesCtl/**").excludePathPatterns("/Show/**");
 
 		super.addInterceptors(registry);
 	}

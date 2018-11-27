@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
+<!--  
+<script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
+-->
+
+<title>网站信息</title>
+
+<script type="text/javascript">
+	$(function() {
+		$.ajax({
+			type : "GET",
+			url : "/ManagerCtl/getWebInfoObject",
+			dataType : "json",
+			async : false,
+			cache : false,
+			success : function(data) {
+				$("#webName").html(data.webName);
+				$("#domainName").html(data.domainName);
+				$("#recordsCode").html(data.recordsCode);
+				$("#company").html(data.company);
+				$("#legalPerson").html(data.legalPerson);
+				$("#webEmail").html(data.webEmail);
+				// $("#imageLogo img").attr("src","@{/images/" + data.imageLogo + "}");
+			}
+		});
+	});
+</script>
+
+</head>
+<body>
+
+	<!-- row 4 : 8 -->
+	<div class="row">
+
+		<div id="left" class="col-lg-3 col-md-3 col-sm-3">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- left end -->
+
+		<div id="middle" class="col-lg-8 col-md-8 col-sm-8">
+
+			<div class="related container">
+
+				<div class="row">
+
+					<!-- Title -->
+					<div class="col-lg-11">
+						<h3>网站信息</h3>
+					</div>
+
+					<div class="col-lg-12">
+						<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+				</div>
+
+				<table class="table table-responsive">
+					<tbody class="">
+						<tr>
+							<td>网站名称</td>
+							<td id="webName"></td>
+						</tr>
+						<tr>
+							<td>网站域名</td>
+							<td id="domainName"></td>
+						</tr>
+						<tr>
+							<td>备案编号</td>
+							<td id="recordsCode"></td>
+						</tr>
+						<tr>
+							<td>公司名称</td>
+							<td id="company"></td>
+						</tr>
+						<tr>
+							<td>站长</td>
+							<td id="legalPerson"></td>
+						</tr>
+						<tr>
+							<td>网站邮箱</td>
+							<td id="webEmail"></td>
+						</tr>
+						<tr>
+							<td>LOGO</td>
+							<td id="imageLogo"><img th:src="@{/images/logo1.png}" width="200"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!-- middle end -->
+
+		<div id="right" class="col-lg-1 col-md-1 col-sm-1">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- right end -->
+	</div>
+	<!-- row 4 : 8 end -->
+
+</body>
+</html>

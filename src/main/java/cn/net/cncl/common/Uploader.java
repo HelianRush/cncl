@@ -26,6 +26,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import sun.misc.BASE64Decoder;
@@ -271,7 +272,8 @@ public class Uploader {
 	 */
 	private String getPhysicalPath(String path) throws FileNotFoundException {
 		// 源码
-		return this.request.getSession().getServletContext().getRealPath("/") + path;
+		// return this.request.getSession().getServletContext().getRealPath("/") + path;
+		return ResourceUtils.getURL("classpath:").getPath() + Constant.STATIC_PATH + path;
 	}
 
 	public void setSavePath(String savePath) {

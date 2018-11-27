@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="title" content="ScoopThemes">
+<meta name="ROBOTS" content="Bootstrap 3 Themes, Responsive Themes, Bootstrap 3 Responsive, Wordpress Themes, Clean Themes, Modern Themes, Flat Themes, Flat UI, UI Design, UX Design, Web design, responsive bootstrap, Jquery Plugins, Free Plugins, Premium Bootstrap themes, Bootstrap 3, Premium Web Templates, Bootstrap Templates, Bootstrap Responsive Templates, Admin, Dashboard, Admin Templates, Admin Responsive, Admin responsive themes">
+<meta name="description" content="Solutions For Web Developers Form ( Web Templates, Web Themes, Jquery Plugins, UX Design.. ) Whatever They Need.">
+<meta name="abstract" content="Solutions For Web Developers Form ( Web Templates, Web Themes, Jquery Plugins, UX Design.. ) Whatever They Need.">
+
+<meta name="author" content="www.scoopthemes.com">
+<meta name="publisher" content="www.scoopthemes.com">
+<meta name="copyright" content="www.scoopthemes.com">
+<meta name="revisit-after" content="2 days">
+
+<title>未开发</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" th:href="@{/error_page/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/error_page/css/font-awesome.css}">
+<link rel="stylesheet" th:href="@{/error_page/css/bootstrap-theme.css}">
+<link rel="stylesheet" th:href="@{/error_page/css/animations.css}">
+
+<!-- siimple style -->
+<link rel="stylesheet" th:href="@{/error_page/css/style.css}">
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+
+</head>
+
+<body>
+
+	<div class="cloud floating">
+		<img th:src="@{/error_page/img/cloud.png}" alt="Scoop Themes">
+	</div>
+
+	<div class="cloud pos1 fliped floating">
+		<img th:src="@{/error_page/img/cloud.png}" alt="Scoop Themes">
+	</div>
+
+	<div class="cloud pos2 floating">
+		<img th:src="@{/error_page/img/cloud.png}" alt="Scoop Themes">
+	</div>
+
+	<div class="cloud pos3 fliped floating">
+		<img th:src="@{/error_page/img/cloud.png}" alt="Scoop Themes">
+	</div>
+
+	<div id="wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<img th:src="@{/images/404.gif}" alt="Logo"> <br /> <br />
+					<h2 class="subtitle">We're working hard to launch our website and we'll be ready very soon</h2>
+					<h2 class="subtitle">我们正在努力推出我们的网站，我们很快就会准备好</h2>
+				</div>
+
+				<div class="col-sm-12 align-center">
+					<h1 class="subtitle">暂未开放</h1>
+				</div>
+
+				<div class="col-sm-12 align-center">
+					<h2 class="subtitle"></h2>
+				</div>
+
+				<div class="col-sm-12 align-center">
+					<ul class="social-network social-circle">
+						<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#" class="icoGit" title="Github"><i class="fa fa-github"></i></a></li>
+						<li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+					<p class="copyright">
+						Copyright &copy; 2018 - Chinese celebrity Library <a href="http://www.cncl.net.cn" target="_blank" title="中华名人库">中华名人库</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="http://downloads.mailchimp.com/js/jquery.form-n-validate.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#wrapper').height($(document).height());
+			// I only have one form on the page but you can be more specific if need be.
+			var $form = $('form');
+
+			if ($form.length > 0) {
+				$('form input[type="submit"]').bind('click', function(event) {
+					if (event)
+						event.preventDefault();
+					// validate_input() is a validation function I wrote, you'll have to substitute this with your own.
+					if ($form.validate()) {
+						register($form);
+					}
+				});
+			}
+		});
+
+		function appendResult(userText, className, iconClass) {
+			var resultHTML = "<div class='stretchLeft result "+ className + "'>"
+					+ userText
+					+ " <span class='fa fa-" + iconClass + "'></span>"
+					+ "</div>";
+			$('body').append(resultHTML);
+			$('.result').delay(10000).fadeOut('1000');
+		}
+	</script>
+
+</body>
+
+</html>

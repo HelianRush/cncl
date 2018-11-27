@@ -132,4 +132,10 @@ public class Images {
 	public void setDescription(String description) {
 		this.description = description == null ? null : description.trim();
 	}
+
+	@Override
+	public String toString() {
+		return "Images [imageId=" + imageId + ", imageCode=" + imageCode + ", resourceBy=" + resourceBy + ", imageName=" + imageName + ", extensionName=" + extensionName + ", imageTitle=" + imageTitle + ", imagePaths=" + imagePaths + ", imagePath=" + imagePath + ", imageSize=" + imageSize + ", createTime=" + createTime + ", topStatus=" + topStatus + ", imageContent=" + imageContent + ", description=" + description + "]";
+	}
+
 }

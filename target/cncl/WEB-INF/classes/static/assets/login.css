@@ -1,0 +1,47 @@
+body {
+	width: 50%;
+	height: 50%;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div {
+	/*border: 1px solid #F00;*/
+	/*text-align: center;*/
+	height: 80px;
+}
+
+#menus {
+	background-color: #D3CFCE;
+	height: 100px;
+
+	/*margin-left: auto;*/
+	/*margin-right: auto;*/
+}
+
+#menuTitle {
+	background-color: #372B39;
+}
+
+a:link {
+	font-family: 微软雅黑;
+	color: #000000;
+	font-size: 18px;
+	text-decoration: none; /*无下划线*/
+}
+
+a:visited {
+	font-family: 微软雅黑;
+	color: #000000;
+	font-size: 18px;
+	text-decoration: none; /*无下划线*/
+}
+
+a:hover {
+	font-family: 微软雅黑;
+	color: #000000;
+	font-size: 18px;
+	text-decoration: none; /*无下划线*/
+	font-weight: bold;
+}

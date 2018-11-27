@@ -3,6 +3,7 @@ package cn.net.cncl.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,11 @@ public class ImagesController {
 	 */
 	@ResponseBody
 	@PostMapping(value = "/fileUpload")
-	public String fileUpload(MultipartFile files) throws Exception {
+	public String fileUpload(MultipartFile files, HttpSession session) throws Exception {
+
+		String url = session.getServletContext().getRealPath("/");
+		System.out.println(url);
+
 		return ImagesService.addImage(files);
 	}
 

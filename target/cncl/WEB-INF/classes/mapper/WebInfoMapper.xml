@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.net.cncl.mapper.WebInfoMapper">
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.WebInfo">
+		<id column="WEB_ID" property="webId" jdbcType="INTEGER" />
+		<result column="WEB_NAME" property="webName" jdbcType="VARCHAR" />
+		<result column="DOMAIN_NAME" property="domainName" jdbcType="VARCHAR" />
+		<result column="RECORDS_CODE" property="recordsCode" jdbcType="VARCHAR" />
+		<result column="COMPANY" property="company" jdbcType="VARCHAR" />
+		<result column="LEGAL_PERSON" property="legalPerson" jdbcType="VARCHAR" />
+		<result column="IMAGE_LOGO" property="imageLogo" jdbcType="VARCHAR" />
+		<result column="WEB_EMAIL" property="webEmail" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="SQL_QueryAll1">
+		WEB_ID, WEB_NAME, DOMAIN_NAME, RECORDS_CODE, COMPANY, LEGAL_PERSON, IMAGE_LOGO, WEB_EMAIL
+	</sql>
+
+	<sql id="SQL_QueryAll2">
+		WEB_ID AS webID,
+		WEB_NAME AS webName,
+		DOMAIN_NAME AS domainName,
+		RECORDS_CODE AS recordsCode,
+		COMPANY AS company,
+		LEGAL_PERSON AS legalPerson,
+		IMAGE_LOGO AS imageLogo,
+		WEB_EMAIL AS webEmail
+	</sql>
+
+	<!-- 查询 网站信息 to map -->
+	<select id="getWebInfo" resultType="Map">
+		SELECT
+		<include refid="SQL_QueryAll2"></include>
+		FROM t_web_info
+		WHERE WEB_ID = 1
+	</select>
+
+	<!-- 查询 网站信息 to WebInfo -->
+	<select id="getWebInfoObject" resultType="cn.net.cncl.entity.WebInfo">
+		SELECT
+		<include refid="SQL_QueryAll2"></include>
+		FROM t_web_info
+		WHERE WEB_ID = 1
+	</select>
+
+	<!-- 编辑 网站信息 -->
+	<update id="updateWebInfo" parameterType="cn.net.cncl.entity.WebInfo">
+		UPDATE t_web_info
+		<set>
+			<if test="webName!=null">
+				WEB_NAME = #{webName,jdbcType=VARCHAR},
+			</if>
+			<if test="domainName!=null">
+				DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+			</if>
+			<if test="recordsCode!=null">
+				RECORDS_CODE = #{recordsCode,jdbcType=VARCHAR},
+			</if>
+			<if test="company!=null">
+				COMPANY = #{company,jdbcType=VARCHAR},
+			</if>
+			<if test="legalPerson!=null">
+				LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="webEmail!=null">
+				WEB_EMAIL = #{webEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="imageLogo!=null">
+				IMAGE_LOGO = #{imageLogo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		WHERE WEB_ID = 1
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="SQL_QueryAll1" />
+		from t_web_info
+		where WEB_ID = #{webId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_web_info
+		where WEB_ID = #{webId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="cn.net.cncl.entity.WebInfo">
+		insert into t_web_info (WEB_ID, WEB_NAME, DOMAIN_NAME,
+		RECORDS_CODE, COMPANY, LEGAL_PERSON,
+		IMAGE_LOGO, WEB_EMAIL)
+		values (#{webId,jdbcType=INTEGER}, #{webName,jdbcType=VARCHAR}, #{domainName,jdbcType=VARCHAR},
+		#{recordsCode,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR},
+		#{imageLogo,jdbcType=VARCHAR}, #{webEmail,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.net.cncl.entity.WebInfo">
+		insert into t_web_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="webId != null">
+				WEB_ID,
+			</if>
+			<if test="webName != null">
+				WEB_NAME,
+			</if>
+			<if test="domainName != null">
+				DOMAIN_NAME,
+			</if>
+			<if test="recordsCode != null">
+				RECORDS_CODE,
+			</if>
+			<if test="company != null">
+				COMPANY,
+			</if>
+			<if test="legalPerson != null">
+				LEGAL_PERSON,
+			</if>
+			<if test="imageLogo != null">
+				IMAGE_LOGO,
+			</if>
+			<if test="webEmail != null">
+				WEB_EMAIL,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="webId != null">
+				#{webId,jdbcType=INTEGER},
+			</if>
+			<if test="webName != null">
+				#{webName,jdbcType=VARCHAR},
+			</if>
+			<if test="domainName != null">
+				#{domainName,jdbcType=VARCHAR},
+			</if>
+			<if test="recordsCode != null">
+				#{recordsCode,jdbcType=VARCHAR},
+			</if>
+			<if test="company != null">
+				#{company,jdbcType=VARCHAR},
+			</if>
+			<if test="legalPerson != null">
+				#{legalPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="imageLogo != null">
+				#{imageLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="webEmail != null">
+				#{webEmail,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.net.cncl.entity.WebInfo">
+		update t_web_info
+		<set>
+			<if test="webName != null">
+				WEB_NAME = #{webName,jdbcType=VARCHAR},
+			</if>
+			<if test="domainName != null">
+				DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+			</if>
+			<if test="recordsCode != null">
+				RECORDS_CODE = #{recordsCode,jdbcType=VARCHAR},
+			</if>
+			<if test="company != null">
+				COMPANY = #{company,jdbcType=VARCHAR},
+			</if>
+			<if test="legalPerson != null">
+				LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="imageLogo != null">
+				IMAGE_LOGO = #{imageLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="webEmail != null">
+				WEB_EMAIL = #{webEmail,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where WEB_ID = #{webId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.net.cncl.entity.WebInfo">
+		update t_web_info
+		set WEB_NAME = #{webName,jdbcType=VARCHAR},
+		DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
+		RECORDS_CODE = #{recordsCode,jdbcType=VARCHAR},
+		COMPANY = #{company,jdbcType=VARCHAR},
+		LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
+		IMAGE_LOGO = #{imageLogo,jdbcType=VARCHAR},
+		WEB_EMAIL = #{webEmail,jdbcType=VARCHAR}
+		where WEB_ID = #{webId,jdbcType=INTEGER}
+	</update>
+</mapper>

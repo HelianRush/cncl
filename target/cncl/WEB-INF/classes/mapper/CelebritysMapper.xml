@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.net.cncl.mapper.CelebritysMapper">
+
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.Celebritys">
+		<id column="CELEBRITY_ID" property="celebrityId" jdbcType="BIGINT" />
+		<result column="CELEBRITY_NAME" property="celebrityName" jdbcType="VARCHAR" />
+		<result column="ANOTHER_NAME" property="anotherName" jdbcType="VARCHAR" />
+		<result column="FOREIGN_NAME" property="foreignName" jdbcType="VARCHAR" />
+		<result column="NATIONALITY" property="nationality" jdbcType="VARCHAR" />
+		<result column="NATION" property="nation" jdbcType="VARCHAR" />
+		<result column="CONSTELLATION" property="constellation" jdbcType="VARCHAR" />
+		<result column="BLOOD_TYPE" property="bloodType" jdbcType="VARCHAR" />
+		<result column="HEIGHT" property="height" jdbcType="INTEGER" />
+		<result column="BIRTHPLACE" property="birthplace" jdbcType="VARCHAR" />
+		<result column="NATIVE_PLACE" property="nativePlace" jdbcType="VARCHAR" />
+		<result column="ANCESTRAL_HOME" property="ancestralHome" jdbcType="VARCHAR" />
+		<result column="IDENTITY_CARD" property="identityCard" jdbcType="VARCHAR" />
+		<result column="CERTIFICATE_CODE" property="certificateCode" jdbcType="VARCHAR" />
+		<result column="CERTIFICATE_NAME" property="certificateName" jdbcType="VARCHAR" />
+		<result column="PROFESSION" property="profession" jdbcType="VARCHAR" />
+		<result column="COMPANY" property="company" jdbcType="VARCHAR" />
+		<result column="REPRESENTATIVE_NAME" property="representativeName" jdbcType="VARCHAR" />
+		<result column="ACHIEVEMENT" property="achievement" jdbcType="VARCHAR" />
+		<result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
+		<result column="DEATHDAY" property="deathday" jdbcType="DATE" />
+		<result column="VIDEO_ID_FK" property="videoIdFk" jdbcType="BIGINT" />
+		<result column="IMAGE_ID_FK" property="imageIdFk" jdbcType="BIGINT" />
+		<result column="BROWSE_COUNT" property="browseCount" jdbcType="INTEGER" />
+		<result column="OUTLINE" property="outline" jdbcType="LONGVARCHAR" />
+		<result column="INTRODUCE" property="introduce" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Column_List">
+		CELEBRITY_ID, CELEBRITY_NAME, ANOTHER_NAME, FOREIGN_NAME, NATIONALITY, NATION, CONSTELLATION,
+		BLOOD_TYPE, HEIGHT, BIRTHPLACE, NATIVE_PLACE, ANCESTRAL_HOME, IDENTITY_CARD, CERTIFICATE_CODE,
+		CERTIFICATE_NAME, PROFESSION, COMPANY, REPRESENTATIVE_NAME, ACHIEVEMENT, BIRTHDAY,
+		DEATHDAY, VIDEO_ID_FK, IMAGE_ID_FK, BROWSE_COUNT,OUTLINE, INTRODUCE
+	</sql>
+
+	<sql id="Base_Column_List">
+		CELEBRITY_ID AS celebrityId ,
+		CELEBRITY_NAME AS celebrityName ,
+		ANOTHER_NAME AS anotherName ,
+		FOREIGN_NAME AS foreignName ,
+		NATIONALITY AS nationality ,
+		NATION AS nation ,
+		CONSTELLATION AS constellation ,
+		BLOOD_TYPE AS bloodType ,
+		HEIGHT AS height ,
+		BIRTHPLACE AS birthplace ,
+		NATIVE_PLACE AS nativePlace ,
+		ANCESTRAL_HOME AS ancestralHome ,
+		IDENTITY_CARD AS identityCard ,
+		CERTIFICATE_CODE AS certificateCode ,
+		CERTIFICATE_NAME AS certificateName ,
+		PROFESSION AS profession ,
+		COMPANY AS company ,
+		REPRESENTATIVE_NAME AS representativeName ,
+		ACHIEVEMENT AS achievement ,
+		BIRTHDAY AS birthday ,
+		DEATHDAY AS deathday ,
+		OUTLINE AS outline ,
+		INTRODUCE AS introduce ,
+		VIDEO_ID_FK AS videoIdFk ,
+		IMAGE_ID_FK AS imageIdFk ,
+		BROWSE_COUNT AS browseCount
+	</sql>
+
+	<!-- 查询全部 -->
+	<select id="queryCelebritys" resultType="cn.net.cncl.entity.Celebritys">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM t_celebritys
+		ORDER BY
+		CELEBRITY_ID DESC,
+		CELEBRITY_NAME ASC
+		<!-- <where> </where> -->
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectCelebritysByID" resultType="cn.net.cncl.entity.Celebritys" parameterType="java.lang.Long">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM t_celebritys
+		WHERE
+		CELEBRITY_ID = #{celebrityId,jdbcType=BIGINT}
+	</select>
+
+	<!-- 精确查询 -->
+	<select id="queryByClelbrity" resultType="cn.net.cncl.entity.Celebritys" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM t_celebritys
+		<where>
+			<if test="celebrityName != null and celebrityName !=''">
+				CELEBRITY_NAME = #{celebrityName}
+			</if>
+			<if test="identityCard != null and identityCard !=''">
+				AND IDENTITY_CARD = #{identityCard}
+			</if>
+			<if test="certificateCode != null and identityCard !=''">
+				AND CERTIFICATE_CODE = #{certificateCode}
+			</if>
+		</where>
+		ORDER BY
+		CELEBRITY_ID DESC,
+		CELEBRITY_NAME ASC
+	</select>
+
+	<!-- 模糊查询 -->
+	<select id="queryClelbrityByName" resultType="cn.net.cncl.entity.Celebritys" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM t_celebritys
+		<where>
+			<if test="celebrityName != null and celebrityName !=''">
+				CELEBRITY_NAME LIKE "%"#{celebrityName}"%"
+			</if>
+		</where>
+		ORDER BY
+		CELEBRITY_ID DESC,
+		CELEBRITY_NAME ASC
+	</select>
+
+	<!-- 添加名人库 insertCelebritys -->
+	<insert id="insertCelebritys" parameterType="cn.net.cncl.entity.Celebritys" flushCache="true">
+		INSERT INTO t_celebritys
+
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="celebrityId != null">
+				CELEBRITY_ID,
+			</if>
+			<if test="celebrityName != null">
+				CELEBRITY_NAME,
+			</if>
+			<if test="anotherName != null">
+				ANOTHER_NAME,
+			</if>
+			<if test="foreignName != null">
+				FOREIGN_NAME,
+			</if>
+			<if test="nationality != null">
+				NATIONALITY,
+			</if>
+			<if test="nation != null">
+				NATION,
+			</if>
+			<if test="constellation != null">
+				CONSTELLATION,
+			</if>
+			<if test="bloodType != null">
+				BLOOD_TYPE,
+			</if>
+			<if test="height != null">
+				HEIGHT,
+			</if>
+			<if test="birthplace != null">
+				BIRTHPLACE,
+			</if>
+			<if test="nativePlace != null">
+				NATIVE_PLACE,
+			</if>
+			<if test="ancestralHome != null">
+				ANCESTRAL_HOME,
+			</if>
+			<if test="identityCard != null">
+				IDENTITY_CARD,
+			</if>
+			<if test="certificateCode != null">
+				CERTIFICATE_CODE,
+			</if>
+			<if test="certificateName != null">
+				CERTIFICATE_NAME,
+			</if>
+			<if test="profession != null">
+				PROFESSION,
+			</if>
+			<if test="company != null">
+				COMPANY,
+			</if>
+			<if test="representativeName != null">
+				REPRESENTATIVE_NAME,
+			</if>
+			<if test="birthday != null">
+				BIRTHDAY,
+			</if>
+			<if test="deathday != null">
+				DEATHDAY,
+			</if>
+			<if test="outline != null">
+				OUTLINE,
+			</if>
+			<if test="introduce != null">
+				INTRODUCE,
+			</if>
+			<if test="videoIdFk != null">
+				VIDEO_ID_FK,
+			</if>
+			<if test="imageIdFk != null">
+				IMAGE_ID_FK,
+			</if>
+			<if test="browseCount != null">
+				BROWSE_COUNT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="celebrityId != null">
+				#{celebrityId},
+			</if>
+			<if test="celebrityName != null">
+				#{celebrityName},
+			</if>
+			<if test="anotherName != null">
+				#{anotherName},
+			</if>
+			<if test="foreignName != null">
+				#{foreignName},
+			</if>
+			<if test="nationality != null">
+				#{nationality},
+			</if>
+			<if test="nation != null">
+				#{nation},
+			</if>
+			<if test="constellation != null">
+				#{constellation},
+			</if>
+			<if test="bloodType != null">
+				#{bloodType},
+			</if>
+			<if test="height != null">
+				#{height},
+			</if>
+			<if test="birthplace != null">
+				#{birthplace},
+			</if>
+			<if test="nativePlace != null">
+				#{nativePlace},
+			</if>
+			<if test="ancestralHome != null">
+				#{ancestralHome},
+			</if>
+			<if test="identityCard != null">
+				#{identityCard},
+			</if>
+			<if test="certificateCode != null">
+				#{certificateCode},
+			</if>
+			<if test="certificateName != null">
+				#{certificateName},
+			</if>
+			<if test="profession != null">
+				#{profession},
+			</if>
+			<if test="company != null">
+				#{company},
+			</if>
+			<if test="representativeName != null">
+				#{representativeName},
+			</if>
+			<if test="birthday != null">
+				#{birthday},
+			</if>
+			<if test="deathday != null">
+				#{deathday},
+			</if>
+			<if test="outline != null">
+				#{outline},
+			</if>
+			<if test="introduce != null">
+				#{introduce},
+			</if>
+			<if test="videoIdFk != null">
+				#{videoIdFk},
+			</if>
+			<if test="imageIdFk != null">
+				#{imageIdFk},
+			</if>
+			<if test="browseCount != null">
+				#{browseCount},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateCelebritys" parameterType="cn.net.cncl.entity.Celebritys">
+		UPDATE t_celebritys
+		<set>
+			<if test="celebrityName != null">
+				CELEBRITY_NAME = #{celebrityName},
+			</if>
+			<if test="anotherName != null">
+				ANOTHER_NAME = #{anotherName},
+			</if>
+			<if test="foreignName != null">
+				FOREIGN_NAME = #{foreignName},
+			</if>
+			<if test="nationality != null">
+				NATIONALITY = #{nationality},
+			</if>
+			<if test="nation != null">
+				NATION = #{nation},
+			</if>
+			<if test="constellation != null">
+				CONSTELLATION = #{constellation},
+			</if>
+			<if test="bloodType != null">
+				BLOOD_TYPE = #{bloodType},
+			</if>
+			<if test="height != null">
+				HEIGHT = #{height},
+			</if>
+			<if test="birthplace != null">
+				BIRTHPLACE = #{birthplace},
+			</if>
+			<if test="nativePlace != null">
+				NATIVE_PLACE = #{nativePlace},
+			</if>
+			<if test="ancestralHome != null">
+				ANCESTRAL_HOME = #{ancestralHome},
+			</if>
+			<if test="identityCard != null">
+				IDENTITY_CARD = #{identityCard},
+			</if>
+			<if test="certificateCode != null">
+				CERTIFICATE_CODE = #{certificateCode},
+			</if>
+			<if test="certificateName != null">
+				CERTIFICATE_NAME = #{certificateName},
+			</if>
+			<if test="profession != null">
+				PROFESSION = #{profession},
+			</if>
+			<if test="company != null">
+				COMPANY = #{company},
+			</if>
+			<if test="representativeName != null">
+				REPRESENTATIVE_NAME = #{representativeName},
+			</if>
+			<if test="achievement != null">
+				ACHIEVEMENT = #{achievement},
+			</if>
+			<if test="birthday != null">
+				BIRTHDAY = #{birthday},
+			</if>
+			<if test="deathday != null">
+				DEATHDAY = #{deathday},
+			</if>
+			<if test="outline != null">
+				OUTLINE = #{outline},
+			</if>
+			<if test="introduce != null">
+				INTRODUCE = #{introduce},
+			</if>
+			<if test="videoIdFk != null">
+				VIDEO_ID_FK = #{videoIdFk},
+			</if>
+			<if test="imageIdFk != null">
+				IMAGE_ID_FK = #{imageIdFk},
+			</if>
+			<if test="browseCount != null">
+				BROWSE_COUNT = #{browseCount},
+			</if>
+		</set>
+		WHERE
+		CELEBRITY_ID = #{celebrityId,jdbcType=BIGINT}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_celebritys
+		where CELEBRITY_ID = #{celebrityId,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 名人库推荐列表 -->
+	<select id="getTopCelebrity" resultType="cn.net.cncl.entity.Celebritys">
+		SELECT
+		<include refid="Base_Column_List"></include>
+		FROM
+		t_celebritys
+		ORDER BY CELEBRITY_ID DESC
+		LIMIT 9;
+	</select>
+
+</mapper>

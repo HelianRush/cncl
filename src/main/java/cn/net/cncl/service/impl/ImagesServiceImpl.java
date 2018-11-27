@@ -66,9 +66,8 @@ public class ImagesServiceImpl implements ImagesService {
 		image.setCreateTime(new Date());
 		image.setImageContent(null); // 图片配文
 		image.setDescription(null); // 描述
-
-		// Images.toString();
-		System.out.println(image);
+		image.setTopStatus(null);
+		// System.out.println(image);
 
 		/*
 		 * 1. 上传图片

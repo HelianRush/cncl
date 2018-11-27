@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.net.cncl.mapper.NewsMapper">
+
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.News">
+		<id column="NEWS_ID" property="newsId" jdbcType="BIGINT" />
+		<result column="NEWS_TYPE_FK" property="newsTypeFk" jdbcType="BIGINT" />
+		<result column="NEWS_TITEL" property="newsTitel" jdbcType="VARCHAR" />
+		<result column="VIDEO_ID_FK" property="videoIdFk" jdbcType="BIGINT" />
+		<result column="IMAGE_ID_FK" property="imageIdFk" jdbcType="BIGINT" />
+		<result column="ADMIN_USER_ID_FK" property="adminUserIdFk" jdbcType="BIGINT" />
+		<result column="CEATE_TIME" property="ceateTime" jdbcType="DATE" />
+		<result column="BROWSE_COUNT" property="browseCount" jdbcType="INTEGER" />
+		<result column="NEWS_OUTLINE" property="newsOutline" jdbcType="LONGVARCHAR" />
+		<result column="NEWS_CONTENT" property="newsContent" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		NEWS_ID, NEWS_TYPE_FK, NEWS_TITEL, VIDEO_ID_FK, IMAGE_ID_FK, ADMIN_USER_ID_FK, CEATE_TIME,
+		BROWSE_COUNT,NEWS_OUTLINE, NEWS_CONTENT
+	</sql>
+
+	<sql id="News_Column_List">
+		NEWS_ID AS newsId ,
+		NEWS_TYPE_FK AS newsTypeFk ,
+		NEWS_TITEL AS newsTitel ,
+		VIDEO_ID_FK AS videoIdFk ,
+		IMAGE_ID_FK AS imageIdFk ,
+		ADMIN_USER_ID_FK AS adminUserIdFk ,
+		CEATE_TIME AS ceateTime ,
+		BROWSE_COUNT AS browseCount ,
+		NEWS_OUTLINE AS newsOutline ,
+		NEWS_CONTENT AS newsContent
+	</sql>
+
+	<!-- 查询 -->
+	<select id="selectNews" resultType="cn.net.cncl.entity.News">
+		SELECT
+		<include refid="News_Column_List"></include>
+		FROM t_news
+		ORDER BY
+		NEWS_ID DESC,
+		NEWS_TITEL ASC
+	</select>
+
+	<!-- 根据标题 模糊查询 -->
+	<select id="queryNewsByName" resultType="cn.net.cncl.entity.News" parameterType="java.lang.String">
+		SELECT
+		<include refid="News_Column_List"></include>
+		FROM t_news
+		<where>
+			<if test="newsTitel != null and newsTitel !=''">
+				NEWS_TITEL LIKE "%"#{newsTitel}"%"
+			</if>
+		</where>
+		ORDER BY
+		CEATE_TIME ,NEWS_ID DESC,NEWS_TITEL ASC
+	</select>
+
+	<!-- 资讯编辑 新增 -->
+	<insert id="insertNews">
+		INSERT INTO t_news
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="newsId != null">
+				NEWS_ID,
+			</if>
+			<if test="newsTypeFk != null">
+				NEWS_TYPE_FK,
+			</if>
+			<if test="newsTitel != null">
+				NEWS_TITEL,
+			</if>
+			<if test="adminUserIdFk != null">
+				ADMIN_USER_ID_FK,
+			</if>
+			<if test="ceateTime != null">
+				CEATE_TIME,
+			</if>
+			<if test="browseCount != null">
+				BROWSE_COUNT,
+			</if>
+			<if test="newsOutline != null">
+				NEWS_OUTLINE,
+			</if>
+			<if test="newsContent != null">
+				NEWS_CONTENT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="newsId != null">
+				#{newsId},
+			</if>
+			<if test="newsTypeFk != null">
+				#{newsTypeFk},
+			</if>
+			<if test="newsTitel != null">
+				#{newsTitel},
+			</if>
+			<if test="adminUserIdFk != null">
+				#{adminUserIdFk},
+			</if>
+			<if test="ceateTime != null">
+				#{ceateTime},
+			</if>
+			<if test="browseCount != null">
+				#{browseCount},
+			</if>
+			<if test="newsOutline != null">
+				#{newsOutline},
+			</if>
+			<if test="newsContent != null">
+				#{newsContent},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 资讯编辑 修改 -->
+	<update id="updateNews">
+		UPDATE t_news
+		<set>
+			<if test="newsTypeFk != null">
+				NEWS_TYPE_FK = #{newsTypeFk},
+			</if>
+			<if test="newsTitel != null">
+				NEWS_TITEL = #{newsTitel},
+			</if>
+			<if test="adminUserIdFk != null">
+				ADMIN_USER_ID_FK = #{adminUserIdFk},
+			</if>
+			<if test="ceateTime != null">
+				CEATE_TIME = #{ceateTime},
+			</if>
+			<if test="browseCount != null">
+				BROWSE_COUNT = #{browseCount},
+			</if>
+			<if test="newsOutline != null">
+				NEWS_OUTLINE = #{newsOutline},
+			</if>
+			<if test="newsContent != null">
+				NEWS_CONTENT = #{newsContent},
+			</if>
+		</set>
+		WHERE
+		NEWS_ID = #{newsId}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_news
+		where NEWS_ID = #{newsId,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 根据ID查询 -->
+	<select id="selectNewsByID" resultType="cn.net.cncl.entity.News" parameterType="java.lang.Long">
+		SELECT
+		<include refid="News_Column_List"></include>
+		FROM t_news
+		WHERE
+		NEWS_ID = #{newsId,jdbcType=BIGINT}
+	</select>
+
+	<!-- 获取推荐资讯列表 -->
+	<select id="getTopNews" resultType="cn.net.cncl.entity.News" parameterType="java.util.Map">
+		SELECT
+		<include refid="News_Column_List"></include>
+		FROM
+		t_news
+		<where>
+			<if test="newsTypeFk">
+				NEWS_TYPE_FK = #{newsTypeFk}
+			</if>
+		</where>
+		ORDER BY CEATE_TIME DESC
+		LIMIT 9
+	</select>
+
+	<select id="queryNews" resultType="cn.net.cncl.entity.News" parameterType="java.util.Map">
+		SELECT
+		<include refid="News_Column_List"></include>
+		FROM
+		t_news
+		<where>
+			<if test="newsTypeFk">
+				NEWS_TYPE_FK = #{newsTypeFk}
+			</if>
+		</where>
+		ORDER BY CEATE_TIME DESC
+	</select>
+
+</mapper>

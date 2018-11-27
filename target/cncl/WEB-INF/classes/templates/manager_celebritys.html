@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
+<!--  
+<script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
+-->
+
+<title>名人库管理</title>
+
+</head>
+
+<body>
+	<div class="row">
+		<div id="left" class="col-lg-2 col-md-2 col-sm-2">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- left end -->
+
+		<div id="middle" class="col-lg-8 col-md-8 col-sm-8">
+			<div class="related container">
+				<div class="row">
+
+					<!-- Title -->
+					<div class="col-lg-11">
+						<h3>管理员信息管理</h3>
+					</div>
+
+					<div class="col-lg-12">
+						<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+
+					<!-- 列表 -->
+					<table class="table table-bordered table-condensed table-responsive table-content">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>名称</th>
+								<th>别称</th>
+								<th>外文名称</th>
+								<th>国籍</th>
+								<th>民族</th>
+								<th>星座</th>
+								<th>血型</th>
+								<th>身高</th>
+								<th>出生地</th>
+								<th>籍贯</th>
+								<th>祖籍</th>
+								<th>身份证</th>
+								<th>证书编号</th>
+								<th>证书名称</th>
+								<th>职业</th>
+								<th>公司</th>
+								<th>代表作品</th>
+								<th>主要成就</th>
+								<th>浏览统计</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="data:${list}">
+								<td th:text="${data.celebrityId}"></td>
+								<td th:text="${data.celebrityName}"></td>
+								<td th:text="${data.anotherName}"></td>
+								<td th:text="${data.foreignName}"></td>
+								<td th:text="${data.nationality}"></td>
+								<td th:text="${data.nation}"></td>
+								<td th:text="${data.constellation}"></td>
+								<td th:text="${data.bloodType}"></td>
+								<td th:text="${data.height}"></td>
+								<td th:text="${data.birthplace}"></td>
+								<td th:text="${data.nativePlace}"></td>
+								<td th:text="${data.ancestralHome}"></td>
+								<td th:text="${data.identityCard}"></td>
+								<td th:text="${data.certificateCode}"></td>
+								<td th:text="${data.certificateName}"></td>
+								<td th:text="${data.profession}"></td>
+								<td th:text="${data.company}"></td>
+								<td th:text="${data.representativeName}"></td>
+								<td th:text="${data.achievement}"></td>
+								<td th:text="${data.browseCount}"></td>
+								<td><a href="">详情</a> | <a th:href="@{${'/ClelebritysCtl/showManagerCelebritysEdit'}(celebrityId=${data.celebrityId})}">修改</a> | <a id="remove" th:id="${data.celebrityId}" th:onclick="'doRemove(this)'">删除</a></td>
+								<!--  
+									<button type="button" id="doEdit" class="btn btn-primary" th:id="${data.celebrityId}" th:onclick="'doEdit(this)'">编辑</button>
+									<button tyep="button" id="doRemove" class="btn btn-primary" th:id="${data.celebrityId}" th:onclick="'doRemove(this)'">删除</button>
+								-->
+							</tr>
+						</tbody>
+					</table>
+					<!-- table end -->
+					<!-- 分页 -->
+					<nav aria-label="...">
+						<ul class="pager">
+							<li><a th:if="${not isFirstPage}" th:href="@{${'/ClelebritysCtl/showCelebritysList'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
+
+							<li th:each="pageNo: ${#numbers.sequence(1, totalPages)}"><a th:if="${pageNum eq pageNo}" href="javascript:void(0);"> <span th:text="${pageNum}"></span>
+							</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/ClelebritysCtl/showCelebritysList'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
+							</a></li>
+
+							<li><a th:if="${not isLastPage}" th:href="@{${'/ClelebritysCtl/showCelebritysList'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
+						</ul>
+					</nav>
+					<!-- 分页 end -->
+				</div>
+				<!-- row end -->
+			</div>
+			<!-- related end -->
+		</div>
+		<!-- middle end -->
+
+	</div>
+	<!-- row end -->
+</body>
+<!-- Javascript -->
+
+<script type="text/javascript">
+	$(function() {
+	})
+
+	// 删除
+	function doRemove(object) {
+		var id = $(object).attr("id");
+		if (confirm("是确认删除" + id + "资源？")) {
+			$.post("/ClelebritysCtl/deleteCelebritys", {
+				"id" : id
+			}, function(data) {
+				if ("200" == data) {
+					window.location.reload();
+				} else {
+					alert("删除失败！");
+				}
+			});
+		}
+	}
+</script>
+</html>

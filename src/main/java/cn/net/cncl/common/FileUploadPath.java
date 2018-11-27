@@ -12,10 +12,8 @@ public class FileUploadPath {
 	public static File getFileUploadPath() throws Exception {
 		File path = new File(ResourceUtils.getURL("classpath:").getPath(), Constant.STATIC_PATH + Constant.STATIC_FILE_PATH);
 
-		// return this.request.getSession().getServletContext().getRealPath("/") + path;
-
 		// 如果路径不存在
-		if (!path.exists() && !path.getParentFile().exists()) {
+		if (false == path.exists() || false == path.getParentFile().exists()) {
 			path.getParentFile().mkdirs();
 			path.mkdirs();
 			return path;

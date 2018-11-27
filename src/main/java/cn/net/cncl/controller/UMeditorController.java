@@ -17,7 +17,10 @@ public class UMeditorController {
 	@RequestMapping(value = "/uploadUEImage", method = RequestMethod.POST)
 	public String uploadUEImage(MultipartFile upfile, HttpServletRequest request) throws Exception {
 		Uploader up = new Uploader(request);
-		up.setSavePath("/upload");
+
+		// FileUploadPath.getFileUploadPath();
+
+		up.setSavePath("/UMEupload");
 		String[] fileType = { ".gif", ".png", ".jpg", ".jpeg", ".bmp" };
 		up.setAllowFiles(fileType);
 		up.setMaxSize(102400); // 单位KB
