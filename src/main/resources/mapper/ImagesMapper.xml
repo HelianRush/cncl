@@ -134,4 +134,32 @@
 		TOP_STATUS = "top"
 	</select>
 
+	<update id="editImage" parameterType="cn.net.cncl.entity.Images">
+		UPDATE t_images
+		<set>
+			<if test="imageCode != null">IMAGE_CODE =#{imageCode},</if>
+			<if test="resourceBy != null">RESOURCE_BY =#{resourceBy},</if>
+			<if test="imageName != null">IMAGE_NAME =#{imageName},</if>
+			<if test="extensionName != null">EXTENSION_NAME =#{extensionName},</if>
+			<if test="imageTitle != null">IMAGE_TITLE =#{imageTitle},</if>
+			<if test="imagePaths != null">IMAGE_PATHS =#{imagePaths},</if>
+			<if test="imagePath != null">IMAGE_PATH =#{imagePath},</if>
+			<if test="imageSize != null">IMAGE_SIZE =#{imageSize},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime},</if>
+			<if test="imageContent != null">IMAGE_CONTENT =#{imageContent},</if>
+			<if test="description != null">DESCRIPTION =#{description},</if>
+		</set>
+		WHERE IMAGE_ID = #{imageId,jdbcType=BIGINT}
+	</update>
+
+	<!-- 根据ID查询 -->
+	<select id="queryImageById" resultType="cn.net.cncl.entity.Images" parameterType="java.lang.Long">
+		SELECT
+		<include refid="Column_List"></include>
+		FROM
+		t_images
+		WHERE
+		IMAGE_ID = #{imageId,jdbcType=BIGINT}
+	</select>
+
 </mapper>

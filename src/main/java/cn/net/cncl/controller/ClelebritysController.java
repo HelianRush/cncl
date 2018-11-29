@@ -127,4 +127,5 @@ public class ClelebritysController {
 		model.addAttribute("isLastPage", pageList.isIsLastPage());
 		return model;
 	}
+
 }

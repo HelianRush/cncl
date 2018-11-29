@@ -18,7 +18,9 @@ import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
 import cn.net.cncl.entity.Celebritys;
+import cn.net.cncl.entity.Images;
 import cn.net.cncl.mapper.CelebritysMapper;
+import cn.net.cncl.mapper.ImagesMapper;
 import cn.net.cncl.service.CelebritysService;
 
 @Service
@@ -29,6 +31,9 @@ public class CelebritysServiceImpl implements CelebritysService {
 
 	@Autowired
 	public CelebritysMapper celebritysMapper;
+
+	@Autowired
+	private ImagesMapper imagesMapper;
 
 	/**
 	 * 名人库列表
@@ -47,10 +52,26 @@ public class CelebritysServiceImpl implements CelebritysService {
 	@Override
 	public int insertCelebritys(Celebritys celebritys) {
 		celebritys.setCelebrityId(new Date().getTime());
-		// celebritys.setVideoIdFk(0L);
-		// celebritys.setImageIdFk(0L);
 		celebritys.setBrowseCount(0);
-		return celebritysMapper.insertCelebritys(celebritys);
+		int flag = celebritysMapper.insertCelebritys(celebritys);
+
+		// 更新资源图片信息
+		if (0 < flag && null != celebritys.getImageIdFk()) {
+			Images images = imagesMapper.selectImageById(celebritys.getImageIdFk());
+			Long resourceBy = images.getResourceBy();
+			// 如果资源图片没有资源所属，或者资源所属相同，才能更改图片资源细信息
+			if (null == resourceBy || resourceBy.equals(null) || celebritys.getImageIdFk().equals(resourceBy)) {
+				images.setResourceBy(celebritys.getCelebrityId());
+				images.setImageTitle("《" + celebritys.getCelebrityName() + "》");
+				images.setImageContent("需要自定义");
+				images.setDescription("《" + celebritys.getCelebrityName() + "》文章的标题图片。");
+				int i = imagesMapper.editImage(images);
+				if (0 < i) {
+					System.out.println(images.toString() + "资源更新成功！");
+				}
+			}
+		}
+		return flag;
 	}
 
 	/**
@@ -58,7 +79,45 @@ public class CelebritysServiceImpl implements CelebritysService {
 	 */
 	@Override
 	public int updateCelebritys(Celebritys celebritys) {
-		return celebritysMapper.updateCelebritys(celebritys);
+
+		// 获取历史数据
+		Celebritys temp = celebritysMapper.selectCelebritysByID(celebritys.getCelebrityId());
+
+		// 更新数据
+		int flag = celebritysMapper.updateCelebritys(celebritys);
+		if (0 < flag && null != celebritys.getImageIdFk()) {
+
+			// 准备进行数据更新的Images对象
+			Images images = imagesMapper.selectImageById(celebritys.getImageIdFk());
+
+			Long imageIdNew = celebritys.getImageIdFk();
+			Long imageIdOld = temp.getImageIdFk();
+
+			// 如果图片没有变化，直接更新图片数据
+			if (imageIdNew.equals(imageIdOld)) {
+				images.setImageTitle("《" + celebritys.getCelebrityName() + "》");
+				images.setDescription("《" + celebritys.getCelebrityName() + "》文章的标题图片。");
+				imagesMapper.editImage(images);
+			}
+			// 如果标题图片更改，先获取原始图片数据，将历史内容清空。
+			else {
+				if (null != imageIdOld) {
+					Images imagesOld = imagesMapper.selectImageById(imageIdOld);
+					images.setResourceBy(0l);
+					imagesOld.setImageTitle("");
+					imagesOld.setImageContent("");
+					imagesOld.setDescription("");
+					imagesMapper.editImage(imagesOld);
+				}
+				// 然后更改新的图片数据
+				images.setResourceBy(celebritys.getCelebrityId());
+				images.setImageTitle("《" + celebritys.getCelebrityName() + "》");
+				images.setImageContent("需要自定义");
+				images.setDescription("《" + celebritys.getCelebrityName() + "》文章的标题图片。");
+				imagesMapper.editImage(images);
+			}
+		}
+		return flag;
 	}
 
 	/**

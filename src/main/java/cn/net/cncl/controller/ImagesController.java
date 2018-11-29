@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,10 +39,8 @@ public class ImagesController {
 	@ResponseBody
 	@PostMapping(value = "/fileUpload")
 	public String fileUpload(MultipartFile files, HttpSession session) throws Exception {
-
 		String url = session.getServletContext().getRealPath("/");
 		System.out.println(url);
-
 		return ImagesService.addImage(files);
 	}
 
@@ -65,7 +64,6 @@ public class ImagesController {
 	public String getTopImages() {
 		Map<String, String> images = ImagesService.getTopImages();
 		return JSONObject.toJSONString(images);
-		// return JSONObject.parseObject(JSONObject.toJSONString(images));
 	}
 
 	/**
@@ -75,15 +73,39 @@ public class ImagesController {
 	public String editTopImages(HttpServletRequest request) {
 		int flag = ImagesService.editTopImages(request);
 		return "manager_topImages";
-
-		// 1538734038995 1538734039081 1538734039153 1538734039166 1538734039219
 	}
 
 	/**
-	 * 编辑
+	 * 图片编辑展示 回显数据
 	 */
-	public String editImage() {
-		return null;
+	@ResponseBody
+	@RequestMapping(value = "/getImagesById")
+	public Images getImagesById(HttpSession session) {
+		Long imageId = (Long) session.getAttribute("imageId");
+		Images image = null;
+		if (null != imageId) {
+			image = ImagesService.queryImageById(imageId);
+		}
+		session.removeAttribute("imageId");
+		return image;
+	}
+
+	/**
+	 * 图片编辑
+	 */
+	@RequestMapping(value = "/editImage", method = RequestMethod.GET)
+	public String editImage(HttpServletRequest request, Images image, Model model) {
+
+		int flag = ImagesService.updateImage(image);
+
+		if (0 < flag) {
+			PageInfo<Images> pageList = ImagesService.queryImages(1);
+			this.pageModel(model, pageList);
+			// 当前列表
+			model.addAttribute("list", pageList.getList());
+			return "manager_images";
+		} else
+			return "manager_images_edit";
 	}
 
 	/**

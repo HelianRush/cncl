@@ -41,11 +41,21 @@ public interface ImagesMapper {
 	List<String> getTopImages();
 
 	/**
+	 * 编辑图片
+	 */
+	int editImage(Images images);
+
+	/**
 	 * 设置滚动图片
 	 */
 	int editTopImages(List<String> editList);
 
 	int editTopImagesByNull(List<String> editList);
+
+	/**
+	 * 根据ID获取图片对象
+	 */
+	Images queryImageById(Long imageId);
 
 	/********************************************************************************
 	 *********************************** API 接口 ***********************************

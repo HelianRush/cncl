@@ -164,6 +164,22 @@ public class ImagesServiceImpl implements ImagesService {
 		return imagesMapper.editTopImages(editList);
 	}
 
+	/**
+	 * 根据ID获取图片对象
+	 */
+	@Override
+	public Images queryImageById(Long imageId) {
+		return imagesMapper.queryImageById(imageId);
+	}
+
+	/**
+	 * 图片编辑
+	 */
+	@Override
+	public int updateImage(Images image) {
+		return imagesMapper.editImage(image);
+	}
+
 	/********************************************************************************
 	 *********************************** API 接口 ***********************************
 	 ********************************************************************************/

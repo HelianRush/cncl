@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
-import cn.net.cncl.common.SessionUser;
 import cn.net.cncl.entity.News;
 import cn.net.cncl.entity.NewsType;
 import cn.net.cncl.service.NewsService;
@@ -56,7 +55,7 @@ public class NewsController {
 		Long newsId = news.getNewsId();
 		int flag = 0;
 		if (null == newsId) {
-			news.setAdminUserIdFk(SessionUser.getUser(request).getAdminUserId());
+			// news.setAdminUserIdFk(SessionUser.getUser(request).getAdminUserId());
 			flag = newsService.addNews(news);
 		} else {
 			flag = newsService.editNews(news);

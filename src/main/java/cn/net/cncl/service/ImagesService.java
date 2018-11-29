@@ -40,6 +40,16 @@ public interface ImagesService {
 	 */
 	int editTopImages(HttpServletRequest request);
 
+	/**
+	 * 根据ID获取图片对象
+	 */
+	Images queryImageById(Long imageId);
+
+	/**
+	 * 图片编辑
+	 */
+	int updateImage(Images image);
+
 	/********************************************************************************
 	 *********************************** API 接口 ***********************************
 	 ********************************************************************************/
@@ -47,4 +57,5 @@ public interface ImagesService {
 	 * 获取 滚动图片
 	 */
 	JSONObject getApiTopImages();
+
 }

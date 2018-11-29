@@ -17,7 +17,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
+import cn.net.cncl.entity.Images;
 import cn.net.cncl.entity.News;
+import cn.net.cncl.mapper.ImagesMapper;
 import cn.net.cncl.mapper.NewsMapper;
 import cn.net.cncl.service.NewsService;
 
@@ -29,6 +31,9 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private NewsMapper newsMapper;
+
+	@Autowired
+	private ImagesMapper imagesMapper;
 
 	/**
 	 * 资讯 查询
@@ -51,7 +56,25 @@ public class NewsServiceImpl implements NewsService {
 		news.setAdminUserIdFk(10000000000000001L);
 		news.setCeateTime(new Date());
 		news.setBrowseCount(0);
-		return newsMapper.insertNews(news);
+		int flag = newsMapper.insertNews(news);
+
+		// 更新资源图片信息
+		if (0 < flag && null != news.getImageIdFk()) {
+			Images images = imagesMapper.selectImageById(news.getImageIdFk());
+			Long resourceBy = images.getResourceBy();
+			// 如果资源图片没有资源所属，或者资源所属相同，才能更改图片资源细信息
+			if (null == resourceBy || resourceBy.equals(null) || news.getImageIdFk().equals(resourceBy)) {
+				images.setResourceBy(news.getNewsId());
+				images.setImageTitle("《" + news.getNewsTitel() + "》");
+				images.setImageContent("需要自定义");
+				images.setDescription("《" + news.getNewsTitel() + "》文章的标题图片。");
+				int i = imagesMapper.editImage(images);
+				if (0 < i) {
+					System.out.println(images.toString() + "资源更新成功！");
+				}
+			}
+		}
+		return flag;
 	}
 
 	/**
@@ -59,7 +82,45 @@ public class NewsServiceImpl implements NewsService {
 	 */
 	@Override
 	public int editNews(News news) {
-		return newsMapper.updateNews(news);
+
+		// 获取历史数据
+		News temp = newsMapper.selectNewsByID(news.getNewsId());
+
+		// 更新数据
+		int flag = newsMapper.updateNews(news);
+		if (0 < flag && null != news.getImageIdFk()) {
+
+			// 准备进行数据更新的Images对象
+			Images images = imagesMapper.selectImageById(news.getImageIdFk());
+
+			Long imageIdNew = news.getImageIdFk();
+			Long imageIdOld = temp.getImageIdFk();
+
+			// 如果图片没有变化，直接更新图片数据
+			if (imageIdNew.equals(imageIdOld)) {
+				images.setImageTitle("《" + news.getNewsTitel() + "》");
+				images.setDescription("《" + news.getNewsTitel() + "》文章的标题图片。");
+				imagesMapper.editImage(images);
+			}
+			// 如果标题图片更改，先获取原始图片数据，将历史内容清空。
+			else {
+				if (null != imageIdOld) {
+					Images imagesOld = imagesMapper.selectImageById(imageIdOld);
+					images.setResourceBy(0l);
+					imagesOld.setImageTitle("");
+					imagesOld.setImageContent("");
+					imagesOld.setDescription("");
+					imagesMapper.editImage(imagesOld);
+				}
+				// 然后更改新的图片数据
+				images.setResourceBy(news.getNewsId());
+				images.setImageTitle("《" + news.getNewsTitel() + "》");
+				images.setImageContent("需要自定义");
+				images.setDescription("《" + news.getNewsTitel() + "》文章的标题图片。");
+				imagesMapper.editImage(images);
+			}
+		}
+		return flag;
 	}
 
 	/**
