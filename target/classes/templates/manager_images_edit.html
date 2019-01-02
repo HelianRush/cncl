@@ -52,7 +52,7 @@
 <body>
 
 	<div class="row">
-		<div id="left" class="col-lg-1 col-md-1 col-sm-1">
+		<div id="left" class="col-lg-2 col-md-2 col-sm-2">
 			<img th:src="@{/images/m_left.png}" />
 		</div>
 		<!-- left end -->
@@ -101,20 +101,23 @@
 								</div>
 
 								<!-- 编辑信息 -->
-								<div class="col-lg-6">
+								<div class="col-lg-12>
 									<div class="form-group">
-										<label for="resourceBy" class="col-sm-3 control-label">资源所属</label>
-										<div class="col-sm-9">
-											<input type="text" id=imageId name="imageId" hidden="true">
-											<!--  -->
-											<input type="text" class="form-control" id="resourceBy" name="resourceBy" placeholder="资源所属ID...">
-										</div>
+									<label for="resourceBy" class="col-sm-3 ">资源所属</label>
+									<div class="col-sm-9">
+										<input type="text" id=imageId name="imageId" hidden="true">
+										<!--  -->
+										<input type="text" class="form-control" id="resourceBy" name="resourceBy" placeholder="资源所属ID...">
 									</div>
 								</div>
 
-								<div class="col-lg-6">
+								<div class="col-lg-12">
+									<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
+
+								<div class="col-lg-12">
 									<div class="form-group">
-										<label for="imageTitle" class="col-sm-3 control-label">图片标题</label>
+										<label for="imageTitle" class="col-sm-3 ">图片标题</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" id="imageTitle" name="imageTitle" placeholder="图片标题...">
 										</div>
@@ -127,7 +130,7 @@
 
 								<div class="col-lg-12">
 									<div class="form-group">
-										<label for="imageContent" class="col-sm-3 control-label">图片配文</label>
+										<label for="imageContent" class="col-sm-3 ">图片配文</label>
 										<div class="col-sm-9">
 											<textarea class="form-control" rows="3" id="imageContent" name="imageContent"></textarea>
 										</div>
@@ -140,7 +143,7 @@
 
 								<div class="col-lg-12">
 									<div class="form-group">
-										<label for="description" class="col-sm-3 control-label">描述</label>
+										<label for="description" class="col-sm-3 ">描述</label>
 										<div class="col-sm-9">
 											<textarea class="form-control" rows="3" id="description" name="description"></textarea>
 										</div>
@@ -151,8 +154,15 @@
 									<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 								</div>
 
-								<button type="submit" class="btn btn-default">保存</button>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<button type="submit" class="btn btn-default">保存</button>
+									</div>
+								</div>
 
+								<div class="col-lg-12">
+									<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
 							</div>
 						</form>
 

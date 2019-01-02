@@ -9,6 +9,8 @@ public class Images {
 
 	private Long resourceBy;
 
+	private String resourceByType;
+
 	private String imageName;
 
 	private String extensionName;
@@ -28,6 +30,18 @@ public class Images {
 	private String imageContent;
 
 	private String description;
+
+	/*
+	 * getter setter
+	 */
+
+	public String getResourceByType() {
+		return resourceByType;
+	}
+
+	public void setResourceByType(String resourceByType) {
+		this.resourceByType = resourceByType;
+	}
 
 	public Long getImageId() {
 		return imageId;

@@ -59,6 +59,17 @@ public class Celebritys {
 
 	private String introduce;
 
+	/* 图片对象 */
+	private Images image;
+
+	public Images getImage() {
+		return image;
+	}
+
+	public void setImage(Images image) {
+		this.image = image;
+	}
+
 	public Long getCelebrityId() {
 		return celebrityId;
 	}

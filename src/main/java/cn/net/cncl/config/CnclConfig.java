@@ -1,6 +1,7 @@
 package cn.net.cncl.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -15,5 +16,10 @@ public class CnclConfig extends WebMvcConfigurerAdapter {
 		// "/ImagesCtl/**").excludePathPatterns("/Show/**");
 
 		super.addInterceptors(registry);
+	}
+
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/cnclApi/**").allowedOrigins("*").allowCredentials(true).allowedMethods("GET", "POST", "DELETE", "PUT").maxAge(3600);
 	}
 }

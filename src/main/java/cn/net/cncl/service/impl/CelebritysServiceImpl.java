@@ -62,6 +62,7 @@ public class CelebritysServiceImpl implements CelebritysService {
 			// 如果资源图片没有资源所属，或者资源所属相同，才能更改图片资源细信息
 			if (null == resourceBy || resourceBy.equals(null) || celebritys.getImageIdFk().equals(resourceBy)) {
 				images.setResourceBy(celebritys.getCelebrityId());
+				images.setResourceByType("celebrity");
 				images.setImageTitle("《" + celebritys.getCelebrityName() + "》");
 				images.setImageContent("需要自定义");
 				images.setDescription("《" + celebritys.getCelebrityName() + "》文章的标题图片。");
@@ -104,6 +105,7 @@ public class CelebritysServiceImpl implements CelebritysService {
 				if (null != imageIdOld) {
 					Images imagesOld = imagesMapper.selectImageById(imageIdOld);
 					images.setResourceBy(0l);
+					images.setResourceByType("");
 					imagesOld.setImageTitle("");
 					imagesOld.setImageContent("");
 					imagesOld.setDescription("");
@@ -111,6 +113,7 @@ public class CelebritysServiceImpl implements CelebritysService {
 				}
 				// 然后更改新的图片数据
 				images.setResourceBy(celebritys.getCelebrityId());
+				images.setResourceByType("celebrity");
 				images.setImageTitle("《" + celebritys.getCelebrityName() + "》");
 				images.setImageContent("需要自定义");
 				images.setDescription("《" + celebritys.getCelebrityName() + "》文章的标题图片。");
@@ -150,18 +153,26 @@ public class CelebritysServiceImpl implements CelebritysService {
 		JSONArray dataList = new JSONArray();
 		List<Celebritys> list = null;
 
-		String celebrityName = params.get("celebrityName").toString();
-		String identityCard = params.get("identityCard").toString();
-		String certificateCode = params.get("certificateCode").toString();
+		String celebrityName = null;
+		if (params.containsKey("celebrityName")) {
+			celebrityName = params.get("celebrityName").toString();
+			if (celebrityName.equals(null) || celebrityName.equals(""))
+				celebrityName = null;
+		}
 
-		if (celebrityName.equals(null) || celebrityName.equals(""))
-			celebrityName = null;
+		String identityCard = null;
+		if (params.containsKey("identityCard")) {
+			identityCard = params.get("identityCard").toString();
+			if (identityCard.equals(null) || identityCard.equals(""))
+				identityCard = null;
+		}
 
-		if (identityCard.equals(null) || identityCard.equals(""))
-			identityCard = null;
-
-		if (certificateCode.equals(null) || certificateCode.equals(""))
-			certificateCode = null;
+		String certificateCode = null;
+		if (params.containsKey("certificateCode")) {
+			certificateCode = params.get("certificateCode").toString();
+			if (certificateCode.equals(null) || certificateCode.equals(""))
+				certificateCode = null;
+		}
 
 		if (0 == params.size()) {
 			list = new ArrayList<Celebritys>();
@@ -170,6 +181,10 @@ public class CelebritysServiceImpl implements CelebritysService {
 		}
 
 		for (Celebritys celebrity : list) {
+
+			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
+			celebrity.setImage(image);
+
 			dataList.add(celebrity);
 		}
 
@@ -189,8 +204,15 @@ public class CelebritysServiceImpl implements CelebritysService {
 		} else {
 			if (params.containsKey("keyword")) {
 				celebrityName = params.get("keyword").toString();
+				if (celebrityName.equals(null) || celebrityName.equals(""))
+					celebrityName = null;
 			}
 			list = celebritysMapper.queryClelbrityByName(celebrityName);
+
+			for (Celebritys celebrity : list) {
+				Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
+				celebrity.setImage(image);
+			}
 		}
 		return list;
 	}
@@ -206,6 +228,8 @@ public class CelebritysServiceImpl implements CelebritysService {
 		List<Celebritys> list = celebritysMapper.getTopCelebrity();
 
 		for (Celebritys celebrity : list) {
+			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
+			celebrity.setImage(image);
 			dataList.add(celebrity);
 		}
 		body.put("dataList", dataList);
@@ -228,11 +252,15 @@ public class CelebritysServiceImpl implements CelebritysService {
 		} else {
 			if (params.containsKey("keyword")) {
 				celebrityName = params.get("keyword").toString();
+				if (celebrityName.equals(null) || celebrityName.equals(""))
+					celebrityName = null;
 			}
 			list = celebritysMapper.queryClelbrityByName(celebrityName);
 		}
 
 		for (Celebritys celebrity : list) {
+			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
+			celebrity.setImage(image);
 			dataList.add(celebrity);
 		}
 
@@ -246,9 +274,19 @@ public class CelebritysServiceImpl implements CelebritysService {
 	@Override
 	public JSONObject celebrityList(Map<String, Object> params) {
 		JSONObject body = new JSONObject();
-		int pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
+
+		int pageNum = 1;
+		if (params.containsKey("pageNum")) {
+			pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
+		}
+
 		PageHelper.startPage(pageNum, Constant.API_PAGE_SIZE);
 		List<Celebritys> list = celebritysMapper.queryCelebritys();
+		for (Celebritys celebrity : list) {
+			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
+			celebrity.setImage(image);
+		}
+
 		PageInfo<Celebritys> pageInfo = new PageInfo<Celebritys>(list);
 		body.put("dataList", pageInfo);
 		return body;
@@ -262,6 +300,8 @@ public class CelebritysServiceImpl implements CelebritysService {
 		JSONObject body = new JSONObject();
 		long celebrityId = Long.valueOf(params.get("celebrityId").toString());
 		Celebritys celebrity = celebritysMapper.selectCelebritysByID(celebrityId);
+		Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
+		celebrity.setImage(image);
 		body.put("celebrity", celebrity);
 		return body;
 	}

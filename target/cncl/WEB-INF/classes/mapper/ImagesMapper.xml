@@ -6,6 +6,7 @@
 		<id column="IMAGE_ID" property="imageId" jdbcType="BIGINT" />
 		<result column="IMAGE_CODE" property="imageCode" jdbcType="VARCHAR" />
 		<result column="RESOURCE_BY" property="resourceBy" jdbcType="BIGINT" />
+		<result column="RESOURCE_BY_TYPE" property="resourceByType" jdbcType="VARCHAR" />
 		<result column="IMAGE_NAME" property="imageName" jdbcType="VARCHAR" />
 		<result column="EXTENSION_NAME" property="extensionName" jdbcType="VARCHAR" />
 		<result column="IMAGE_TITLE" property="imageTitle" jdbcType="VARCHAR" />
@@ -19,13 +20,14 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		IMAGE_ID, IMAGE_CODE, RESOURCE_BY, IMAGE_NAME, EXTENSION_NAME, IMAGE_TITLE, IMAGE_PATHS,IMAGE_PATH, IMAGE_SIZE, CREATE_TIME, TOP_STATUS,IMAGE_CONTENT, DESCRIPTION
+		IMAGE_ID, IMAGE_CODE, RESOURCE_BY, RESOURCE_BY_TYPE,IMAGE_NAME, EXTENSION_NAME, IMAGE_TITLE, IMAGE_PATHS,IMAGE_PATH, IMAGE_SIZE, CREATE_TIME, TOP_STATUS,IMAGE_CONTENT, DESCRIPTION
 	</sql>
 
 	<sql id="Column_List">
 		IMAGE_ID AS imageId,
 		IMAGE_CODE AS imageCode,
 		RESOURCE_BY AS resourceBy,
+		RESOURCE_BY_TYPE AS resourceByType,
 		EXTENSION_NAME AS extensionName,
 		IMAGE_SIZE AS imageSize,
 		IMAGE_NAME AS imageName,
@@ -45,6 +47,7 @@
 			<if test="imageId != null">IMAGE_ID,</if>
 			<if test="imageCode != null">IMAGE_CODE,</if>
 			<if test="resourceBy != null">RESOURCE_BY,</if>
+			<if test="resourceByType != null">RESOURCE_BY_TYPE,</if>
 			<if test="imageName != null">IMAGE_NAME,</if>
 			<if test="extensionName != null">EXTENSION_NAME,</if>
 			<if test="imageTitle != null">IMAGE_TITLE,</if>
@@ -59,6 +62,7 @@
 			<if test="imageId != null">#{imageId},</if>
 			<if test="imageCode != null">#{imageCode},</if>
 			<if test="resourceBy != null">#{resourceBy},</if>
+			<if test="resourceByType != null">#{resourceByType},</if>
 			<if test="imageName != null">#{imageName},</if>
 			<if test="extensionName != null">#{extensionName},</if>
 			<if test="imageTitle != null">#{imageTitle},</if>
@@ -132,6 +136,35 @@
 		t_images
 		WHERE
 		TOP_STATUS = "top"
+	</select>
+
+	<update id="editImage" parameterType="cn.net.cncl.entity.Images">
+		UPDATE t_images
+		<set>
+			<if test="imageCode != null">IMAGE_CODE =#{imageCode},</if>
+			<if test="resourceBy != null">RESOURCE_BY =#{resourceBy},</if>
+			<if test="resourceByType != null">RESOURCE_BY_TYPE =#{resourceByType},</if>
+			<if test="imageName != null">IMAGE_NAME =#{imageName},</if>
+			<if test="extensionName != null">EXTENSION_NAME =#{extensionName},</if>
+			<if test="imageTitle != null">IMAGE_TITLE =#{imageTitle},</if>
+			<if test="imagePaths != null">IMAGE_PATHS =#{imagePaths},</if>
+			<if test="imagePath != null">IMAGE_PATH =#{imagePath},</if>
+			<if test="imageSize != null">IMAGE_SIZE =#{imageSize},</if>
+			<if test="createTime != null">CREATE_TIME =#{createTime},</if>
+			<if test="imageContent != null">IMAGE_CONTENT =#{imageContent},</if>
+			<if test="description != null">DESCRIPTION =#{description},</if>
+		</set>
+		WHERE IMAGE_ID = #{imageId,jdbcType=BIGINT}
+	</update>
+
+	<!-- 根据ID查询 -->
+	<select id="queryImageById" resultType="cn.net.cncl.entity.Images" parameterType="java.lang.Long">
+		SELECT
+		<include refid="Column_List"></include>
+		FROM
+		t_images
+		WHERE
+		IMAGE_ID = #{imageId,jdbcType=BIGINT}
 	</select>
 
 </mapper>

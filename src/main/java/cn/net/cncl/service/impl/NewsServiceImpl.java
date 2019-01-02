@@ -65,6 +65,7 @@ public class NewsServiceImpl implements NewsService {
 			// 如果资源图片没有资源所属，或者资源所属相同，才能更改图片资源细信息
 			if (null == resourceBy || resourceBy.equals(null) || news.getImageIdFk().equals(resourceBy)) {
 				images.setResourceBy(news.getNewsId());
+				images.setResourceByType("news");
 				images.setImageTitle("《" + news.getNewsTitel() + "》");
 				images.setImageContent("需要自定义");
 				images.setDescription("《" + news.getNewsTitel() + "》文章的标题图片。");
@@ -107,6 +108,7 @@ public class NewsServiceImpl implements NewsService {
 				if (null != imageIdOld) {
 					Images imagesOld = imagesMapper.selectImageById(imageIdOld);
 					images.setResourceBy(0l);
+					images.setResourceByType("");
 					imagesOld.setImageTitle("");
 					imagesOld.setImageContent("");
 					imagesOld.setDescription("");
@@ -114,6 +116,7 @@ public class NewsServiceImpl implements NewsService {
 				}
 				// 然后更改新的图片数据
 				images.setResourceBy(news.getNewsId());
+				images.setResourceByType("news");
 				images.setImageTitle("《" + news.getNewsTitel() + "》");
 				images.setImageContent("需要自定义");
 				images.setDescription("《" + news.getNewsTitel() + "》文章的标题图片。");
@@ -155,8 +158,16 @@ public class NewsServiceImpl implements NewsService {
 		} else {
 			if (params.containsKey("keyword")) {
 				newsTitel = params.get("keyword").toString();
+				if (newsTitel.equals(null) || newsTitel.equals(""))
+					newsTitel = null;
 			}
 			list = newsMapper.queryNewsByName(newsTitel);
+
+			for (News news : list) {
+				Images image = imagesMapper.selectImageById(news.getImageIdFk());
+				news.setImage(image);
+			}
+
 		}
 		return list;
 	}
@@ -170,6 +181,8 @@ public class NewsServiceImpl implements NewsService {
 		JSONArray dataList = new JSONArray();
 		List<News> list = newsMapper.getTopNews();
 		for (News news : list) {
+			Images image = imagesMapper.selectImageById(news.getImageIdFk());
+			news.setImage(image);
 			dataList.add(news);
 		}
 		body.put("dataList", dataList);
@@ -182,9 +195,16 @@ public class NewsServiceImpl implements NewsService {
 	@Override
 	public JSONObject newsList(Map<String, Object> params) {
 		JSONObject body = new JSONObject();
-		int pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
+		int pageNum = 1;
+		if (params.containsKey("pageNum")) {
+			pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
+		}
 		PageHelper.startPage(pageNum, Constant.API_PAGE_SIZE);
 		List<News> list = newsMapper.queryNews(params);
+		for (News news : list) {
+			Images image = imagesMapper.selectImageById(news.getImageIdFk());
+			news.setImage(image);
+		}
 		PageInfo<News> pageInfo = new PageInfo<News>(list);
 		body.put("dataList", pageInfo);
 		return body;
@@ -198,6 +218,10 @@ public class NewsServiceImpl implements NewsService {
 		JSONObject body = new JSONObject();
 		long newsId = Long.valueOf(params.get("newsId").toString());
 		News news = newsMapper.selectNewsByID(newsId);
+
+		Images image = imagesMapper.selectImageById(news.getImageIdFk());
+		news.setImage(image);
+
 		body.put("news", news);
 		return body;
 	}
