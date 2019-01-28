@@ -29,6 +29,42 @@ public class News {
 	/* 图片对象 */
 	private Images image;
 
+	/* 资讯类别 */
+	private NewsType newsType;
+
+	/* 作者信息 */
+	private AdminUser user;
+
+	private String videoCode;
+
+	/* ************** */
+	/* Getter Setter */
+	/* ************** */
+
+	public NewsType getNewsType() {
+		return newsType;
+	}
+
+	public String getVideoCode() {
+		return videoCode;
+	}
+
+	public void setVideoCode(String videoCode) {
+		this.videoCode = videoCode;
+	}
+
+	public AdminUser getUser() {
+		return user;
+	}
+
+	public void setUser(AdminUser user) {
+		this.user = user;
+	}
+
+	public void setNewsType(NewsType newsType) {
+		this.newsType = newsType;
+	}
+
 	public Images getImage() {
 		return image;
 	}
@@ -119,7 +155,7 @@ public class News {
 
 	@Override
 	public String toString() {
-		return "News [newsId=" + newsId + ", newsTypeFk=" + newsTypeFk + ", newsTitel=" + newsTitel + ", videoIdFk=" + videoIdFk + ", imageIdFk=" + imageIdFk + ", adminUserIdFk=" + adminUserIdFk + ", ceateTime=" + ceateTime + ", browseCount=" + browseCount + ", newsOutline=" + newsOutline + ", newsContent=" + newsContent + "]";
+		return "News [newsId=" + newsId + ", newsTypeFk=" + newsTypeFk + ", newsTitel=" + newsTitel + ", videoIdFk=" + videoIdFk + ", imageIdFk=" + imageIdFk + ", adminUserIdFk=" + adminUserIdFk + ", ceateTime=" + ceateTime + ", browseCount=" + browseCount + ", newsOutline=" + newsOutline + ", newsContent=" + newsContent + ", image=" + image + ", newsType=" + newsType + ", user=" + user + ", videoCode=" + videoCode + "]";
 	}
 
 }

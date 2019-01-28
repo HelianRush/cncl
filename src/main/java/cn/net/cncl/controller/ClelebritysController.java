@@ -18,6 +18,8 @@ import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
 import cn.net.cncl.entity.Celebritys;
+import cn.net.cncl.entity.Images;
+import cn.net.cncl.mapper.ImagesMapper;
 import cn.net.cncl.service.AdminUserService;
 import cn.net.cncl.service.CelebritysService;
 
@@ -39,11 +41,14 @@ public class ClelebritysController {
 	@Autowired
 	private CelebritysService celebritysService;
 
+	@Autowired
+	private ImagesMapper imagesMapper;
+
 	/**
 	 * 名人库信息 新增&编辑
 	 */
 	@RequestMapping(value = "/editCelebritys", method = RequestMethod.GET)
-	public String editCelebritys(HttpServletRequest request, Celebritys celebrity, Model model) {
+	public String editCelebritys(HttpServletRequest request, HttpSession session, Celebritys celebrity, Model model) {
 
 		int flag = 0;
 
@@ -59,9 +64,37 @@ public class ClelebritysController {
 			this.pageModel(model, pageList);
 			// 当前列表
 			model.addAttribute("list", pageList.getList());
+
+			// 保存成功，编辑图片信息
+			String images = (String) session.getAttribute("imageArray");
+			String[] imgArray = images.split(",");
+
+			if ("" != images && !images.equals("") && null != images && !images.equals(null)) {
+				for (int i = 0; i < imgArray.length; i++) {
+					String imgId = imgArray[i];
+					Images image = imagesMapper.queryImageById(Long.valueOf(imgId));
+					image.setResourceBy(celebrity.getCelebrityId());
+					image.setResourceByType("celebrity");
+					image.setImageTitle("《" + celebrity.getCelebrityName() + "》");
+					image.setImageContent("需要自定义");
+					image.setDescription("《" + celebrity.getCelebrityName() + "》文章的标题图片。");
+
+					imagesMapper.editImage(image);
+
+					if (i == (imgArray.length - 1)) {
+						celebrity.setImageIdFk(Long.valueOf(imgId));
+						flag = celebritysService.updateCelebritys(celebrity);
+					}
+				}
+
+				// 删除session
+				session.removeAttribute("imageArray");
+			}
+
 			return "manager_celebritys";
-		} else
+		} else {
 			return "manager_celebritys_edit";
+		}
 	}
 
 	/**
@@ -82,6 +115,8 @@ public class ClelebritysController {
 	@RequestMapping(value = "/showManagerCelebritysEdit")
 	public String showManagerCelebritysEdit(HttpSession session, @RequestParam Long celebrityId) {
 		session.setAttribute("celebrityId", celebrityId);
+		session.removeAttribute("imageArray");
+		session.setAttribute("imageArray", "");
 		return "manager_celebritys_edit";
 	}
 
@@ -105,6 +140,9 @@ public class ClelebritysController {
 	public String deleteCelebritys(@RequestParam Long id) {
 		int flag = celebritysService.deleteCelebritys(id);
 		if (0 < flag) {
+			// 删除所属图片
+			int flag_img = imagesMapper.delByResourceBy(id);
+
 			return Constant.SUCCESS.getCode();
 		} else {
 			return Constant.ERROR.getCode();

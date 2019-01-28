@@ -10,11 +10,12 @@
 		<result column="COMPANY" property="company" jdbcType="VARCHAR" />
 		<result column="LEGAL_PERSON" property="legalPerson" jdbcType="VARCHAR" />
 		<result column="IMAGE_LOGO" property="imageLogo" jdbcType="VARCHAR" />
+		<result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
 		<result column="WEB_EMAIL" property="webEmail" jdbcType="VARCHAR" />
 	</resultMap>
 
 	<sql id="SQL_QueryAll1">
-		WEB_ID, WEB_NAME, DOMAIN_NAME, RECORDS_CODE, COMPANY, LEGAL_PERSON, IMAGE_LOGO, WEB_EMAIL
+		WEB_ID, WEB_NAME, DOMAIN_NAME, RECORDS_CODE, COMPANY, LEGAL_PERSON, IMAGE_LOGO, LOGO_PATH,WEB_EMAIL
 	</sql>
 
 	<sql id="SQL_QueryAll2">
@@ -25,6 +26,7 @@
 		COMPANY AS company,
 		LEGAL_PERSON AS legalPerson,
 		IMAGE_LOGO AS imageLogo,
+		LOGO_PATH AS logoPath,
 		WEB_EMAIL AS webEmail
 	</sql>
 
@@ -48,26 +50,29 @@
 	<update id="updateWebInfo" parameterType="cn.net.cncl.entity.WebInfo">
 		UPDATE t_web_info
 		<set>
-			<if test="webName!=null">
+			<if test="webName !=null">
 				WEB_NAME = #{webName,jdbcType=VARCHAR},
 			</if>
-			<if test="domainName!=null">
+			<if test="domainName !=null">
 				DOMAIN_NAME = #{domainName,jdbcType=VARCHAR},
 			</if>
-			<if test="recordsCode!=null">
+			<if test="recordsCode !=null">
 				RECORDS_CODE = #{recordsCode,jdbcType=VARCHAR},
 			</if>
-			<if test="company!=null">
+			<if test="company !=null">
 				COMPANY = #{company,jdbcType=VARCHAR},
 			</if>
 			<if test="legalPerson!=null">
 				LEGAL_PERSON = #{legalPerson,jdbcType=VARCHAR},
 			</if>
-			<if test="webEmail!=null">
+			<if test="webEmail !=null">
 				WEB_EMAIL = #{webEmail,jdbcType=VARCHAR},
 			</if>
-			<if test="imageLogo!=null">
+			<if test="imageLogo !=null">
 				IMAGE_LOGO = #{imageLogo,jdbcType=VARCHAR},
+			</if>
+			<if test="logoPath !=null">
+				LOGO_PATH = #{logoPath,jdbcType=VARCHAR},
 			</if>
 		</set>
 		WHERE WEB_ID = 1
@@ -83,14 +88,16 @@
 		delete from t_web_info
 		where WEB_ID = #{webId,jdbcType=INTEGER}
 	</delete>
+
 	<insert id="insert" parameterType="cn.net.cncl.entity.WebInfo">
 		insert into t_web_info (WEB_ID, WEB_NAME, DOMAIN_NAME,
 		RECORDS_CODE, COMPANY, LEGAL_PERSON,
-		IMAGE_LOGO, WEB_EMAIL)
+		IMAGE_LOGO,LOGO_PATH, WEB_EMAIL)
 		values (#{webId,jdbcType=INTEGER}, #{webName,jdbcType=VARCHAR}, #{domainName,jdbcType=VARCHAR},
 		#{recordsCode,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR},
-		#{imageLogo,jdbcType=VARCHAR}, #{webEmail,jdbcType=VARCHAR})
+		#{imageLogo,jdbcType=VARCHAR},#{logoPaht,jdbcType=VARCHAR}, #{webEmail,jdbcType=VARCHAR})
 	</insert>
+
 	<insert id="insertSelective" parameterType="cn.net.cncl.entity.WebInfo">
 		insert into t_web_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -146,6 +153,7 @@
 			</if>
 		</trim>
 	</insert>
+
 	<update id="updateByPrimaryKeySelective" parameterType="cn.net.cncl.entity.WebInfo">
 		update t_web_info
 		<set>
@@ -173,6 +181,7 @@
 		</set>
 		where WEB_ID = #{webId,jdbcType=INTEGER}
 	</update>
+
 	<update id="updateByPrimaryKey" parameterType="cn.net.cncl.entity.WebInfo">
 		update t_web_info
 		set WEB_NAME = #{webName,jdbcType=VARCHAR},
@@ -184,4 +193,5 @@
 		WEB_EMAIL = #{webEmail,jdbcType=VARCHAR}
 		where WEB_ID = #{webId,jdbcType=INTEGER}
 	</update>
+
 </mapper>

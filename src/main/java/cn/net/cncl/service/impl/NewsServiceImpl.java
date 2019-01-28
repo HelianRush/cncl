@@ -17,10 +17,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
+import cn.net.cncl.entity.AdminUser;
 import cn.net.cncl.entity.Images;
 import cn.net.cncl.entity.News;
+import cn.net.cncl.entity.NewsType;
+import cn.net.cncl.mapper.AdminUserMapper;
 import cn.net.cncl.mapper.ImagesMapper;
 import cn.net.cncl.mapper.NewsMapper;
+import cn.net.cncl.mapper.NewsTypeMapper;
 import cn.net.cncl.service.NewsService;
 
 @Service
@@ -35,6 +39,12 @@ public class NewsServiceImpl implements NewsService {
 	@Autowired
 	private ImagesMapper imagesMapper;
 
+	@Autowired
+	private NewsTypeMapper newsTypeMapper;
+
+	@Autowired
+	private AdminUserMapper adminUserMapper;
+
 	/**
 	 * 资讯 查询
 	 */
@@ -42,6 +52,14 @@ public class NewsServiceImpl implements NewsService {
 	public PageInfo<News> selectNews(Integer pageNum) {
 		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
 		List<News> list = newsMapper.selectNews();
+		for (News temp : list) {
+			AdminUser user = adminUserMapper.selectByPrimaryKey(temp.getAdminUserIdFk());
+			temp.setUser(user);
+			NewsType newsType = newsTypeMapper.selectByPrimaryKey(temp.getNewsTypeFk());
+			temp.setNewsType(newsType);
+			Images image = imagesMapper.selectImageById(temp.getImageIdFk());
+			temp.setImage(image);
+		}
 		PageInfo<News> pageInfo = new PageInfo<News>(list);
 		return pageInfo;
 	}
@@ -56,10 +74,12 @@ public class NewsServiceImpl implements NewsService {
 		news.setAdminUserIdFk(10000000000000001L);
 		news.setCeateTime(new Date());
 		news.setBrowseCount(0);
+		news.setImageIdFk(100001l);
+
 		int flag = newsMapper.insertNews(news);
 
 		// 更新资源图片信息
-		if (0 < flag && null != news.getImageIdFk()) {
+		if (0 < flag && null != news.getImageIdFk() && 100001l != news.getImageIdFk()) {
 			Images images = imagesMapper.selectImageById(news.getImageIdFk());
 			Long resourceBy = images.getResourceBy();
 			// 如果资源图片没有资源所属，或者资源所属相同，才能更改图片资源细信息
@@ -107,12 +127,14 @@ public class NewsServiceImpl implements NewsService {
 			else {
 				if (null != imageIdOld) {
 					Images imagesOld = imagesMapper.selectImageById(imageIdOld);
-					images.setResourceBy(0l);
-					images.setResourceByType("");
-					imagesOld.setImageTitle("");
-					imagesOld.setImageContent("");
-					imagesOld.setDescription("");
-					imagesMapper.editImage(imagesOld);
+					if (null != imagesOld) {
+						imagesOld.setResourceBy(0L); // 资源所属
+						imagesOld.setResourceByType("-"); // 资源类别
+						imagesOld.setImageTitle("-");// 资源标题
+						imagesOld.setImageContent("-");// 资源介绍
+						imagesOld.setDescription("-");// 描述
+						imagesMapper.editImage(imagesOld);
+					}
 				}
 				// 然后更改新的图片数据
 				images.setResourceBy(news.getNewsId());
@@ -161,9 +183,16 @@ public class NewsServiceImpl implements NewsService {
 				if (newsTitel.equals(null) || newsTitel.equals(""))
 					newsTitel = null;
 			}
+
 			list = newsMapper.queryNewsByName(newsTitel);
 
 			for (News news : list) {
+				AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
+				news.setUser(user);
+
+				NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());
+				news.setNewsType(newsType);
+
 				Images image = imagesMapper.selectImageById(news.getImageIdFk());
 				news.setImage(image);
 			}
@@ -181,6 +210,10 @@ public class NewsServiceImpl implements NewsService {
 		JSONArray dataList = new JSONArray();
 		List<News> list = newsMapper.getTopNews();
 		for (News news : list) {
+			AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
+			news.setUser(user);
+			NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());
+			news.setNewsType(newsType);
 			Images image = imagesMapper.selectImageById(news.getImageIdFk());
 			news.setImage(image);
 			dataList.add(news);
@@ -202,6 +235,10 @@ public class NewsServiceImpl implements NewsService {
 		PageHelper.startPage(pageNum, Constant.API_PAGE_SIZE);
 		List<News> list = newsMapper.queryNews(params);
 		for (News news : list) {
+			AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
+			news.setUser(user);
+			NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());
+			news.setNewsType(newsType);
 			Images image = imagesMapper.selectImageById(news.getImageIdFk());
 			news.setImage(image);
 		}
@@ -219,6 +256,19 @@ public class NewsServiceImpl implements NewsService {
 		long newsId = Long.valueOf(params.get("newsId").toString());
 		News news = newsMapper.selectNewsByID(newsId);
 
+		// 热度+1
+		news.setBrowseCount(news.getBrowseCount() + 1);
+		newsMapper.updateNews(news);
+
+		// 填装作者
+		AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
+		news.setUser(user);
+
+		// 填装类型
+		NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());
+		news.setNewsType(newsType);
+
+		// 填装图片
 		Images image = imagesMapper.selectImageById(news.getImageIdFk());
 		news.setImage(image);
 

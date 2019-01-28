@@ -36,12 +36,13 @@ $(function() {
 
 			var validCode = $("#validCode").val();
 			$.ajax({
-				type : "POST",
+				type : "GET",
 				url : "/Login/getCtlCaptcha",
 				data : {
 					"validCode" : validCode
 				},
 				dataType : "text",
+				traditional:true,
 				async : false,
 				cache : false,
 				success : function(data) {
@@ -79,7 +80,7 @@ function checkLogin() {
 
 		if (null != adminUserName && null != password) {
 			$.ajax({
-				type : "POST",
+				type : "GET",
 				url : "/Login/checkLogin",
 				data : {
 					"adminUserName" : adminUserName,

@@ -48,6 +48,7 @@
 					$("#newsTitel").val(data.newsTitel);
 					$("#newsTypeFk").val(data.newsTypeFk);
 					$("#imageIdFk").val(data.imageIdFk);
+					$("#videoCode").val(data.videoCode);
 					um.execCommand('insertHtml', data.newsContent)
 				}
 			}
@@ -69,7 +70,7 @@
 
 				<!-- Title -->
 				<div class="col-lg-11">
-					<h3>名人信息编辑</h3>
+					<h3>资讯编辑</h3>
 				</div>
 
 				<div class="col-lg-12">
@@ -78,7 +79,9 @@
 
 				<form th:action="@{/NewsCtl/editNews}" class="form-horizontal" method="get" enctype="multipart/form-data">
 
-					<input type="hidden" id="newsId" name="newsId">
+					<div class="col-lg-12">
+						<h4>资讯详情</h4>
+					</div>
 
 					<div class="col-lg-6">
 						<div class="form-group">
@@ -112,10 +115,23 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="imageIdFk" class="col-sm-3 control-label">视频代码</label>
+							<div class="col-sm-9">
+								<textarea class="form-control" id="videoCode" name="videoCode" rows="3" placeholder="通用代码：<iframe>by https://www.youku.com or https://v.qq.com/</iframe>"></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-12">
+						<h4>编辑内容</h4>
+					</div>
 
 					<div class="col-lg-12">
 						<!--style给定宽度可以影响编辑器的最终宽度-->
-						<script type="text/plain" id="myEditor" name="newsContent" style="width: 100%; height: 400px;"><p>这里我可以写一些输入提示</p></script>
+						<script type="text/plain" id="myEditor" name="newsContent" style="width: 100%; height: 400px;"></script>
 					</div>
 
 					<div class="col-lg-12">
@@ -137,11 +153,9 @@
 		</div>
 		<!-- middle end -->
 
-		<!--  
 		<div id="right" class="col-lg-1 col-md-1 col-sm-1">
 			<img th:src="@{/images/m_left.png}" />
 		</div>
-		-->
 		<!-- right end -->
 
 	</div>

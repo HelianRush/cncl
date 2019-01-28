@@ -86,20 +86,23 @@ public class LoginController {
 	}
 
 	/**
-	 * 获取验证码
+	 * 获取验证码 校验
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getCtlCaptcha", method = RequestMethod.POST)
+	@RequestMapping(value = "/getCtlCaptcha", method = RequestMethod.GET)
 	public String getCtlCaptcha(HttpServletRequest request) {
 		String validCode = request.getParameter("validCode");
+
 		if (StringUtils.isBlank(validCode)) {
 			return Constant.CAPTCHA_IS_NULL.getMessage();
 		}
+
 		// 校验验证码
 		StringBuffer sbCapth = new StringBuffer();
 		for (Integer getList : captchaList) {
 			sbCapth.append(getList.toString());
 		}
+
 		return sbCapth.toString();
 	}
 
@@ -134,7 +137,7 @@ public class LoginController {
 	 * 验证登录
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/checkLogin")
+	@RequestMapping(value = "/checkLogin", method = RequestMethod.GET)
 	public String checkLogin(@RequestParam String adminUserName, @RequestParam String password) {
 		String flagByName = loginService.checkAdminUserName(adminUserName);
 		String flagByPassword = null;

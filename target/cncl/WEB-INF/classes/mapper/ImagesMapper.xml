@@ -84,7 +84,7 @@
 		<!-- WHERE 1 = 1 AND -->
 		ORDER BY
 		CREATE_TIME DESC,
-		IMAGE_ID ASC
+		IMAGE_ID DESC
 	</select>
 	<!-- 查询图片 End -->
 
@@ -166,5 +166,13 @@
 		WHERE
 		IMAGE_ID = #{imageId,jdbcType=BIGINT}
 	</select>
+
+	<!-- 删除图片 根据资源所属删除图片 -->
+	<delete id="delByResourceBy" parameterType="java.lang.Long">
+		delete from t_images
+		WHERE
+		RESOURCE_BY = #{resourceBy,jdbcType=BIGINT}
+	</delete>
+	<!-- 删除图片 根据资源所属删除图片 By ID end -->
 
 </mapper>

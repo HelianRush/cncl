@@ -274,6 +274,8 @@ public class Uploader {
 		// 源码
 		// return this.request.getSession().getServletContext().getRealPath("/") + path;
 		return ResourceUtils.getURL("classpath:").getPath() + Constant.STATIC_PATH + path;
+		// return ResourceUtils.getURL("classpath:").getPath() + Constant.STATIC_PATH +
+		// Constant.STATIC_FILE_PATH;
 	}
 
 	public void setSavePath(String savePath) {

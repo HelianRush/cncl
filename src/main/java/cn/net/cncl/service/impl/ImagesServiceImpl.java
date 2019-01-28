@@ -99,6 +99,22 @@ public class ImagesServiceImpl implements ImagesService {
 	}
 
 	/**
+	 * 图片入库
+	 */
+	@Override
+	public String addImage(Images image) {
+		/*
+		 * 存入数据库
+		 */
+		int flag = imagesMapper.inputImage(image);
+
+		if (0 < flag)
+			return Constant.SUCCESS.getCode();
+		else
+			return null; // Constant.ERROR.getCode();
+	}
+
+	/**
 	 * 查询图片
 	 */
 	@Override

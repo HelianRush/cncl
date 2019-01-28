@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
+<title>图片资源编辑</title>
+
+<script type="text/javascript">
+	$(function() {
+		// 获取编辑信息
+		getImage();
+	});
+	function getImage() {
+		$.ajax({
+			type : "GET",
+			url : "/ImagesCtl/getImagesById",
+			async : false,
+			cache : false,
+			dataType : "json",
+			success : function(data) {
+				if (null != data.imageId && "" != data.imageId) {
+					$("#showImage").attr("src", data.imagePaths);
+					$("#imageIdShow").text(data.imageId);
+					$("#imageCode").text(data.imageCode);
+					$("#imageName").text(data.imageName);
+					$("#imagePaths").text(data.imagePaths);
+					$("#imageId").val(data.imageId);
+					$("#resourceBy").val(data.resourceBy);
+					$("#imageTitle").val(data.imageTitle);
+					$("#imageContent").val(data.imageContent);
+					$("#description").val(data.description);
+				}
+			}
+		});
+	}
+</script>
+
+</head>
+<body>
+
+	<div class="row">
+		<div id="left" class="col-lg-2 col-md-2 col-sm-2">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- left end -->
+
+		<div id="middle" class="col-lg-8 col-md-8 col-sm-8">
+			<div class="related container">
+				<div class="row">
+
+					<!-- Title -->
+					<div class="col-lg-11">
+						<h3>图片资源编辑</h3>
+					</div>
+
+					<div class="col-lg-12">
+						<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+
+					<div class="col-lg-12">
+						<form th:action="@{/ImagesCtl/editImage}" class="form-horizontal" method="get" enctype="multipart/form-data">
+							<div class="row">
+
+								<!-- 图片展示 -->
+								<div class="col-lg-12">
+									<img id="showImage" alt="图片展示">
+								</div>
+								<div class="col-lg-12">
+									<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
+
+								<!-- 基本信息 -->
+								<div class="col-lg-6">
+									<label>ID：</label> <span id="imageIdShow"></span>
+								</div>
+								<div class="col-lg-6">
+									<label>编码：</label> <span id="imageCode"></span>
+								</div>
+								<div class="col-lg-6">
+									<label>名称：</label> <span id="imageName"></span>
+								</div>
+								<div class="col-lg-6">
+									<label>地址：</label> <span id="imagePaths"></span>
+								</div>
+
+								<div class="col-lg-12">
+									<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
+
+								<!-- 编辑信息 -->
+								<div class="col-lg-12>
+									<div class="form-group">
+									<label for="resourceBy" class="col-sm-3 ">资源所属</label>
+									<div class="col-sm-9">
+										<input type="text" id=imageId name="imageId" hidden="true">
+										<!--  -->
+										<input type="text" class="form-control" id="resourceBy" name="resourceBy" placeholder="资源所属ID...">
+									</div>
+								</div>
+
+								<div class="col-lg-12">
+									<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
+
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label for="imageTitle" class="col-sm-3 ">图片标题</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="imageTitle" name="imageTitle" placeholder="图片标题...">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-12">
+									<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
+
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label for="imageContent" class="col-sm-3 ">图片配文</label>
+										<div class="col-sm-9">
+											<textarea class="form-control" rows="3" id="imageContent" name="imageContent"></textarea>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-12">
+									<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
+
+								<div class="col-lg-12">
+									<div class="form-group">
+										<label for="description" class="col-sm-3 ">描述</label>
+										<div class="col-sm-9">
+											<textarea class="form-control" rows="3" id="description" name="description"></textarea>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-12">
+									<label class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
+
+								<div class="col-lg-12">
+									<div class="form-group">
+										<button type="submit" class="btn btn-default">保存</button>
+									</div>
+								</div>
+
+								<div class="col-lg-12">
+									<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								</div>
+							</div>
+						</form>
+
+					</div>
+					<!-- form div end -->
+				</div>
+				<!-- row end -->
+			</div>
+			<!-- related end -->
+		</div>
+		<!-- middle end -->
+
+		<div id="right" class="col-lg-1 col-md-1 col-sm-1">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- right end -->
+
+	</div>
+
+</body>
+</html>

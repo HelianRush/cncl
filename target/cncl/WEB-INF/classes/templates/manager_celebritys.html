@@ -43,10 +43,11 @@
 						<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
 
-					<!-- 列表 -->
 					<table class="table table-bordered table-condensed table-responsive table-content">
 						<thead>
 							<tr>
+								<th>操作</th>
+								<th>缩略图</th>
 								<th>ID</th>
 								<th>名称</th>
 								<th>别称</th>
@@ -67,11 +68,12 @@
 								<th>代表作品</th>
 								<th>主要成就</th>
 								<th>浏览统计</th>
-								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="data:${list}">
+								<td><a th:href="@{${'/ClelebritysCtl/showManagerCelebritysEdit'}(celebrityId=${data.celebrityId})}">修改</a> | <a id="remove" th:id="${data.celebrityId}" th:onclick="'doRemove(this)'">删除</a></td>
+								<td><a href="#" class="thumbnail"><img th:src="${data.image.imagePaths}" alt="..." /> </a></td>
 								<td th:text="${data.celebrityId}"></td>
 								<td th:text="${data.celebrityName}"></td>
 								<td th:text="${data.anotherName}"></td>
@@ -92,7 +94,7 @@
 								<td th:text="${data.representativeName}"></td>
 								<td th:text="${data.achievement}"></td>
 								<td th:text="${data.browseCount}"></td>
-								<td><a th:href="@{${'/ClelebritysCtl/showManagerCelebritysEdit'}(celebrityId=${data.celebrityId})}">修改</a> | <a id="remove" th:id="${data.celebrityId}" th:onclick="'doRemove(this)'">删除</a></td>
+
 								<!--  
 									<button type="button" id="doEdit" class="btn btn-primary" th:id="${data.celebrityId}" th:onclick="'doEdit(this)'">编辑</button>
 									<button tyep="button" id="doRemove" class="btn btn-primary" th:id="${data.celebrityId}" th:onclick="'doRemove(this)'">删除</button>

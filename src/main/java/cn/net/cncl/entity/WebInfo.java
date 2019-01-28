@@ -15,12 +15,14 @@ public class WebInfo {
 
 	private String imageLogo;
 
+	private String logoPath;
+
 	private String webEmail;
 
 	public WebInfo() {
 	}
 
-	public WebInfo(Integer webId, String webName, String domainName, String recordsCode, String company, String legalPerson, String imageLogo, String webEmail) {
+	public WebInfo(Integer webId, String webName, String domainName, String recordsCode, String company, String legalPerson, String imageLogo, String logoPath, String webEmail) {
 		super();
 		this.webId = webId;
 		this.webName = webName;
@@ -29,12 +31,21 @@ public class WebInfo {
 		this.company = company;
 		this.legalPerson = legalPerson;
 		this.imageLogo = imageLogo;
+		this.logoPath = logoPath;
 		this.webEmail = webEmail;
 	}
 
 	/* Getter & Setter */
 	public Integer getWebId() {
 		return webId;
+	}
+
+	public String getLogoPath() {
+		return logoPath;
+	}
+
+	public void setLogoPath(String logoPath) {
+		this.logoPath = logoPath;
 	}
 
 	public void setWebId(Integer webId) {
@@ -99,6 +110,7 @@ public class WebInfo {
 
 	@Override
 	public String toString() {
-		return "WebInfo [webId=" + webId + ", webName=" + webName + ", domainName=" + domainName + ", recordsCode=" + recordsCode + ", company=" + company + ", legalPerson=" + legalPerson + ", imageLogo=" + imageLogo + ", webEmail=" + webEmail + "]";
+		return "WebInfo [webId=" + webId + ", webName=" + webName + ", domainName=" + domainName + ", recordsCode=" + recordsCode + ", company=" + company + ", legalPerson=" + legalPerson + ", imageLogo=" + imageLogo + ", logoPath=" + logoPath + ", webEmail=" + webEmail + "]";
 	}
+
 }

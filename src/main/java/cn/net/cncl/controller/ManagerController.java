@@ -1,19 +1,29 @@
 package cn.net.cncl.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.util.Streams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cn.net.cncl.common.Constant;
 import cn.net.cncl.entity.News;
 import cn.net.cncl.entity.NewsType;
 import cn.net.cncl.entity.WebInfo;
@@ -90,10 +100,38 @@ public class ManagerController {
 
 	/**
 	 * 编辑网站信息
+	 * 
+	 * @throws IOException
 	 */
 	@RequestMapping(value = "/updateWebInfo")
-	public String updateWebInfo(WebInfo webInfo) {
+	public String updateWebInfo(WebInfo webInfo, MultipartFile uploadLogo, RedirectAttributes redirectAttributes) throws IOException {
+
+		if (null != uploadLogo) {
+			String contentType = uploadLogo.getContentType();
+			String imgType = null;
+			if (contentType.equals(Constant.IMAGE_PNG))
+				imgType = ".png";
+			else if (contentType.equals(Constant.IMAGE_GIF))
+				imgType = ".gif";
+			else if (contentType.equals(Constant.IMAGE_JPG_JPEG))
+				imgType = ".jpg";
+			else if (contentType.equals(Constant.IMAGE_BMP))
+				imgType = ".bmp";
+
+			String fileName = "logo1" + imgType;
+			String path = ResourceUtils.getURL("classpath:").getPath() + Constant.STATIC_PATH + "/images/" + fileName;
+
+			BufferedInputStream in = new BufferedInputStream(uploadLogo.getInputStream());
+			File file = new File(path);
+			FileOutputStream out = new FileOutputStream(file);
+			BufferedOutputStream output = new BufferedOutputStream(out);
+			Streams.copy(in, output, true);
+
+			String setPath = "/images/" + fileName;
+		}
+
 		int flag = managerService.updateWebInfo(webInfo);
+
 		if (0 < flag) {
 			return "manager_web";
 		} else {
@@ -167,7 +205,9 @@ public class ManagerController {
 	 *             名人库编辑
 	 */
 	@RequestMapping(value = "/showManagerCelebritysEdit")
-	public String showManagerCelebritysEdit(HttpServletRequest request) {
+	public String showManagerCelebritysEdit(HttpServletRequest request, HttpSession session) {
+		session.removeAttribute("imageArray");
+		session.setAttribute("imageArray", "");
 		return "manager_celebritys_edit";
 	}
 
@@ -195,7 +235,9 @@ public class ManagerController {
 	 *             资讯新增&编辑
 	 */
 	@RequestMapping(value = "/showNewsEdit")
-	public String showNewsEdit(HttpServletRequest request, News news, Model model) {
+	public String showNewsEdit(HttpServletRequest request, News news, Model model, HttpSession session) {
+		session.removeAttribute("imageArray");
+		session.setAttribute("imageArray", "");
 		List<NewsType> newsTypeList = newsTypeService.queryNewsTypeAll();
 		model.addAttribute("newsTypeList", newsTypeList);
 		return "manager_news_edit";

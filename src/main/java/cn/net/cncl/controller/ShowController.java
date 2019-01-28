@@ -1,7 +1,6 @@
 package cn.net.cncl.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 // @RequestMapping(value = "/Show")
@@ -15,9 +14,9 @@ public class ShowController {
 	 *             访问Index.html<br>
 	 *             首页
 	 */
-	@RequestMapping(value = "/")
-	public String showIndex() {
-		return "index";
-	}
+	// @RequestMapping(value = "/")
+	// public String showIndex() {
+	// return "index";
+	// }
 
 }

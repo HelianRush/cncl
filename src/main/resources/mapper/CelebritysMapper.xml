@@ -26,6 +26,7 @@
 		<result column="BIRTHDAY" property="birthday" jdbcType="DATE" />
 		<result column="DEATHDAY" property="deathday" jdbcType="DATE" />
 		<result column="VIDEO_ID_FK" property="videoIdFk" jdbcType="BIGINT" />
+		<result column="VIDEO_CODE" property="videoCode" jdbcType="LONGVARCHAR" />
 		<result column="IMAGE_ID_FK" property="imageIdFk" jdbcType="BIGINT" />
 		<result column="BROWSE_COUNT" property="browseCount" jdbcType="INTEGER" />
 		<result column="OUTLINE" property="outline" jdbcType="LONGVARCHAR" />
@@ -36,7 +37,7 @@
 		CELEBRITY_ID, CELEBRITY_NAME, ANOTHER_NAME, FOREIGN_NAME, NATIONALITY, NATION, CONSTELLATION,
 		BLOOD_TYPE, HEIGHT, BIRTHPLACE, NATIVE_PLACE, ANCESTRAL_HOME, IDENTITY_CARD, CERTIFICATE_CODE,
 		CERTIFICATE_NAME, PROFESSION, COMPANY, REPRESENTATIVE_NAME, ACHIEVEMENT, BIRTHDAY,
-		DEATHDAY, VIDEO_ID_FK, IMAGE_ID_FK, BROWSE_COUNT,OUTLINE, INTRODUCE
+		DEATHDAY, VIDEO_ID_FK,VIDEO_CODE, IMAGE_ID_FK, BROWSE_COUNT,OUTLINE, INTRODUCE
 	</sql>
 
 	<sql id="Base_Column_List">
@@ -64,6 +65,7 @@
 		OUTLINE AS outline ,
 		INTRODUCE AS introduce ,
 		VIDEO_ID_FK AS videoIdFk ,
+		VIDEO_CODE AS videoCode ,
 		IMAGE_ID_FK AS imageIdFk ,
 		BROWSE_COUNT AS browseCount
 	</sql>
@@ -198,6 +200,9 @@
 			<if test="videoIdFk != null">
 				VIDEO_ID_FK,
 			</if>
+			<if test="videoCode != null">
+				VIDEO_CODE,
+			</if>
 			<if test="imageIdFk != null">
 				IMAGE_ID_FK,
 			</if>
@@ -274,6 +279,9 @@
 			</if>
 			<if test="videoIdFk != null">
 				#{videoIdFk},
+			</if>
+			<if test="videoCode != null">
+				#{videoCode},
 			</if>
 			<if test="imageIdFk != null">
 				#{imageIdFk},
@@ -356,6 +364,9 @@
 			<if test="videoIdFk != null">
 				VIDEO_ID_FK = #{videoIdFk},
 			</if>
+			<if test="videoCode != null">
+				VIDEO_CODE = #{videoCode},
+			</if>
 			<if test="imageIdFk != null">
 				IMAGE_ID_FK = #{imageIdFk},
 			</if>
@@ -378,7 +389,7 @@
 		<include refid="Base_Column_List"></include>
 		FROM
 		t_celebritys
-		ORDER BY CELEBRITY_ID DESC
+		ORDER BY BROWSE_COUNT DESC, CELEBRITY_ID DESC
 		LIMIT 9;
 	</select>
 

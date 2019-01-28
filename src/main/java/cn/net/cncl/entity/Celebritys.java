@@ -51,6 +51,8 @@ public class Celebritys {
 
 	private Long videoIdFk;
 
+	private String videoCode;
+
 	private Long imageIdFk;
 
 	private Integer browseCount;
@@ -61,6 +63,14 @@ public class Celebritys {
 
 	/* 图片对象 */
 	private Images image;
+
+	public String getVideoCode() {
+		return videoCode;
+	}
+
+	public void setVideoCode(String videoCode) {
+		this.videoCode = videoCode;
+	}
 
 	public Images getImage() {
 		return image;
@@ -280,9 +290,7 @@ public class Celebritys {
 
 	@Override
 	public String toString() {
-		return "Celebritys [celebrityId=" + celebrityId + ", celebrityName=" + celebrityName + ", anotherName=" + anotherName + ", foreignName=" + foreignName + ", nationality=" + nationality + ", nation=" + nation + ", constellation=" + constellation + ", bloodType=" + bloodType + ", height=" + height + ", birthplace=" + birthplace + ", nativePlace=" + nativePlace + ", ancestralHome=" + ancestralHome + ", identityCard=" + identityCard + ", certificateCode=" + certificateCode + ", certificateName=" + certificateName + ", profession=" + profession + ", company=" + company + ", representativeName=" + representativeName + ", achievement=" + achievement + ", birthday=" + birthday + ", deathday=" + deathday + ", videoIdFk=" + videoIdFk + ", imageIdFk=" + imageIdFk + ", browseCount=" + browseCount + ", outline=" + outline + ", introduce=" + introduce + ", getCelebrityId()=" + getCelebrityId() + ", getCelebrityName()=" + getCelebrityName() + ", getAnotherName()=" + getAnotherName()
-				+ ", getForeignName()=" + getForeignName() + ", getNationality()=" + getNationality() + ", getNation()=" + getNation() + ", getConstellation()=" + getConstellation() + ", getBloodType()=" + getBloodType() + ", getHeight()=" + getHeight() + ", getBirthplace()=" + getBirthplace() + ", getNativePlace()=" + getNativePlace() + ", getAncestralHome()=" + getAncestralHome() + ", getIdentityCard()=" + getIdentityCard() + ", getCertificateCode()=" + getCertificateCode() + ", getCertificateName()=" + getCertificateName() + ", getProfession()=" + getProfession() + ", getCompany()=" + getCompany() + ", getRepresentativeName()=" + getRepresentativeName() + ", getAchievement()=" + getAchievement() + ", getBirthday()=" + getBirthday() + ", getDeathday()=" + getDeathday() + ", getVideoIdFk()=" + getVideoIdFk() + ", getImageIdFk()=" + getImageIdFk() + ", getBrowseCount()=" + getBrowseCount() + ", getOutline()=" + getOutline() + ", getIntroduce()=" + getIntroduce() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+		return "Celebritys [celebrityId=" + celebrityId + ", celebrityName=" + celebrityName + ", anotherName=" + anotherName + ", foreignName=" + foreignName + ", nationality=" + nationality + ", nation=" + nation + ", constellation=" + constellation + ", bloodType=" + bloodType + ", height=" + height + ", birthplace=" + birthplace + ", nativePlace=" + nativePlace + ", ancestralHome=" + ancestralHome + ", identityCard=" + identityCard + ", certificateCode=" + certificateCode + ", certificateName=" + certificateName + ", profession=" + profession + ", company=" + company + ", representativeName=" + representativeName + ", achievement=" + achievement + ", birthday=" + birthday + ", deathday=" + deathday + ", videoIdFk=" + videoIdFk + ", videoCode=" + videoCode + ", imageIdFk=" + imageIdFk + ", browseCount=" + browseCount + ", outline=" + outline + ", introduce=" + introduce + ", image=" + image + "]";
 	}
 
 }

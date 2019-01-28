@@ -8,6 +8,7 @@
 		<result column="NEWS_TYPE_FK" property="newsTypeFk" jdbcType="BIGINT" />
 		<result column="NEWS_TITEL" property="newsTitel" jdbcType="VARCHAR" />
 		<result column="VIDEO_ID_FK" property="videoIdFk" jdbcType="BIGINT" />
+		<result column="VIDEO_CODE" property="videoCode" jdbcType="LONGVARCHAR" />
 		<result column="IMAGE_ID_FK" property="imageIdFk" jdbcType="BIGINT" />
 		<result column="ADMIN_USER_ID_FK" property="adminUserIdFk" jdbcType="BIGINT" />
 		<result column="CEATE_TIME" property="ceateTime" jdbcType="DATE" />
@@ -18,7 +19,7 @@
 
 	<sql id="Base_Column_List">
 		NEWS_ID, NEWS_TYPE_FK, NEWS_TITEL, VIDEO_ID_FK, IMAGE_ID_FK, ADMIN_USER_ID_FK, CEATE_TIME,
-		BROWSE_COUNT,NEWS_OUTLINE, NEWS_CONTENT
+		BROWSE_COUNT,NEWS_OUTLINE, NEWS_CONTENT,VIDEO_CODE
 	</sql>
 
 	<sql id="News_Column_List">
@@ -26,6 +27,7 @@
 		NEWS_TYPE_FK AS newsTypeFk ,
 		NEWS_TITEL AS newsTitel ,
 		VIDEO_ID_FK AS videoIdFk ,
+		VIDEO_CODE AS videoCode ,
 		IMAGE_ID_FK AS imageIdFk ,
 		ADMIN_USER_ID_FK AS adminUserIdFk ,
 		CEATE_TIME AS ceateTime ,
@@ -89,6 +91,9 @@
 			<if test="imageIdFk != null">
 				IMAGE_ID_FK,
 			</if>
+			<if test="videoCode != null">
+				VIDEO_CODE,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="newsId != null">
@@ -117,6 +122,9 @@
 			</if>
 			<if test="imageIdFk != null">
 				#{imageIdFk},
+			</if>
+			<if test="videoCode != null">
+				#{videoCode},
 			</if>
 		</trim>
 	</insert>
@@ -149,6 +157,9 @@
 			<if test="imageIdFk != null">
 				IMAGE_ID_FK = #{imageIdFk},
 			</if>
+			<if test="videoCode != null">
+				VIDEO_CODE = #{videoCode},
+			</if>
 		</set>
 		WHERE
 		NEWS_ID = #{newsId}
@@ -179,7 +190,7 @@
 				NEWS_TYPE_FK = #{newsTypeFk}
 			</if>
 		</where>
-		ORDER BY CEATE_TIME DESC
+		ORDER BY BROWSE_COUNT DESC, CEATE_TIME DESC
 		LIMIT 9
 	</select>
 

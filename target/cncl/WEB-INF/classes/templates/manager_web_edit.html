@@ -42,7 +42,7 @@
 					</div>
 				</div>
 
-				<form th:action="@{/ManagerCtl/updateWebInfo}" class="form-horizontal" method="post">
+				<form th:action="@{/ManagerCtl/updateWebInfo}" class="form-horizontal" method="post" enctype="multipart/form-data">
 
 					<div class="form-group">
 						<label for="webName" class="col-sm-2 ">网站名称</label>
@@ -86,18 +86,16 @@
 						</div>
 					</div>
 
-					<!--  
 					<div class="form-group">
-						<label for="uploadLogo" class="col-sm-2 control-label">上传LOGO</label>
-		
-						<div class="col-sm-4">
-							<input type="file" id="uploadLogo">
-						</div>
+						<label for="uploadLogo" class="col-sm-2 ">上传LOGO</label>
+
 						<div class="col-sm-5">
-							<span>图片建议使用*.png，并重命名为logo1.png</span>
+							<input type="file" id="uploadLogo" name="uploadLogo">
+						</div>
+						<div class="col-sm-4">
+							<span>Logo图片只支持 *.png 格式图片</span>
 						</div>
 					</div>
-					-->
 
 					<div class="col-lg-12">
 						<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -108,6 +106,7 @@
 							<button type="submit" class="btn btn-default">保存</button>
 						</div>
 					</div>
+				</form>
 			</div>
 			<!-- related end -->
 		</div>

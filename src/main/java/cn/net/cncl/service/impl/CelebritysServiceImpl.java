@@ -42,6 +42,10 @@ public class CelebritysServiceImpl implements CelebritysService {
 	public PageInfo<Celebritys> showCelebritysList(int pageNum) {
 		PageHelper.startPage(pageNum, Constant.PAGE_SIZE);
 		List<Celebritys> list = celebritysMapper.queryCelebritys();
+		for (Celebritys celebrity : list) {
+			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
+			celebrity.setImage(image);
+		}
 		PageInfo<Celebritys> pageInfo = new PageInfo<Celebritys>(list);
 		return pageInfo;
 	}
@@ -53,10 +57,11 @@ public class CelebritysServiceImpl implements CelebritysService {
 	public int insertCelebritys(Celebritys celebritys) {
 		celebritys.setCelebrityId(new Date().getTime());
 		celebritys.setBrowseCount(0);
+		celebritys.setImageIdFk(100001l);
 		int flag = celebritysMapper.insertCelebritys(celebritys);
 
 		// 更新资源图片信息
-		if (0 < flag && null != celebritys.getImageIdFk()) {
+		if (0 < flag && null != celebritys.getImageIdFk() && 100001l != celebritys.getImageIdFk()) {
 			Images images = imagesMapper.selectImageById(celebritys.getImageIdFk());
 			Long resourceBy = images.getResourceBy();
 			// 如果资源图片没有资源所属，或者资源所属相同，才能更改图片资源细信息
@@ -81,11 +86,14 @@ public class CelebritysServiceImpl implements CelebritysService {
 	@Override
 	public int updateCelebritys(Celebritys celebritys) {
 
+		System.out.println(celebritys);
+
 		// 获取历史数据
 		Celebritys temp = celebritysMapper.selectCelebritysByID(celebritys.getCelebrityId());
 
 		// 更新数据
 		int flag = celebritysMapper.updateCelebritys(celebritys);
+
 		if (0 < flag && null != celebritys.getImageIdFk()) {
 
 			// 准备进行数据更新的Images对象
@@ -104,12 +112,14 @@ public class CelebritysServiceImpl implements CelebritysService {
 			else {
 				if (null != imageIdOld) {
 					Images imagesOld = imagesMapper.selectImageById(imageIdOld);
-					images.setResourceBy(0l);
-					images.setResourceByType("");
-					imagesOld.setImageTitle("");
-					imagesOld.setImageContent("");
-					imagesOld.setDescription("");
-					imagesMapper.editImage(imagesOld);
+					if (null != imagesOld) {
+						imagesOld.setResourceBy(0L); // 资源所属
+						imagesOld.setResourceByType("-"); // 资源类别
+						imagesOld.setImageTitle("-");// 资源标题
+						imagesOld.setImageContent("-");// 资源介绍
+						imagesOld.setDescription("-");// 描述
+						imagesMapper.editImage(imagesOld);
+					}
 				}
 				// 然后更改新的图片数据
 				images.setResourceBy(celebritys.getCelebrityId());
@@ -300,8 +310,15 @@ public class CelebritysServiceImpl implements CelebritysService {
 		JSONObject body = new JSONObject();
 		long celebrityId = Long.valueOf(params.get("celebrityId").toString());
 		Celebritys celebrity = celebritysMapper.selectCelebritysByID(celebrityId);
+
+		// 热度+1
+		celebrity.setBrowseCount(celebrity.getBrowseCount() + 1);
+		celebritysMapper.updateCelebritys(celebrity);
+
+		// 填装图片
 		Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
 		celebrity.setImage(image);
+
 		body.put("celebrity", celebrity);
 		return body;
 	}

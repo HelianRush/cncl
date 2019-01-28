@@ -21,6 +21,11 @@ public interface ImagesService {
 	String addImage(MultipartFile files) throws Exception;
 
 	/**
+	 * 图片入库
+	 */
+	String addImage(Images image);
+
+	/**
 	 * 查询
 	 */
 	PageInfo<Images> queryImages(Integer pageNum);
