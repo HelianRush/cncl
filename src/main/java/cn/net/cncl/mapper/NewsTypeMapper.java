@@ -1,6 +1,7 @@
 package cn.net.cncl.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,11 @@ public interface NewsTypeMapper {
 	 * 资讯类别 查询
 	 */
 	List<NewsType> selectNews();
+
+	/**
+	 * 资讯类别 查询 by Map
+	 */
+	Map<String, String> selectNewsByMap();
 
 	/**
 	 * 资讯类别 新增
@@ -32,7 +38,6 @@ public interface NewsTypeMapper {
 	/**
 	 * Orders
 	 */
-
 	int insertSelective(NewsType record);
 
 	/**

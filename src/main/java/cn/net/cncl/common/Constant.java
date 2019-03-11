@@ -113,5 +113,17 @@ public enum Constant {
 	public static final String API_NEWS_LIST = "newsList";
 	// 单条资讯
 	public static final String API_QUERY_NEWS_BY_ID = "queryNewsByID";
+	// 首页专题推荐8个
+	public static final String API_TOP_SPECIAL_LIST = "topSpecial";
+	// 专题页 首页
+	public static final String API_SPECIAL_INDEX = "querySpecialIndex";
+	// 专题页 展示类别
+	public static final String API__SPECIAL_TYPE = "querytSpecialType";
+	// 专题页 展示列表 分页
+	public static final String API__SPECIAL_LIST_BY_TYPE = "querySpecialByType";
+	// 专题 单个查询
+	public static final String API_QUERY_SPECIAL_BY_ID = "querySpecialById";
+	// 入驻页
+	public static final String API_QUERY_COOPERATION = "queryCooperation";
 
 }

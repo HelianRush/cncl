@@ -40,7 +40,7 @@ public class ImagesController {
 	@PostMapping(value = "/fileUpload")
 	public String fileUpload(MultipartFile files, HttpSession session) throws Exception {
 		String url = session.getServletContext().getRealPath("/");
-		System.out.println(url);
+		// System.out.println(url);
 		return ImagesService.addImage(files);
 	}
 

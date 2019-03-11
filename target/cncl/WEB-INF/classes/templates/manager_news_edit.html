@@ -49,6 +49,7 @@
 					$("#newsTypeFk").val(data.newsTypeFk);
 					$("#imageIdFk").val(data.imageIdFk);
 					$("#videoCode").val(data.videoCode);
+					$("#newsOutline").val(data.newsOutline);
 					um.execCommand('insertHtml', data.newsContent)
 				}
 			}
@@ -109,18 +110,27 @@
 
 					<div class="col-lg-6">
 						<div class="form-group">
-							<label for="imageIdFk" class="col-sm-3 control-label">标题图片</label>
+							<label for="imageIdFk" class="col-sm-3 control-label">内容摘要</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="imageIdFk" name="imageIdFk" placeholder="图片ID">
+								<textarea class="form-control" id="newsOutline" name="newsOutline" rows="3" placeholder="内容摘要"></textarea>
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label for="imageIdFk" class="col-sm-3 control-label">视频代码</label>
 							<div class="col-sm-9">
 								<textarea class="form-control" id="videoCode" name="videoCode" rows="3" placeholder="通用代码：<iframe>by https://www.youku.com or https://v.qq.com/</iframe>"></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="imageIdFk" class="col-sm-3 control-label">标题图片</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="imageIdFk" name="imageIdFk" placeholder="图片ID">
 							</div>
 						</div>
 					</div>
@@ -153,10 +163,11 @@
 		</div>
 		<!-- middle end -->
 
+		<!--	 
 		<div id="right" class="col-lg-1 col-md-1 col-sm-1">
 			<img th:src="@{/images/m_left.png}" />
 		</div>
-		<!-- right end -->
+		right end -->
 
 	</div>
 	<!-- row end -->

@@ -2,9 +2,11 @@ package cn.net.cncl.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -71,10 +74,15 @@ public class NewsServiceImpl implements NewsService {
 	public int addNews(News news) {
 		news.setNewsId(new Date().getTime());
 		// getUser
-		news.setAdminUserIdFk(10000000000000001L);
+		// news.setAdminUserIdFk(10000000000000001L);
 		news.setCeateTime(new Date());
 		news.setBrowseCount(0);
 		news.setImageIdFk(100001l);
+
+		String newsOutline = news.getNewsOutline();
+		if (StringUtils.isBlank(newsOutline)) {
+			news.setNewsOutline(news.getNewsTitel() + "... ...");
+		}
 
 		int flag = newsMapper.insertNews(news);
 
@@ -108,7 +116,14 @@ public class NewsServiceImpl implements NewsService {
 		News temp = newsMapper.selectNewsByID(news.getNewsId());
 
 		// 更新数据
+		String newsOutline = news.getNewsOutline();
+		if (StringUtils.isBlank(newsOutline)) {
+			news.setNewsOutline(news.getNewsTitel() + "... ...");
+		}
+
 		int flag = newsMapper.updateNews(news);
+
+		// 图片
 		if (0 < flag && null != news.getImageIdFk()) {
 
 			// 准备进行数据更新的Images对象
@@ -187,8 +202,8 @@ public class NewsServiceImpl implements NewsService {
 			list = newsMapper.queryNewsByName(newsTitel);
 
 			for (News news : list) {
-				AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
-				news.setUser(user);
+				// AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
+				// news.setUser(user);
 
 				NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());
 				news.setNewsType(newsType);
@@ -196,7 +211,6 @@ public class NewsServiceImpl implements NewsService {
 				Images image = imagesMapper.selectImageById(news.getImageIdFk());
 				news.setImage(image);
 			}
-
 		}
 		return list;
 	}
@@ -209,14 +223,24 @@ public class NewsServiceImpl implements NewsService {
 		JSONObject body = new JSONObject();
 		JSONArray dataList = new JSONArray();
 		List<News> list = newsMapper.getTopNews();
+		NewsType newsType = null;
+
+		List<NewsType> newsTypeList = newsTypeMapper.selectNews();
+		Map<Long, String> newsTypeMap = new HashMap<Long, String>();
+		for (NewsType temp : newsTypeList) {
+			newsTypeMap.put(temp.getNewsTypeId(), temp.getNewsTypeName());
+		}
 		for (News news : list) {
-			AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
-			news.setUser(user);
-			NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());
-			news.setNewsType(newsType);
+			NewsType type = new NewsType();
+			type.setNewsTypeId(news.getNewsTypeFk());
+			type.setNewsTypeName(newsTypeMap.get(news.getNewsTypeFk()));
+			news.setNewsType(type);
 			Images image = imagesMapper.selectImageById(news.getImageIdFk());
 			news.setImage(image);
-			dataList.add(news);
+			// add list
+			String jsonString = JSONObject.toJSONString(news, SerializerFeature.DisableCircularReferenceDetect);
+			JSONObject parseObject = JSONObject.parseObject(jsonString);
+			dataList.add(parseObject);
 		}
 		body.put("dataList", dataList);
 		return body;
@@ -227,7 +251,6 @@ public class NewsServiceImpl implements NewsService {
 	 */
 	@Override
 	public JSONObject newsList(Map<String, Object> params) {
-		JSONObject body = new JSONObject();
 		int pageNum = 1;
 		if (params.containsKey("pageNum")) {
 			pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
@@ -235,15 +258,19 @@ public class NewsServiceImpl implements NewsService {
 		PageHelper.startPage(pageNum, Constant.API_PAGE_SIZE);
 		List<News> list = newsMapper.queryNews(params);
 		for (News news : list) {
-			AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
-			news.setUser(user);
+			// AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
+			// news.setUser(user);
 			NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());
 			news.setNewsType(newsType);
 			Images image = imagesMapper.selectImageById(news.getImageIdFk());
 			news.setImage(image);
 		}
 		PageInfo<News> pageInfo = new PageInfo<News>(list);
-		body.put("dataList", pageInfo);
+		//
+		JSONObject parseObject = new JSONObject();
+		parseObject.put("dataList", pageInfo);
+		String jsonString = JSONObject.toJSONString(parseObject, SerializerFeature.DisableCircularReferenceDetect);
+		JSONObject body = JSONObject.parseObject(jsonString);
 		return body;
 	}
 
@@ -261,8 +288,8 @@ public class NewsServiceImpl implements NewsService {
 		newsMapper.updateNews(news);
 
 		// 填装作者
-		AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
-		news.setUser(user);
+		// AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
+		// news.setUser(user);
 
 		// 填装类型
 		NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());

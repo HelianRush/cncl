@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.net.cncl.mapper.SpecialTypeMapper">
+
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.SpecialType">
+		<id column="SPECIAL_TYPE_ID" property="specialTypeId" jdbcType="BIGINT" />
+		<result column="SPECIAL_TYPE_NAME" property="specialTypeName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		SPECIAL_TYPE_ID AS specialTypeId,
+		SPECIAL_TYPE_NAME AS specialTypeName
+	</sql>
+
+	<select id="selectSpecialType" resultType="cn.net.cncl.entity.SpecialType">
+		select
+		<include refid="Base_Column_List" />
+		from t_special_type
+	</select>
+
+	<select id="selectByPrimaryKey" resultType="cn.net.cncl.entity.SpecialType" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_special_type
+		where SPECIAL_TYPE_ID = #{specialTypeId,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_special_type
+		where SPECIAL_TYPE_ID = #{specialTypeId,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="cn.net.cncl.entity.SpecialType">
+		insert into t_special_type (SPECIAL_TYPE_ID, SPECIAL_TYPE_NAME)
+		values (#{specialTypeId,jdbcType=BIGINT}, #{specialTypeName,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.net.cncl.entity.SpecialType">
+		insert into t_special_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="specialTypeId != null">
+				SPECIAL_TYPE_ID,
+			</if>
+			<if test="specialTypeName != null">
+				SPECIAL_TYPE_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="specialTypeId != null">
+				#{specialTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="specialTypeName != null">
+				#{specialTypeName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.net.cncl.entity.SpecialType">
+		update t_special_type
+		<set>
+			<if test="specialTypeName != null">
+				SPECIAL_TYPE_NAME = #{specialTypeName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where SPECIAL_TYPE_ID = #{specialTypeId,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.net.cncl.entity.SpecialType">
+		update t_special_type
+		set SPECIAL_TYPE_NAME = #{specialTypeName,jdbcType=VARCHAR}
+		where SPECIAL_TYPE_ID = #{specialTypeId,jdbcType=BIGINT}
+	</update>
+
+</mapper>

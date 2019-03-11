@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -110,7 +111,7 @@ public class LoginController {
 	 * 登录
 	 */
 	@PostMapping("/adminLogion")
-	public String login(HttpServletRequest request, AdminUser adminUser) {
+	public String login(HttpServletRequest request, HttpSession session, AdminUser adminUser) {
 
 		String adminUserName = adminUser.getAdminUserName();
 		String password = adminUser.getPassword();
@@ -125,6 +126,7 @@ public class LoginController {
 			if (flag.equals(Constant.SUCCESS.getCode())) {
 				// 添加Session
 				SessionUser.setAdminUser(request, adminUser);
+				session.setAttribute("adminUser", adminUser);
 				return "manager_index";
 			} else
 				return "login";

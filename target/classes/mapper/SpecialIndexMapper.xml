@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.net.cncl.mapper.SpecialIndexMapper">
+
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.SpecialIndex">
+		<id column="SPECIAL_INDEX_ID" property="specialIndexId" jdbcType="BIGINT" />
+		<result column="IMAGE_ID_FK" property="imageIdFk" jdbcType="BIGINT" />
+		<result column="SPECIAL_INDEX_CONTENT" property="specialIndexContent" jdbcType="LONGVARCHAR" />
+		<result column="VIDEO_CODE" property="videoCode" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		SPECIAL_INDEX_ID AS specialIndexId,
+		IMAGE_ID_FK AS imageIdFk,
+		SPECIAL_INDEX_CONTENT AS specialIndexContent,
+		VIDEO_CODE AS videoCode
+	</sql>
+
+	<select id="getSpecialIndexObj" resultType="cn.net.cncl.entity.SpecialIndex">
+		select
+		<include refid="Base_Column_List" />
+		from t_special_index
+		where SPECIAL_INDEX_ID = 10000000000000001<!-- #{specialIndexId,jdbcType=BIGINT} -->
+	</select>
+
+	<insert id="insetSpecialIndex" parameterType="cn.net.cncl.entity.SpecialIndex">
+		insert into t_special_index
+
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="specialIndexId != null">
+				SPECIAL_INDEX_ID,
+			</if>
+			<if test="imageIdFk != null">
+				IMAGE_ID_FK,
+			</if>
+			<if test="specialIndexContent != null">
+				SPECIAL_INDEX_CONTENT,
+			</if>
+			<if test="videoCode != null">
+				VIDEO_CODE,
+			</if>
+		</trim>
+
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="specialIndexId != null">
+				#{specialIndexId,jdbcType=BIGINT},
+			</if>
+			<if test="imageIdFk != null">
+				#{imageIdFk,jdbcType=BIGINT},
+			</if>
+			<if test="specialIndexContent != null">
+				#{specialIndexContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="videoCode != null">
+				#{videoCode,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+
+	</insert>
+
+	<update id="updateSpecialIndex" parameterType="cn.net.cncl.entity.SpecialIndex">
+		update t_special_index
+		<set>
+			<if test="imageIdFk != null">
+				IMAGE_ID_FK = #{imageIdFk,jdbcType=BIGINT},
+			</if>
+			<if test="specialIndexContent != null">
+				SPECIAL_INDEX_CONTENT = #{specialIndexContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="videoCode != null">
+				VIDEO_CODE = #{videoCode,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where SPECIAL_INDEX_ID = 10000000000000001 <!-- #{specialIndexId,jdbcType=BIGINT} -->
+	</update>
+
+</mapper>

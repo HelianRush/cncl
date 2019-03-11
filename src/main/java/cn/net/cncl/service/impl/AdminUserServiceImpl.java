@@ -85,6 +85,11 @@ public class AdminUserServiceImpl implements AdminUserService {
 			return 1;
 		}
 
+		List<AdminUser> names = adminUserMapper.selectAdminUserByName(adminUser.getAdminUserName());
+		if (names.size() > 0) {
+			return 1;
+		}
+
 		if (StringUtils.isBlank(adminUser.getName())) {
 			adminUser.setName(adminUser.getAdminUserName());
 		}

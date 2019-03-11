@@ -270,7 +270,7 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/showManagerEnterEdit")
 	public String showManagerEnterEdit() {
-		return "201";
+		return "manager_coopeerationEdit";
 	}
 
 	/**

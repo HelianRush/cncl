@@ -30,4 +30,10 @@ public class NewsType {
 	public void setNewsTypeName(String newsTypeName) {
 		this.newsTypeName = newsTypeName == null ? null : newsTypeName.trim();
 	}
+
+	@Override
+	public String toString() {
+		return "NewsType [newsTypeId=" + newsTypeId + ", newsTypeCode=" + newsTypeCode + ", newsTypeName=" + newsTypeName + "]";
+	}
+
 }

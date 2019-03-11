@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
+import cn.net.cncl.entity.AdminUser;
 import cn.net.cncl.entity.Images;
 import cn.net.cncl.entity.News;
 import cn.net.cncl.entity.NewsType;
@@ -56,6 +57,14 @@ public class NewsController {
 	 */
 	@RequestMapping(value = "/editNews")
 	public String editNews(HttpServletRequest request, HttpSession session, News news, Model model) {
+
+		AdminUser adminUser = (AdminUser) session.getAttribute("adminUser");
+		if (null == adminUser || adminUser.equals(null)) {
+			news.setAdminUserIdFk(10000000000000001L);
+		} else {
+			news.setAdminUserIdFk(adminUser.getAdminUserId());
+		}
+
 		Long newsId = news.getNewsId();
 		int flag = 0;
 		if (null == newsId) {

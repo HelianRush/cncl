@@ -49,7 +49,7 @@
 
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">新增资讯类别</h4>
+								<h4 class="modal-title" id="myModalLabel">编辑资讯类别</h4>
 							</div>
 
 							<form id="editNewsType" th:action="@{/NewsTypeCtl/editNewsType}" class="form-horizontal" method="post">
@@ -58,7 +58,7 @@
 
 									<div class="form-group">
 										<div class="col-sm-1"></div>
-										<label for="" class="col-sm-3">资讯类别编号</label>
+										<label for="" class="col-sm-3">资讯类别编码</label>
 										<div class="col-sm-6">
 											<input type="text" id="newsTypeId" name="newsTypeId" hidden="true">
 											<!--  -->
@@ -142,6 +142,7 @@
 				</nav>
 
 			</div>
+			
 		</div>
 		<!-- middle end -->
 

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -191,13 +192,14 @@ public class CelebritysServiceImpl implements CelebritysService {
 		}
 
 		for (Celebritys celebrity : list) {
-
+			// set image
 			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
 			celebrity.setImage(image);
-
-			dataList.add(celebrity);
+			// add list
+			String jsonString = JSONObject.toJSONString(celebrity, SerializerFeature.DisableCircularReferenceDetect);
+			JSONObject parseObject = JSONObject.parseObject(jsonString);
+			dataList.add(parseObject);
 		}
-
 		body.put("dataList", dataList);
 		return body;
 	}
@@ -240,7 +242,10 @@ public class CelebritysServiceImpl implements CelebritysService {
 		for (Celebritys celebrity : list) {
 			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
 			celebrity.setImage(image);
-			dataList.add(celebrity);
+			// add list
+			String jsonString = JSONObject.toJSONString(celebrity, SerializerFeature.DisableCircularReferenceDetect);
+			JSONObject parseObject = JSONObject.parseObject(jsonString);
+			dataList.add(parseObject);
 		}
 		body.put("dataList", dataList);
 		return body;
@@ -271,7 +276,10 @@ public class CelebritysServiceImpl implements CelebritysService {
 		for (Celebritys celebrity : list) {
 			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
 			celebrity.setImage(image);
-			dataList.add(celebrity);
+			// add list
+			String jsonString = JSONObject.toJSONString(celebrity, SerializerFeature.DisableCircularReferenceDetect);
+			JSONObject parseObject = JSONObject.parseObject(jsonString);
+			dataList.add(parseObject);
 		}
 
 		body.put("dataList", dataList);
@@ -283,22 +291,22 @@ public class CelebritysServiceImpl implements CelebritysService {
 	 */
 	@Override
 	public JSONObject celebrityList(Map<String, Object> params) {
-		JSONObject body = new JSONObject();
-
 		int pageNum = 1;
 		if (params.containsKey("pageNum")) {
 			pageNum = Integer.parseInt(String.valueOf(params.get("pageNum")));
 		}
-
 		PageHelper.startPage(pageNum, Constant.API_PAGE_SIZE);
 		List<Celebritys> list = celebritysMapper.queryCelebritys();
 		for (Celebritys celebrity : list) {
 			Images image = imagesMapper.selectImageById(celebrity.getImageIdFk());
 			celebrity.setImage(image);
 		}
-
 		PageInfo<Celebritys> pageInfo = new PageInfo<Celebritys>(list);
-		body.put("dataList", pageInfo);
+		//
+		JSONObject parseObject = new JSONObject();
+		parseObject.put("dataList", pageInfo);
+		String jsonString = JSONObject.toJSONString(parseObject, SerializerFeature.DisableCircularReferenceDetect);
+		JSONObject body = JSONObject.parseObject(jsonString);
 		return body;
 	}
 

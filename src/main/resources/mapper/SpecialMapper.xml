@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.net.cncl.mapper.SpecialMapper">
+
+	<resultMap id="BaseResultMap" type="cn.net.cncl.entity.Special">
+		<id column="SPECIAL_ID" property="specialId" jdbcType="BIGINT" />
+		<result column="SPECIAL_TITLE" property="specialTitle" jdbcType="VARCHAR" />
+		<result column="IMAGE_ID_FK" property="imageIdFk" jdbcType="BIGINT" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+		<result column="BROWSE_COUNT" property="browseCount" jdbcType="INTEGER" />
+		<result column="SPECIAL_TYPE_ID_FK" property="specialTypeIdFk" jdbcType="BIGINT" />
+		<result column="SPECIAL_CONTENT" property="specialContent" jdbcType="LONGVARCHAR" />
+		<result column="VIDEO_CODE" property="videoCode" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		SPECIAL_ID AS specialId,
+		SPECIAL_TITLE AS specialTitle,
+		IMAGE_ID_FK AS imageIdFk,
+		CREATE_TIME AS createTime,
+		BROWSE_COUNT AS browseCount,
+		SPECIAL_TYPE_ID_FK AS specialTypeIdFk,
+		SPECIAL_CONTENT AS specialContent,
+		VIDEO_CODE AS videoCode
+	</sql>
+
+	<select id="selectSpecials" resultType="cn.net.cncl.entity.Special">
+		select
+		<include refid="Base_Column_List" />
+		from t_special
+	</select>
+
+	<select id="selectByPrimaryKey" resultType="cn.net.cncl.entity.Special" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_special
+		where SPECIAL_ID = #{specialId,jdbcType=BIGINT}
+	</select>
+
+	<insert id="insertSpecial" parameterType="cn.net.cncl.entity.Special">
+		insert into t_special
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="specialId != null">
+				SPECIAL_ID,
+			</if>
+			<if test="specialTitle != null">
+				SPECIAL_TITLE,
+			</if>
+			<if test="imageIdFk != null">
+				IMAGE_ID_FK,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="browseCount != null">
+				BROWSE_COUNT,
+			</if>
+			<if test="specialTypeIdFk != null">
+				SPECIAL_TYPE_ID_FK,
+			</if>
+			<if test="specialContent != null">
+				SPECIAL_CONTENT,
+			</if>
+			<if test="videoCode != null">
+				VIDEO_CODE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="specialId != null">
+				#{specialId,jdbcType=BIGINT},
+			</if>
+			<if test="specialTitle != null">
+				#{specialTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="imageIdFk != null">
+				#{imageIdFk,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=DATE},
+			</if>
+			<if test="browseCount != null">
+				#{browseCount,jdbcType=INTEGER},
+			</if>
+			<if test="specialTypeIdFk != null">
+				#{specialTypeIdFk,jdbcType=BIGINT},
+			</if>
+			<if test="specialContent != null">
+				#{specialContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="videoCode != null">
+				#{videoCode,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.net.cncl.entity.Special">
+		update t_special
+		<set>
+			<if test="specialTitle != null">
+				SPECIAL_TITLE = #{specialTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="imageIdFk != null">
+				IMAGE_ID_FK = #{imageIdFk,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=DATE},
+			</if>
+			<if test="browseCount != null">
+				BROWSE_COUNT = #{browseCount,jdbcType=INTEGER},
+			</if>
+			<if test="specialTypeIdFk != null">
+				SPECIAL_TYPE_ID_FK = #{specialTypeIdFk,jdbcType=BIGINT},
+			</if>
+			<if test="specialContent != null">
+				SPECIAL_CONTENT = #{specialContent,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="videoCode != null">
+				VIDEO_CODE = #{videoCode,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where SPECIAL_ID = #{specialId,jdbcType=BIGINT}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_special
+		where SPECIAL_ID = #{specialId,jdbcType=BIGINT}
+	</delete>
+
+	<select id="apiTopSpecialList" resultType="cn.net.cncl.entity.Special" parameterType="java.lang.Long">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		t_special
+		WHERE
+		SPECIAL_TYPE_ID_FK = #{specialTypeId,jdbcType=BIGINT}
+		ORDER BY
+		CREATE_TIME DESC,
+		SPECIAL_ID DESC
+		LIMIT 8
+	</select>
+
+	<select id="selectSpecialsByParams" resultType="cn.net.cncl.entity.Special" parameterType="java.lang.Long">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		t_special
+		WHERE
+		SPECIAL_TYPE_ID_FK = #{specialTypeId,jdbcType=BIGINT}
+		ORDER BY
+		CREATE_TIME DESC,
+		SPECIAL_ID DESC
+	</select>
+
+	<!-- 模糊查询 -->
+	<select id="querytSpecialByName" resultType="cn.net.cncl.entity.Special" parameterType="java.lang.String">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		t_special
+		<where>
+			<if test="specialTitle != null and specialTitle !=''">
+				SPECIAL_TITLE LIKE "%"#{specialTitle}"%"
+			</if>
+		</where>
+		ORDER BY
+		CREATE_TIME DESC,
+		SPECIAL_ID DESC
+	</select>
+
+</mapper>

@@ -28,6 +28,11 @@
 		NEWS_TYPE_NAME ASC
 	</select>
 
+	<!-- 类型列表 -->
+	<select id="selectNewsByMap" resultType="java.util.HashMap">
+		SELECT NEWS_TYPE_ID,NEWS_TYPE_NAME FROM t_news_type
+	</select>
+
 	<!-- selectByCode -->
 	<select id="selectByCode" resultType="int">
 		SELECT COUNT(NEWS_TYPE_ID) FROM t_news_type WHERE NEWS_TYPE_CODE =#{newsTypeCode}
