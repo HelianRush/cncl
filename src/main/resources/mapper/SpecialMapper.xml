@@ -29,6 +29,10 @@
 		select
 		<include refid="Base_Column_List" />
 		from t_special
+		ORDER BY
+		CREATE_TIME DESC,
+		SPECIAL_ID DESC,
+		SPECIAL_TITLE ASC
 	</select>
 
 	<select id="selectByPrimaryKey" resultType="cn.net.cncl.entity.Special" parameterType="java.lang.Long">
@@ -136,7 +140,8 @@
 		SPECIAL_TYPE_ID_FK = #{specialTypeId,jdbcType=BIGINT}
 		ORDER BY
 		CREATE_TIME DESC,
-		SPECIAL_ID DESC
+		SPECIAL_ID DESC,
+		SPECIAL_TITLE ASC
 		LIMIT 8
 	</select>
 
@@ -149,7 +154,8 @@
 		SPECIAL_TYPE_ID_FK = #{specialTypeId,jdbcType=BIGINT}
 		ORDER BY
 		CREATE_TIME DESC,
-		SPECIAL_ID DESC
+		SPECIAL_ID DESC,
+		SPECIAL_TITLE ASC
 	</select>
 
 	<!-- 模糊查询 -->
@@ -165,7 +171,8 @@
 		</where>
 		ORDER BY
 		CREATE_TIME DESC,
-		SPECIAL_ID DESC
+		SPECIAL_ID DESC,
+		SPECIAL_TITLE ASC
 	</select>
 
 </mapper>

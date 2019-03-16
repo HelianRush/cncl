@@ -167,22 +167,22 @@ public class SpecialServiceImpl implements SpecialService {
 			List<Special> list = specialMapper.apiTopSpecialList(Long.valueOf(String.valueOf(params.get("specialTypeId"))));
 			Long specialTypeIdFk = null;
 			Long imageIdFk = null;
-			for (Special temp : list) {
+			for (Special special : list) {
 				// clear
 				specialTypeIdFk = null;
 				imageIdFk = null;
 				// set type
-				specialTypeIdFk = temp.getSpecialTypeIdFk();
+				specialTypeIdFk = special.getSpecialTypeIdFk();
 				SpecialType specialType = specialTypeMapper.selectByPrimaryKey(specialTypeIdFk);
-				temp.setSpecialType(specialType);
+				special.setSpecialType(specialType);
 				// set image
-				imageIdFk = temp.getImageIdFk();
+				imageIdFk = special.getImageIdFk();
 				Images image = imagesMapper.queryImageById(imageIdFk);
-				temp.setImage(image);
+				special.setImage(image);
 				// add list
-				String jsonString = JSONObject.toJSONString(temp, SerializerFeature.DisableCircularReferenceDetect);
-				JSONObject parseObject = JSONObject.parseObject(jsonString);
-				dataList.add(parseObject);
+				String jsonString = JSONObject.toJSONString(special, SerializerFeature.DisableCircularReferenceDetect);
+				Special temp = JSONObject.parseObject(jsonString, Special.class);
+				dataList.add(temp);
 			}
 			// put json list
 			body.put("dataList", dataList);

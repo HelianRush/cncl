@@ -238,9 +238,10 @@ public class NewsServiceImpl implements NewsService {
 			Images image = imagesMapper.selectImageById(news.getImageIdFk());
 			news.setImage(image);
 			// add list
+
 			String jsonString = JSONObject.toJSONString(news, SerializerFeature.DisableCircularReferenceDetect);
-			JSONObject parseObject = JSONObject.parseObject(jsonString);
-			dataList.add(parseObject);
+			News temp = JSONObject.parseObject(jsonString, News.class);
+			dataList.add(temp);
 		}
 		body.put("dataList", dataList);
 		return body;
@@ -258,8 +259,8 @@ public class NewsServiceImpl implements NewsService {
 		PageHelper.startPage(pageNum, Constant.API_PAGE_SIZE);
 		List<News> list = newsMapper.queryNews(params);
 		for (News news : list) {
-			// AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
-			// news.setUser(user);
+			AdminUser user = adminUserMapper.selectByPrimaryKey(news.getAdminUserIdFk());
+			news.setUser(user);
 			NewsType newsType = newsTypeMapper.selectByPrimaryKey(news.getNewsTypeFk());
 			news.setNewsType(newsType);
 			Images image = imagesMapper.selectImageById(news.getImageIdFk());

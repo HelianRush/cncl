@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+<meta charset="UTF-8" />
+<meta http-equiv="x-ua-compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- JQuery -->
+<script type="text/javascript" th:src="@{/jquery/jquery-3.3.1.js}"></script>
+<!-- Bootstrap -->
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}"></script>
+<link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<!-- Myself Javascript & CSS -->
+<link rel="stylesheet" th:href="@{/assets/manager.css}" />
+
+<!--  
+<script type="text/javascript" th:src="@{/assets/mamager.js}"></script>
+-->
+
+<title>专题列表</title>
+
+</head>
+
+<body>
+
+	<div class="row">
+
+		<div id="left" class="col-lg-1 col-md-1 col-sm-1">
+			<img th:src="@{/images/m_left.png}" />
+		</div>
+		<!-- left end -->
+
+		<div id="middle" class="col-lg-8 col-md-8 col-sm-8">
+			<div class="related container">
+				<div class="row">
+
+					<!-- Title -->
+					<div class="col-lg-11">
+						<h3>资讯信息管理</h3>
+					</div>
+
+					<div class="col-lg-12">
+						<label for="" class="col-sm-12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+
+					<!-- 列表 -->
+					<table class="table table-bordered table-condensed table-responsive table-content">
+
+						<thead>
+							<tr>
+								<th>操作</th>
+								<th>缩略图</th>
+								<th>ID</th>
+								<th>专题类别</th>
+								<th>专题标题</th>
+								<th>标题图片ID</th>
+								<th>专题内容</th>
+								<th>创建时间</th>
+								<th>浏览计数</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="data:${list}">
+								<td><a th:href="@{${'/SpecialCtl/showEditToSpecialEdit'}(specialId=${data.specialId})}">修改</a> | <a id="remove" th:id="${data.specialId}" th:onclick="'doRemove(this)'">删除</a></td>
+								<td><a href="#" class="thumbnail"><img th:src="${data.image.imagePaths}" alt="..." /> </a></td>
+								<td th:text="${data.specialId}"></td>
+								<td th:text="${data.specialType.specialTypeName}"></td>
+								<td th:text="${data.specialTitle}"></td>
+								<td th:text="${data.imageIdFk}"></td>
+								<td>编辑查看详情</td>
+								<td th:text="${#dates.format(data.createTime,'yyyy-MM-dd')}"></td>
+								<td th:text="${data.browseCount}"></td>
+							</tr>
+						</tbody>
+
+					</table>
+					<!-- table end -->
+
+					<!-- 分页 -->
+					<nav aria-label="...">
+						<ul class="pager">
+							<li><a th:if="${not isFirstPage}" th:href="@{${'/SpecialCtl/querySpecial'}(pageNum=${pageNum-1},pageSize=${pageSize})}">上一页</a> <a th:if="${isFirstPagee}" href="javascript:void(0);">上一页</a></li>
+							<li th:each="pageNo: ${#numbers.sequence(1, totalPages)}"><a th:if="${pageNum eq pageNo}" href="javascript:void(0);"> <span th:text="${pageNum}"></span>
+							</a> <a th:if="${not (pageNum eq pageNo)}" th:href="@{${'/SpecialCtl/querySpecial'}(pageNum=${pageNo},size=${pageSize})}"> <span th:text="${pageNo}"></span>
+							</a></li>
+							<li><a th:if="${not isLastPage}" th:href="@{${'/SpecialCtl/querySpecial'}(pageNum=${pageNum+1},size=${pageSize})}">下一页</a> <a th:if="${isLastPage}" href="javascript:void(0);">下一页</a></li>
+						</ul>
+					</nav>
+					<!-- 分页 end -->
+
+				</div>
+				<!-- 内 row end -->
+			</div>
+			<!-- related container end -->
+		</div>
+		<!-- middle end -->
+	</div>
+	<!-- row end -->
+
+	<!-- Javascript -->
+	<script type="text/javascript">
+		//
+		$(function() {
+		});
+
+		// 删除
+		function doRemove(object) {
+			var id = $(object).attr("id");
+			if (confirm("是确认删除" + id + "资源？")) {
+				$.post("/SpecialCtl/deleteSpecial", {
+					"id" : id
+				}, function(data) {
+					if ("200" == data) {
+						window.location.reload();
+					} else {
+						alert("删除失败！");
+					}
+				});
+			}
+		}
+	</script>
+
+</body>
+</html>

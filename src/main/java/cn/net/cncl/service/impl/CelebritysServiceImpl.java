@@ -244,8 +244,8 @@ public class CelebritysServiceImpl implements CelebritysService {
 			celebrity.setImage(image);
 			// add list
 			String jsonString = JSONObject.toJSONString(celebrity, SerializerFeature.DisableCircularReferenceDetect);
-			JSONObject parseObject = JSONObject.parseObject(jsonString);
-			dataList.add(parseObject);
+			Celebritys temp = JSONObject.parseObject(jsonString, Celebritys.class);
+			dataList.add(temp);
 		}
 		body.put("dataList", dataList);
 		return body;

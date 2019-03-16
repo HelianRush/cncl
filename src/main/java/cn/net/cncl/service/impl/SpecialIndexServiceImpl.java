@@ -51,6 +51,18 @@ public class SpecialIndexServiceImpl implements cn.net.cncl.service.SpecialIndex
 	 */
 	@Override
 	public int updateSpecialIndex(SpecialIndex specialIndex) {
+
+		// 获取 OLD SpecialIndex
+		SpecialIndex oldObject = specialIndexMapper.getSpecialIndexObj();
+
+		Images image = imagesMapper.queryImageById(oldObject.getImageIdFk());
+		image.setResourceByType("special");
+		image.setResourceBy(0L);
+		image.setImageTitle("-");
+		image.setImageContent("-");
+		image.setDescription("-");
+		imagesMapper.editImage(image);
+
 		return specialIndexMapper.updateSpecialIndex(specialIndex);
 	}
 

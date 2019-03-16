@@ -83,8 +83,8 @@
 		FROM t_images
 		<!-- WHERE 1 = 1 AND -->
 		ORDER BY
-		CREATE_TIME DESC,
-		IMAGE_ID DESC
+		IMAGE_ID DESC,
+		CREATE_TIME DESC
 	</select>
 	<!-- 查询图片 End -->
 
@@ -109,6 +109,9 @@
 	<!-- 获取 滚动图片ID -->
 	<select id="getTopImages" resultType="java.lang.String">
 		SELECT IMAGE_ID FROM t_images WHERE TOP_STATUS = "top"
+		ORDER BY
+		IMAGE_ID DESC,
+		CREATE_TIME DESC
 	</select>
 	<!-- 获取 滚动图片ID end -->
 
@@ -136,6 +139,9 @@
 		t_images
 		WHERE
 		TOP_STATUS = "top"
+		ORDER BY
+		IMAGE_ID DESC,
+		CREATE_TIME DESC
 	</select>
 
 	<update id="editImage" parameterType="cn.net.cncl.entity.Images">

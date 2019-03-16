@@ -96,6 +96,10 @@ public class ImagesController {
 	@RequestMapping(value = "/editImage", method = RequestMethod.GET)
 	public String editImage(HttpServletRequest request, Images image, Model model) {
 
+		if (null == image.getResourceBy()) {
+			image.setResourceBy(0L);
+		}
+
 		int flag = ImagesService.updateImage(image);
 
 		if (0 < flag) {
@@ -104,8 +108,13 @@ public class ImagesController {
 			// 当前列表
 			model.addAttribute("list", pageList.getList());
 			return "manager_images";
-		} else
-			return "manager_images_edit";
+		} else {
+			if (null == image.getImageId()) {
+				return "manager_images";
+			} else {
+				return "manager_images_edit";
+			}
+		}
 	}
 
 	/**

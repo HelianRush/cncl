@@ -66,7 +66,10 @@
 
 			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>专题管理</span><i class="my-icon nav-more"></i></a>
 				<ul>
-					<li><a href="javascript:manager_special_topic_edit();"><span>编辑专题</span></a></li>
+					<li><a href="javascript:manager_special_index_edit();"><span>专题主页编辑</span></a></li>
+					<li><a href="javascript:manager_special_type();"><span>专题类别</span></a></li>
+					<li><a href="javascript:manager_special();"><span>专题列表</span></a></li>
+					<li><a href="javascript:manager_special_edit();"><span>专题编辑</span></a></li>
 				</ul></li>
 
 			<li class="nav-item"><a href="javascript:;"><i class="my-icon nav-icon icon_2"></i><span>入驻管理</span><i class="my-icon nav-more"></i></a>
@@ -165,13 +168,25 @@
 		function manager_news_tyep() {
 			$("iframe").attr("src", "/NewsTypeCtl/queryNewsType");
 		}
-		// 编辑专题
-		function manager_special_topic_edit() {
-			$("iframe").attr("src", "/ManagerCtl/showManagerSpecialTopicEdit");
+		// 专题主页编辑
+		function manager_special_index_edit() {
+			$("iframe").attr("src", "/SpecialCtl/showSpecialIndexEdit");
+		}
+		// 专题类别
+		function manager_special_type() {
+			$("iframe").attr("src", "/SpecialCtl/showSpecialType");
+		}
+		// 专题列表
+		function manager_special() {
+			$("iframe").attr("src", "/SpecialCtl/showSpecial");
+		}
+		// 专题编辑
+		function manager_special_edit() {
+			$("iframe").attr("src", "/SpecialCtl/showSpecialEdit");
 		}
 		// 编辑入驻
 		function manager_enter_edit() {
-			$("iframe").attr("src", "/ManagerCtl/showManagerEnterEdit");
+			$("iframe").attr("src", "/CooperationCtl/showManagerEnterEdit");
 		}
 		// 图片上传
 		function manager_images_upload() {

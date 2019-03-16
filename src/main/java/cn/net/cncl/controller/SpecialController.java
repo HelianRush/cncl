@@ -117,6 +117,7 @@ public class SpecialController {
 	// 获取专题主页编辑
 	@RequestMapping(value = "/specialIndexEdit")
 	public String specialIndexEdit(HttpServletRequest request, SpecialIndex specialIndex) {
+
 		int flag = 0;
 		if (null == specialIndexService.getSpecialIndexObj() || specialIndexService.getSpecialIndexObj().equals(null)) {
 			flag = specialIndexService.insetSpecialIndex(specialIndex);
@@ -126,8 +127,9 @@ public class SpecialController {
 		if (flag > 0) {
 			Images image = imagesService.queryImageById(specialIndex.getImageIdFk());
 			image.setResourceByType("special");
+			image.setResourceBy(specialIndex.getSpecialIndexId());
 			image.setImageTitle("专题主页标题图片");
-			image.setImageContent("需要自定义");
+			image.setImageContent("专题主页标题图片");
 			image.setDescription("专题主页标题图片");
 			int i = imagesService.updateImage(image);
 		}

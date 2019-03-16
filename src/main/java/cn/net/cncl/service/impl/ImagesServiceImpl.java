@@ -130,18 +130,29 @@ public class ImagesServiceImpl implements ImagesService {
 	 */
 	@Override
 	public int deleteImage(Long id) {
-		// 删除文件
+
 		Images image = imagesMapper.selectImageById(id);
-		String imagePath = image.getImagePath();
-		File file = new File(imagePath);
-		if (file.exists())
-			file.delete();
+		Long resourceBy = image.getResourceBy();
 
-		// 删除数据
-		if (!file.exists())
-			return imagesMapper.deleteByPrimaryKey(id);
+		if (100001L == image.getImageId())
+			return 0;
 
-		return 0;
+		if (null == resourceBy || 0L == resourceBy) {
+
+			// 删除文件
+			String imagePath = image.getImagePath();
+			File file = new File(imagePath);
+			if (file.exists())
+				file.delete();
+
+			// 删除数据
+			if (!file.exists())
+				return imagesMapper.deleteByPrimaryKey(id);
+
+			// return
+			return 1;
+		} else
+			return 0;
 	}
 
 	/**

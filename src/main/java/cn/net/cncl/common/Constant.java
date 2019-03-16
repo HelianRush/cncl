@@ -83,8 +83,8 @@ public enum Constant {
 	/**
 	 * 图片路径
 	 */
-	public static final String STATIC_PATH = "/static";
-	public static final String STATIC_FILE_PATH = "/imageFileUpload";
+	public static final String STATIC_PATH = "/static/";
+	public static final String STATIC_FILE_PATH = "/imageFileUpload/";
 
 	/**
 	 * 接口名称

@@ -42,6 +42,7 @@
 		<include refid="News_Column_List"></include>
 		FROM t_news
 		ORDER BY
+		CEATE_TIME DESC,
 		NEWS_ID DESC,
 		NEWS_TITEL ASC
 	</select>
@@ -57,7 +58,9 @@
 			</if>
 		</where>
 		ORDER BY
-		CEATE_TIME ,NEWS_ID DESC,NEWS_TITEL ASC
+		CEATE_TIME DESC,
+		NEWS_ID DESC,
+		NEWS_TITEL ASC
 	</select>
 
 	<!-- 资讯编辑 新增 -->
@@ -190,7 +193,11 @@
 				NEWS_TYPE_FK = #{newsTypeFk}
 			</if>
 		</where>
-		ORDER BY BROWSE_COUNT DESC, CEATE_TIME DESC
+		ORDER BY
+		CEATE_TIME DESC,
+		NEWS_ID DESC,
+		BROWSE_COUNT DESC,
+		NEWS_TITEL ASC
 		LIMIT 9
 	</select>
 
@@ -204,7 +211,10 @@
 				NEWS_TYPE_FK = #{newsTypeFk}
 			</if>
 		</where>
-		ORDER BY CEATE_TIME DESC
+		ORDER BY
+		CEATE_TIME DESC,
+		NEWS_ID DESC,
+		NEWS_TITEL ASC
 	</select>
 
 </mapper>

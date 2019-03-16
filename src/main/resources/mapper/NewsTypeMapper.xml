@@ -24,7 +24,7 @@
 		<include refid="NewsType_Column_List"></include>
 		FROM t_news_type
 		ORDER BY
-		NEWS_TYPE_ID DESC,
+		NEWS_TYPE_ID ASC,
 		NEWS_TYPE_NAME ASC
 	</select>
 
