@@ -1,5 +1,6 @@
 package cn.net.cncl.api;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import cn.net.cncl.api.entity.CnclData;
 import cn.net.cncl.api.entity.Head;
 import cn.net.cncl.api.tools.ToolRequest;
 import cn.net.cncl.common.Constant;
 import cn.net.cncl.entity.Celebritys;
+import cn.net.cncl.entity.Images;
 import cn.net.cncl.entity.News;
+import cn.net.cncl.entity.SelectObject;
 import cn.net.cncl.entity.Special;
 import cn.net.cncl.service.CelebritysService;
 import cn.net.cncl.service.CooperationService;
@@ -90,35 +91,60 @@ public class ApiController {
 				// 站内搜索
 				case Constant.API_QUERY_ALL:
 					body = new JSONObject();
+					// JSONArray dataList = new JSONArray();
 
+					// 模糊查询 结果
 					List<Celebritys> clelbrityList = celebritysService.queryClelbrityByName(params);
 					List<News> newsList = newsService.queryNewsByName(params);
 					List<Special> specialList = specialService.querytSpecialByName(params);
 
-					JSONArray clelbrityListToJosn = new JSONArray();
+					// 回显结果集
+					List<SelectObject> objects = new ArrayList<SelectObject>();
+					SelectObject selectObject = null;
+
 					for (Celebritys celebrity : clelbrityList) {
-						String jsonString = JSONObject.toJSONString(celebrity, SerializerFeature.DisableCircularReferenceDetect);
-						JSONObject parseObject = JSONObject.parseObject(jsonString);
-						clelbrityListToJosn.add(parseObject);
+						Long resourceId = celebrity.getCelebrityId();
+						String resourceType = "celebrity";
+						String titel = celebrity.getCelebrityName();
+						String outline = "姓名：" + celebrity.getCelebrityName() + "  主要作品：" + celebrity.getRepresentativeName() + "  主要成就：" + celebrity.getAchievement();
+						// celebrity.getOutline();
+						Images image = celebrity.getImage();
+						selectObject = new SelectObject(resourceId, resourceType, titel, outline, image);
+						objects.add(selectObject);
+						// objectListToJson.add(selectObject);
 					}
 
-					JSONArray newsListToJson = new JSONArray();
 					for (News news : newsList) {
-						String jsonString = JSONObject.toJSONString(news, SerializerFeature.DisableCircularReferenceDetect);
-						JSONObject parseObject = JSONObject.parseObject(jsonString);
-						newsListToJson.add(parseObject);
+						Long resourceId = news.getNewsId();
+						String resourceType = "news";
+						String titel = news.getNewsTitel();
+						String outline = news.getNewsOutline();
+						Images image = news.getImage();
+						selectObject = new SelectObject(resourceId, resourceType, titel, outline, image);
+						objects.add(selectObject);
+						// objectListToJson.add(selectObject);
 					}
 
-					JSONArray specialListToJson = new JSONArray();
 					for (Special special : specialList) {
-						String jsonString = JSONObject.toJSONString(special, SerializerFeature.DisableCircularReferenceDetect);
-						JSONObject parseObject = JSONObject.parseObject(jsonString);
-						specialListToJson.add(parseObject);
+						Long resourceId = special.getSpecialId();
+						String resourceType = "special";
+						String titel = special.getSpecialTitle();
+						String outline = special.getSpecialType().getSpecialTypeName() + " — — " + special.getSpecialTitle();
+						// special.getSpecialOutline();
+						Images image = special.getImage();
+						selectObject = new SelectObject(resourceId, resourceType, titel, outline, image);
+						objects.add(selectObject);
+						// objectListToJson.add(selectObject);
 					}
 
-					body.put("clelbrityList", clelbrityListToJosn);
-					body.put("newsList", newsListToJson);
-					body.put("specialList", specialListToJson);
+					// for (SelectObject temp : objects) {
+					// dataList.add(temp);
+					// }
+
+					// String jsonString = JSONObject.toJSONString(dataList,
+					// SerializerFeature.DisableCircularReferenceDetect);
+					// JSONObject parseObject = JSONObject.parseObject(jsonString);
+					body.put("dataList", objects);
 					break;
 
 				// 滚动图片展示

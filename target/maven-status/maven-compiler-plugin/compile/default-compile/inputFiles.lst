@@ -49,6 +49,7 @@ D:\Workspace\2017_Eclipse_Oxygen_Workspace\cncl\src\main\java\cn\net\cncl\entity
 D:\Workspace\2017_Eclipse_Oxygen_Workspace\cncl\src\main\java\cn\net\cncl\controller\AdminUserController.java
 D:\Workspace\2017_Eclipse_Oxygen_Workspace\cncl\src\main\java\cn\net\cncl\mapper\SpecialMapper.java
 D:\Workspace\2017_Eclipse_Oxygen_Workspace\cncl\src\main\java\cn\net\cncl\common\GetIP.java
+D:\Workspace\2017_Eclipse_Oxygen_Workspace\cncl\src\main\java\cn\net\cncl\entity\SelectObject.java
 D:\Workspace\2017_Eclipse_Oxygen_Workspace\cncl\src\main\java\cn\net\cncl\mapper\ImagesMapper.java
 D:\Workspace\2017_Eclipse_Oxygen_Workspace\cncl\src\main\java\cn\net\cncl\service\ManagerService.java
 D:\Workspace\2017_Eclipse_Oxygen_Workspace\cncl\src\main\java\cn\net\cncl\service\impl\CooperationServiceImpl.java

@@ -57,12 +57,15 @@ public class Celebritys {
 
 	private Integer browseCount;
 
+	// 概述
 	private String outline;
-
+	// 正文
 	private String introduce;
 
 	/* 图片对象 */
 	private Images image;
+
+	// Getter Setter
 
 	public String getVideoCode() {
 		return videoCode;
@@ -288,6 +291,7 @@ public class Celebritys {
 		this.introduce = introduce;
 	}
 
+	// toString
 	@Override
 	public String toString() {
 		return "Celebritys [celebrityId=" + celebrityId + ", celebrityName=" + celebrityName + ", anotherName=" + anotherName + ", foreignName=" + foreignName + ", nationality=" + nationality + ", nation=" + nation + ", constellation=" + constellation + ", bloodType=" + bloodType + ", height=" + height + ", birthplace=" + birthplace + ", nativePlace=" + nativePlace + ", ancestralHome=" + ancestralHome + ", identityCard=" + identityCard + ", certificateCode=" + certificateCode + ", certificateName=" + certificateName + ", profession=" + profession + ", company=" + company + ", representativeName=" + representativeName + ", achievement=" + achievement + ", birthday=" + birthday + ", deathday=" + deathday + ", videoIdFk=" + videoIdFk + ", videoCode=" + videoCode + ", imageIdFk=" + imageIdFk + ", browseCount=" + browseCount + ", outline=" + outline + ", introduce=" + introduce + ", image=" + image + "]";

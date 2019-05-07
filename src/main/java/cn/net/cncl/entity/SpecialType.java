@@ -1,10 +1,22 @@
 package cn.net.cncl.entity;
 
+import java.util.List;
+
 public class SpecialType {
 
 	private Long specialTypeId;
 
 	private String specialTypeName;
+
+	private List<Special> specials;
+
+	public List<Special> getSpecials() {
+		return specials;
+	}
+
+	public void setSpecials(List<Special> specials) {
+		this.specials = specials;
+	}
 
 	public Long getSpecialTypeId() {
 		return specialTypeId;
@@ -24,7 +36,7 @@ public class SpecialType {
 
 	@Override
 	public String toString() {
-		return "SpecialType [specialTypeId=" + specialTypeId + ", specialTypeName=" + specialTypeName + "]";
+		return "SpecialType [specialTypeId=" + specialTypeId + ", specialTypeName=" + specialTypeName + ", specials=" + specials + "]";
 	}
 
 }

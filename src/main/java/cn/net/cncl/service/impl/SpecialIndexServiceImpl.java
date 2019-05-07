@@ -42,7 +42,7 @@ public class SpecialIndexServiceImpl implements cn.net.cncl.service.SpecialIndex
 	 */
 	@Override
 	public int insetSpecialIndex(SpecialIndex specialIndex) {
-		specialIndex.setImageIdFk(10000000000000001L);
+		// specialIndex.setImageIdFk(10000000000000001L);
 		return specialIndexMapper.insetSpecialIndex(specialIndex);
 	}
 

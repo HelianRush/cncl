@@ -15,7 +15,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.net.cncl.common.Constant;
+import cn.net.cncl.entity.Images;
+import cn.net.cncl.entity.Special;
 import cn.net.cncl.entity.SpecialType;
+import cn.net.cncl.mapper.ImagesMapper;
+import cn.net.cncl.mapper.SpecialMapper;
 import cn.net.cncl.mapper.SpecialTypeMapper;
 import cn.net.cncl.service.SpecialTypeService;
 
@@ -27,6 +31,12 @@ public class SpecialTypeServiceImpl implements SpecialTypeService {
 
 	@Autowired
 	private SpecialTypeMapper specialTypeMapper;
+
+	@Autowired
+	private SpecialMapper specialMapper;
+
+	@Autowired
+	private ImagesMapper imagesMapper;
 
 	// main
 	public static void main(String[] args) {
@@ -84,7 +94,29 @@ public class SpecialTypeServiceImpl implements SpecialTypeService {
 		JSONObject body = new JSONObject();
 		JSONArray dataList = new JSONArray();
 		List<SpecialType> specialTypeList = specialTypeMapper.selectSpecialType();
+
 		for (SpecialType specialType : specialTypeList) {
+
+			List<Special> list = specialMapper.apiTopSpecialList(specialType.getSpecialTypeId());
+
+			Long imageIdFk = null;
+
+			for (Special special : list) {
+				// clear
+				imageIdFk = null;
+				// set type
+				special.setSpecialType(specialType);
+				// set image
+				imageIdFk = special.getImageIdFk();
+				Images image = imagesMapper.queryImageById(imageIdFk);
+				special.setImage(image);
+			}
+			specialType.setSpecials(list);
+
+			// add list
+			// String jsonString = JSONObject.toJSONString(specialType,
+			// SerializerFeature.DisableCircularReferenceDetect);
+			// SpecialType temp = JSONObject.parseObject(jsonString, SpecialType.class);
 			dataList.add(specialType);
 		}
 		body.put("dataList", dataList);

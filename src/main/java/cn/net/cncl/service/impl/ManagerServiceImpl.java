@@ -30,6 +30,7 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public JSONObject getWebInfo() {
 		Map<String, Object> webInfo = webInfoMapper.getWebInfo();
+		// webInfo.put("imageLogo", webInfo.get("logoPath"));
 		String jsonString = JSONObject.toJSONString(webInfo);
 		JSONObject jsonObject = JSONObject.parseObject(jsonString);
 		// System.out.println(jsonString);

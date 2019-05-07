@@ -20,6 +20,35 @@
 -->
 
 <title>站点设置</title>
+
+<style type="text/css">
+</style>
+<script type="text/javascript">
+	$(function() {
+		getNews();
+	});
+
+	function getNews() {
+		$.ajax({
+			type : "GET",
+			url : "/ManagerCtl/getWebInfoObject",
+			async : false,
+			cache : false,
+			dataType : "json",
+			success : function(data) {
+				if (null != data.webId && "" != data.webId) {
+					$("#webName").val(data.webName);
+					$("#domainName").val(data.domainName);
+					$("#recordsCode").val(data.recordsCode);
+					$("#company").val(data.company);
+					$("#webEmail").val(data.webEmail);
+					$("#legalPerson").val(data.legalPerson);
+				}
+			}
+		});
+	}
+</script>
+
 </head>
 <body>
 

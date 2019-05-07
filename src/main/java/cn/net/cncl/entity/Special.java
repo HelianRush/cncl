@@ -29,7 +29,18 @@ public class Special {
 
 	private SpecialType specialType;
 
+	// 概述
+	private String specialOutline;
+
 	// Getter & Setter
+
+	public String getSpecialOutline() {
+		return specialOutline;
+	}
+
+	public void setSpecialOutline(String specialOutline) {
+		this.specialOutline = specialOutline;
+	}
 
 	public SpecialType getSpecialType() {
 		return specialType;
@@ -114,7 +125,7 @@ public class Special {
 	// toString
 	@Override
 	public String toString() {
-		return "Special [specialId=" + specialId + ", specialTitle=" + specialTitle + ", imageIdFk=" + imageIdFk + ", createTime=" + createTime + ", browseCount=" + browseCount + ", specialTypeIdFk=" + specialTypeIdFk + ", specialContent=" + specialContent + ", videoCode=" + videoCode + ", image=" + image + ", specialType=" + specialType + "]";
+		return "Special [specialId=" + specialId + ", specialTitle=" + specialTitle + ", imageIdFk=" + imageIdFk + ", createTime=" + createTime + ", browseCount=" + browseCount + ", specialTypeIdFk=" + specialTypeIdFk + ", specialContent=" + specialContent + ", videoCode=" + videoCode + ", image=" + image + ", specialType=" + specialType + ", specialOutline=" + specialOutline + "]";
 	}
 
 }

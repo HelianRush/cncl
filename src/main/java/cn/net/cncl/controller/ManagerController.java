@@ -127,7 +127,10 @@ public class ManagerController {
 			BufferedOutputStream output = new BufferedOutputStream(out);
 			Streams.copy(in, output, true);
 
-			String setPath = "/images/" + fileName;
+			String setPath = "images/" + fileName;
+
+			webInfo.setImageLogo(fileName);
+			webInfo.setLogoPath(setPath);
 		}
 
 		int flag = managerService.updateWebInfo(webInfo);
