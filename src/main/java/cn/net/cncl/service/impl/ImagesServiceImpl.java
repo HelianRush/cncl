@@ -1,6 +1,7 @@
 package cn.net.cncl.service.impl;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
@@ -205,6 +207,52 @@ public class ImagesServiceImpl implements ImagesService {
 	@Override
 	public int updateImage(Images image) {
 		return imagesMapper.editImage(image);
+	}
+
+	/**
+	 * 获取文件库图片总数
+	 * 
+	 * @throws FileNotFoundException
+	 */
+	public int FilePathImageCount() throws FileNotFoundException {
+
+		// 图片目录
+		// -- /static/imageFileUpload/
+		// -- /static/UMEupload/.../...
+
+		final String imageFileUpload_path = ResourceUtils.getURL("classpath:").getPath() + Constant.STATIC_PATH + Constant.STATIC_FILE_PATH2;
+
+		//
+		File imageFileUpload = new File(imageFileUpload_path);
+
+		if (imageFileUpload.isDirectory()) {
+			System.out.println("文件夹");
+			String[] filelist = imageFileUpload.list();
+			for (int i = 0; i < filelist.length; i++) {
+
+				File readfile = new File(imageFileUpload_path + "\\" + filelist[i] + "\\");
+				System.out.println(filelist[i]);
+
+				if (readfile.isDirectory()) {
+					String[] imageList = readfile.list();
+
+					for (int j = 0; j < imageList.length; j++) {
+						File img = new File(readfile.getPath() + "\\" + imageList[j]);
+						System.out.println("Name = " + img.getName());
+					}
+
+				} else if (readfile.isDirectory()) {
+					readfile(imageFileUpload_path + "\\" + filelist[i]);
+				}
+			}
+		}
+
+		return 0;
+	}
+
+	private void readfile(String string) {
+		// TODO Auto-generated method stub
+
 	}
 
 	/********************************************************************************

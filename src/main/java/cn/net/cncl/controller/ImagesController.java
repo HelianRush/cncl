@@ -1,5 +1,6 @@
 package cn.net.cncl.controller;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +55,23 @@ public class ImagesController {
 		// 当前列表
 		model.addAttribute("list", pageList.getList());
 		return "manager_images";
+	}
+
+	/**
+	 * 图片清理
+	 * 
+	 * @throws FileNotFoundException
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/showImagesClear")
+	public String showImagesClear(HttpServletRequest request, Model model) throws FileNotFoundException {
+
+		// 1.获取数据库图片总数
+
+		// 2.获取文件库图片总数
+		ImagesService.FilePathImageCount();
+
+		return "manager_images_clear";
 	}
 
 	/**

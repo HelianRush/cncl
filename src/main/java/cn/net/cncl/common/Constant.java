@@ -85,6 +85,8 @@ public enum Constant {
 	 */
 	public static final String STATIC_PATH = "/static/";
 	public static final String STATIC_FILE_PATH = "/imageFileUpload/";
+	public static final String STATIC_FILE_PATH2 = "/UMEupload/";
+	public static final String STATIC_FILE_PATH3 = "/images/";
 
 	/**
 	 * 接口名称

@@ -1,5 +1,6 @@
 package cn.net.cncl.service;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +55,11 @@ public interface ImagesService {
 	 * 图片编辑
 	 */
 	int updateImage(Images image);
+
+	/**
+	 * 获取文件库图片总数
+	 */
+	public int FilePathImageCount() throws FileNotFoundException;
 
 	/********************************************************************************
 	 *********************************** API 接口 ***********************************

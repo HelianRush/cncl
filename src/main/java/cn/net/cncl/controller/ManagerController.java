@@ -119,7 +119,7 @@ public class ManagerController {
 				imgType = ".bmp";
 
 			String fileName = "logo1" + imgType;
-			String path = ResourceUtils.getURL("classpath:").getPath() + Constant.STATIC_PATH + "/images/" + fileName;
+			String path = ResourceUtils.getURL("classpath:").getPath() + Constant.STATIC_PATH + Constant.STATIC_FILE_PATH3 + fileName;
 
 			BufferedInputStream in = new BufferedInputStream(uploadLogo.getInputStream());
 			File file = new File(path);
@@ -127,7 +127,7 @@ public class ManagerController {
 			BufferedOutputStream output = new BufferedOutputStream(out);
 			Streams.copy(in, output, true);
 
-			String setPath = "images/" + fileName;
+			String setPath = Constant.STATIC_FILE_PATH3 + fileName;
 
 			webInfo.setImageLogo(fileName);
 			webInfo.setLogoPath(setPath);
